@@ -1,6 +1,6 @@
 import type { Ref } from "react";
 import { Box } from "@mui/material";
-import { FactItem } from "@/features/story/components/origins/FactItem";
+import { FactItem } from "@/features/story/components/shared/FactItem";
 import type { FactViewModel } from "@/features/story/interfaces/StoryViewModels";
 
 interface FactsListProps {

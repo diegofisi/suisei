@@ -1,9 +1,6 @@
 import type { ReactNode, Ref } from "react";
 import { Box, Stack } from "@mui/material";
-
-/** Below this width the scene collapses to a single column. */
-export const ORIGINS_NARROW = "@media (max-width: 760px)";
-export const ORIGINS_WIDE = "@media (min-width: 761px)";
+import { NARROW_MEDIA } from "@/features/story/helpers/layout";
 
 interface OriginsShellProps {
   sectionRef: Ref<HTMLElement>;
@@ -24,7 +21,7 @@ export const OriginsShell = ({ sectionRef, left, right }: OriginsShellProps) => 
       gridTemplateColumns: "minmax(0, 1fr) minmax(300px, 44%)",
       gap: "6vw",
       alignItems: "start",
-      [ORIGINS_NARROW]: {
+      [NARROW_MEDIA]: {
         gridTemplateColumns: "minmax(0, 1fr)",
         gap: "8vh",
       },

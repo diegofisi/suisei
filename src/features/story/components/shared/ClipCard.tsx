@@ -2,9 +2,8 @@ import type { ReactNode } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
-import { ORIGINS_NARROW, ORIGINS_WIDE } from "@/features/story/components/origins/OriginsShell";
-import { StatsClipBody } from "@/features/story/components/origins/StatsClipBody";
-import { TextClipBody } from "@/features/story/components/origins/TextClipBody";
+import { TextClipBody } from "@/features/story/components/shared/TextClipBody";
+import { NARROW_MEDIA, WIDE_MEDIA } from "@/features/story/helpers/layout";
 import type { ClipViewModel, FactTone } from "@/features/story/interfaces/StoryViewModels";
 
 /** Where a card lands once the fan opens. */
@@ -22,13 +21,12 @@ interface ClipCardProps {
   depth: number;
   /** The character render is taller than wide and must not be cropped. */
   isPortrait: boolean;
+  /** Bespoke body for an image-less clip; otherwise the clip text is used. */
+  body?: ReactNode;
 }
 
-/** Clips with a bespoke body; anything else without an image falls back to TextClipBody. */
-const bodyByClipId: Record<string, ReactNode> = { stats: <StatsClipBody /> };
-
 /** One "recorte": media (or a typographic body) plus a source/tag caption row. */
-export const ClipCard = ({ clip, tone, pose, depth, isPortrait }: ClipCardProps) => {
+export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body }: ClipCardProps) => {
   const tagColor = tone === "sakura" ? "secondary.main" : "primary.main";
   return (
     <Stack
@@ -49,13 +47,13 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait }: ClipCardProps)
         boxShadow: `0 26px 62px ${alpha(Palette.SKY_DEEP, 0.62)}`,
         transform: "rotate(0deg)",
         transition: "transform 0.5s cubic-bezier(.2,.8,.2,1)",
-        [ORIGINS_WIDE]: {
+        [WIDE_MEDIA]: {
           position: "absolute",
           '[data-fanned="true"] &': {
             transform: "translate(var(--x), var(--y)) rotate(var(--rot))",
           },
         },
-        [ORIGINS_NARROW]: {
+        [NARROW_MEDIA]: {
           width: "min(100%, 360px)",
         },
       }}
@@ -87,7 +85,7 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait }: ClipCardProps)
           />
         </Box>
       ) : (
-        (bodyByClipId[clip.id] ?? <TextClipBody text={clip.body ?? clip.title} isSakura={tone === "sakura"} />)
+        (body ?? <TextClipBody text={clip.body ?? clip.title} isSakura={tone === "sakura"} />)
       )}
 
       <Stack sx={{ gap: "0.45rem", padding: "0.9rem 1.05rem 1.05rem" }}>

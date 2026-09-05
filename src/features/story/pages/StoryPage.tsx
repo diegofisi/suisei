@@ -3,12 +3,21 @@ import { Nebula } from "@/common/components/Nebula";
 import { ProgressComet } from "@/common/components/ProgressComet";
 import { StarField } from "@/common/components/StarField";
 import { StoryFooter } from "@/features/story/components/shared/StoryFooter";
+import { AccelerationContainer } from "@/features/story/containers/AccelerationContainer";
+import { BudokanContainer } from "@/features/story/containers/BudokanContainer";
+import { ClosingContainer } from "@/features/story/containers/ClosingContainer";
+import { ConsolidationContainer } from "@/features/story/containers/ConsolidationContainer";
 import { HeroContainer } from "@/features/story/containers/HeroContainer";
 import { OriginsContainer } from "@/features/story/containers/OriginsContainer";
+import { PillarsContainer } from "@/features/story/containers/PillarsContainer";
 import { QuestionContainer } from "@/features/story/containers/QuestionContainer";
-import { CREDITS_TEXT, PENDING_SCENES_TEXT } from "@/features/story/helpers/storyContent";
+import { RejectionContainer } from "@/features/story/containers/RejectionContainer";
+import { TodayContainer } from "@/features/story/containers/TodayContainer";
+import { TurnContainer } from "@/features/story/containers/TurnContainer";
+import { VideoContainer } from "@/features/story/containers/VideoContainer";
+import { CREDITS_TEXT, SOURCES_TEXT } from "@/features/story/helpers/storyContent";
 
-// Composition root: shared sky behind everything, then the scenes in talk order.
+// Composition root: shared sky behind everything, then the twelve scenes in talk order.
 export const StoryPage = () => (
   <>
     <StarField />
@@ -18,7 +27,16 @@ export const StoryPage = () => (
       <HeroContainer />
       <QuestionContainer />
       <OriginsContainer />
-      <StoryFooter pendingScenes={PENDING_SCENES_TEXT} credits={CREDITS_TEXT} />
+      <RejectionContainer />
+      <TurnContainer />
+      <AccelerationContainer />
+      <ConsolidationContainer />
+      <BudokanContainer />
+      <VideoContainer />
+      <TodayContainer />
+      <PillarsContainer />
+      <ClosingContainer />
+      <StoryFooter sources={SOURCES_TEXT} credits={CREDITS_TEXT} />
     </Box>
   </>
 );

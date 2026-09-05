@@ -8,8 +8,10 @@ Convertir una exposición oral de ~13 min sobre **Hoshimachi Suisei** (hololive,
 expositor en clase (no se publica). 12 escenas = las 12 diapositivas de `guion.md`.
 
 Estado actual: proyecto **Vite + React 19 + TS + MUI 5** en esta carpeta (raíz = proyecto), siguiendo
-`.claude/skills/frontend` (leer `references/project.md`, que ata el skill a este proyecto). Escenas 1–3
-construidas en `src/features/story/`. Faltan las escenas 4–12 con el mismo lenguaje visual.
+`.claude/skills/frontend` (leer `references/project.md`, que ata el skill a este proyecto). Las 12 escenas
+están construidas en `src/features/story/` (un contenedor + hook + subcarpeta de componentes por
+escena; piezas compartidas en `components/shared/`). Falta el corte de video de la escena 9
+(`public/video/orbital-period.mp4`) y verificar las cifras marcadas «por verificar».
 El preview HTML antiguo quedó en `files/suisei-web/index.html` solo como referencia.
 
 ## 2. Dirección de diseño (ya aprobada)
@@ -111,10 +113,10 @@ pequeño). No publicar. Key visuals y fotos oficiales: páginas de eventos. Capt
 - Marcar en el guion datos a verificar y transiciones que se puedan apretar (pedido pendiente).
 
 ## 8. Próximos pasos sugeridos
-1. Revisar las escenas 1–3 con el usuario (`npm run dev`) y ajustar ritmo/pacing.
-2. Construir escenas 4–12: un contenedor + hook + subcarpeta de componentes por escena, reutilizando
-   los componentes de `origins/` (FactsList, ClipFan, PullQuote, YearReveal) subiéndolos a `common/`
-   cuando los use una segunda escena.
-3. Escena 9: `<video>` local con el corte de "Orbital Period" (60–90 s), controles visibles, sin autoplay.
-4. Conseguir los dos trajes que faltan (Spectra of Nova 2024-11 y Studio STELLAR 2026-08).
-5. `npm run build`, probar `dist/index.html` en 1920×1080 (proyector) y con `prefers-reduced-motion`.
+1. Colocar el corte de «Orbital Period» (60–90 s, H.264+AAC) en `public/video/orbital-period.mp4`.
+2. Verificar cifras y fechas marcadas «por verificar» (guion.md, lista final) y quitar las marcas.
+3. Rellenar «Tu nombre · fecha» en `helpers/heroContent.ts`.
+4. Conseguir los trajes que faltan (Spectra of Nova 2024-11 y Studio STELLAR 2026-08) y añadirlos
+   a la línea de tiempo (`helpers/questionContent.ts`) y a la tira del Budokan (`helpers/budokanContent.ts`).
+5. `npm run build`, ensayar con `dist/index.html` en el proyector (1920×1080) y con `prefers-reduced-motion`.
+   Capturas de control: `node scripts/screenshot-scenes.mjs http://localhost:5173/ <carpeta>`.

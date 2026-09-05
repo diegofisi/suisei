@@ -1,18 +1,18 @@
 import { Box, Stack, Typography } from "@mui/material";
 
 interface StoryFooterProps {
-  pendingScenes: string;
+  sources: string;
   credits: string;
 }
 
-export const StoryFooter = ({ pendingScenes, credits }: StoryFooterProps) => (
-  <Box component="footer" sx={{ px: "7vw", pt: "14vh", pb: "18vh", borderTop: 1, borderColor: "divider", textAlign: "center" }}>
+export const StoryFooter = ({ sources, credits }: StoryFooterProps) => (
+  <Box component="footer" sx={{ px: "7vw", pt: "10vh", pb: "14vh", borderTop: 1, borderColor: "divider", textAlign: "center" }}>
     <Stack spacing={2} alignItems="center">
       <Typography variant="label" color="primary.main">
-        Fin del preview
+        Fuentes y créditos
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ maxWidth: "52ch" }}>
-        {pendingScenes}
+      <Typography variant="body2" color="text.secondary" sx={{ maxWidth: "64ch" }}>
+        {sources}
       </Typography>
       <Typography variant="caption" color="text.disabled" sx={{ maxWidth: "60ch" }}>
         {credits}

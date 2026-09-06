@@ -48,7 +48,7 @@ export const PILLARS_QUOTE =
   "«Resiliencia no es repetir lo mismo con más rabia: es cambiar de ruta sin cambiar de destino.»";
 
 /** Sticky progress at which each step turns on. Index 0 is step 1. */
-export const PILLARS_STEP_THRESHOLDS = [0.2, 0.42, 0.64, 0.8] as const;
+export const PILLARS_STEP_THRESHOLDS = [0, 0.42, 0.64, 0.8] as const;
 export const PILLARS_TOTAL_STEPS = PILLARS_STEP_THRESHOLDS.length;
 /** Sticky progress at which the closing quote reveals. */
 export const PILLARS_QUOTE_AT = 0.88;

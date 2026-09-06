@@ -2,4 +2,3 @@ node_modules
 dist
 files/
 pnpm-lock.yaml
-public/assets/*.mp3

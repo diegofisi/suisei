@@ -87,7 +87,7 @@ a partir de los diseños oficiales: sirven como recorte de la web, **no** como f
 | `2024-03_oriental-suit.jpg` | 東洋風スーツ (traje oriental, 8.º modelo 2D): negro y dorado, cuello mao, capa corta con cadenas, pantalón, tacones. Tema "gángster oriental años 20", hay 2 colores | 15/03/2024 | Ishihara Tatsuya (diseño) + Saekiyahiro (confección) |
 | `2025-02_budokan-comet.jpg` | Traje **comet** del Budokan: el traje indie "vestido de gala" — boina blanca, corbata degradada, gran lazo rosa, falda de volantes tornasolados (prisma), sandalias | 01/02/2025, Nippon Budokan, estreno en "comet -TAKU INOUE Remix-" | Saekiyahiro |
 
-Música de fondo: `public/assets/{stellar-stellar,comet,bibbidiba}.mp3` (fuera del repo; lista en
+Música de fondo: `public/assets/{stellar-stellar,comet,bibbidiba}.mp3` (en el repo; lista en
 `common/helpers/playlist.ts`). El reproductor (`common/components/MusicPlayer.tsx` +
 `common/hooks/useMusicPlayer.ts`) es una píldora fija arriba: arranca con Stellar Stellar tras el primer
 clic/tecla (los navegadores bloquean el autoplay con sonido), se esconde al bajar y vuelve al pasar el

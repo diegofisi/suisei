@@ -39,7 +39,8 @@ en el DOM, nunca `setState` a 60 fps. Reveals de una vez con `IntersectionObserv
 cielo y para las partículas de la firma (escena 1, efecto tipo página "Astra" de OpenAI: la nube de
 estrellas converge en la firma de Suisei, `public/img/firma.jpg`). Respeta `prefers-reduced-motion`,
 responsive (<760px apila todo). `npm run build` genera `dist/index.html` de un solo archivo que abre
-desde `file://` (más `dist/img/`). Sin localStorage, sin router, sin datos remotos.
+desde `file://` (más `dist/img/`). Para la web, `npm run build:web` (modo `web` de Vite) genera un bundle normal
+troceado con hash; `vercel.json` usa ese comando: basta importar el repo en Vercel. Sin localStorage, sin router, sin datos remotos.
 
 ## 3. Estructura de escenas (mapear 1:1 con guion.md)
 1. Portada — hecha. Título + nube de partículas en espiral que, al hacer scroll, dibuja la firma.
@@ -73,8 +74,8 @@ Páginas: suisei2ndlive.hololivepro.com · spectraofnova.hololivepro.com · supe
 (hoy muestra REBOOT) · hololive.hololivepro.com/events/supernova/ (reporte oficial con fotos).
 
 ## 5. Línea de tiempo de trajes (imágenes ya renombradas)
-Convención real en disco: `public/img/AAAA-MM_slug.jpg` (original) + `.png` (fondo transparente,
-generado con `python scripts/clean_backgrounds.py`). En código se referencian como `img/<archivo>`. Las 7 imágenes son renders generados con Gemini
+Convención real en disco: `public/img/AAAA-MM_slug.png` (fondo transparente, generado con
+`python scripts/clean_backgrounds.py`; los `.jpg` originales quedaron fuera del repo en `files/unused-img/`). En código se referencian como `img/<archivo>`. Las 7 imágenes son renders generados con Gemini
 a partir de los diseños oficiales: sirven como recorte de la web, **no** como fuente oficial.
 
 | Archivo en `public/img/` | Traje | Fecha / evento | Diseño |

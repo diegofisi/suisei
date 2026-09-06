@@ -72,8 +72,9 @@ export const DOME_CAPTION = "El público, al unísono.";
 export const YEAR_FILL_PHASE = { start: 0, end: 0.6 } as const;
 /** The wall deals itself out (tiles flip open) across this window. */
 export const WALL_PHASE = { start: -0.28, end: 0.6 } as const; // negative start: a third of the lids are already open on arrival
-/** How often a lid on the lit wall closes and reopens on another frame. */
-export const WALL_SWAP_MS = 700;
+/** Each open lid keeps its frame this long (random in range) before closing and reopening on another one. */
+export const WALL_HOLD_MIN_MS = 1500;
+export const WALL_HOLD_MAX_MS = 2000;
 /** p at which the facts list starts its staggered reveal (step 1). */
 export const FACTS_REVEAL_AT = 0;
 /** Upper bound of steps 0..2; anything past the last bound is step 3. */

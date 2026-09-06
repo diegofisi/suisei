@@ -8,7 +8,8 @@ import {
   CONCERT_TILES,
   FACTS_REVEAL_AT,
   WALL_PHASE,
-  WALL_SWAP_MS,
+  WALL_HOLD_MAX_MS,
+  WALL_HOLD_MIN_MS,
   YEAR_FILL_PHASE,
 } from "@/features/story/helpers/budokanContent";
 
@@ -29,6 +30,10 @@ const setFlag = (node: HTMLElement | null, value: boolean): void => {
   if (node.dataset.on !== next) node.dataset.on = next;
 };
 
+/** Hold time of a frame before its lid swaps again (the lid animation itself adds ~1 s of open time). */
+const holdMs = (): number => WALL_HOLD_MIN_MS + Math.random() * (WALL_HOLD_MAX_MS - WALL_HOLD_MIN_MS);
+const WALL_TICK_MS = 120;
+
 const stepOf = (progress: number): string => {
   let step = 0;
   while (step < BUDOKAN_STEP_BOUNDS.length && progress >= (BUDOKAN_STEP_BOUNDS[step] ?? 1)) step += 1;
@@ -43,15 +48,18 @@ export const useBudokanScene = (): BudokanSceneRefs => {
   const yearRef = useRef<HTMLDivElement>(null);
   const factsRef = useRef<HTMLUListElement>(null);
   const wallRef = useRef<HTMLDivElement>(null);
-  const tilesRef = useRef<{ node: HTMLElement; slot: number }[] | null>(null);
+  const tilesRef = useRef<{ node: HTMLElement; slot: number; nextSwapAt: number }[] | null>(null);
 
   const tiles = () => {
     if (tilesRef.current) return tilesRef.current;
     const wall = wallRef.current;
     if (!wall) return [];
+    const now = performance.now();
     tilesRef.current = [...wall.querySelectorAll<HTMLElement>("[data-slot]")].map((node) => ({
       node,
       slot: Number(node.dataset.slot ?? "0"),
+      // Each lid keeps its own clock, desynchronised from the start, so many swap at once but never in lockstep.
+      nextSwapAt: now + Math.random() * WALL_HOLD_MAX_MS * 2.5,
     }));
     return tilesRef.current;
   };
@@ -63,20 +71,27 @@ export const useBudokanScene = (): BudokanSceneRefs => {
     }
   };
 
-  /** One lit lid closes and reopens on another frame, so the wall keeps changing while the scene is on screen. */
-  const swapOne = () => {
-    const lit = tiles().filter((tile) => tile.node.dataset.lit === "true");
-    const pick = lit[Math.floor(Math.random() * lit.length)];
-    const image = pick?.node.querySelector("img");
-    if (!pick || !image) return;
+  /** A lid closes and reopens on a different frame. */
+  const swapLid = (node: HTMLElement) => {
+    const image = node.querySelector("img");
+    if (!image) return;
     const current = CONCERT_TILES.findIndex((tile) => image.getAttribute("src") === tile.src);
     const next = CONCERT_TILES[(current + 1 + Math.floor(Math.random() * (CONCERT_TILES.length - 1))) % CONCERT_TILES.length];
     if (!next) return;
-    pick.node.dataset.lit = "false";
+    node.dataset.lit = "false";
     // Forcing a layout between the two writes restarts the lid animation.
-    void pick.node.offsetWidth;
+    void node.offsetWidth;
     image.src = next.src;
-    pick.node.dataset.lit = "true";
+    node.dataset.lit = "true";
+  };
+
+  /** Every lit lid swaps on its own clock: a frame stays 1.5–2 s, then changes; several change at the same time. */
+  const swapDueLids = (now: number) => {
+    for (const tile of tiles()) {
+      if (tile.node.dataset.lit !== "true" || now < tile.nextSwapAt) continue;
+      swapLid(tile.node);
+      tile.nextSwapAt = now + holdMs();
+    }
   };
 
   useScrollScrub(({ viewportHeight }) => {
@@ -98,7 +113,7 @@ export const useBudokanScene = (): BudokanSceneRefs => {
     dealWall(dealt);
   });
 
-  // Keep the wall alive while the scene is on screen: swap a lid every WALL_SWAP_MS.
+  // Keep the wall alive while the scene is on screen: a coarse tick checks which lids are due to swap.
   useEffect(() => {
     if (isStatic) return;
     const timer = window.setInterval(() => {
@@ -106,10 +121,10 @@ export const useBudokanScene = (): BudokanSceneRefs => {
       if (!section) return;
       const rect = section.getBoundingClientRect();
       if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
-      swapOne();
-    }, WALL_SWAP_MS);
+      swapDueLids(performance.now());
+    }, WALL_TICK_MS);
     return () => window.clearInterval(timer);
-    // swapOne only reads refs.
+    // swapDueLids only reads refs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isStatic]);
 

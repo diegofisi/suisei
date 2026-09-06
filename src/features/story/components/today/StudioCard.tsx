@@ -3,7 +3,6 @@ import { Box, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
 import { OmikujiNote } from "@/features/story/components/today/OmikujiNote";
-import { WIDE_MEDIA } from "@/features/story/helpers/layout";
 import { TODAY_CARD, TODAY_CREDIT } from "@/features/story/helpers/todayContent";
 
 interface StudioCardProps {
@@ -13,7 +12,7 @@ interface StudioCardProps {
 
 /** The 2026 milestone card: the Studio STELLAR logo plus the omikuji note. */
 export const StudioCard = ({ cardRef }: StudioCardProps) => (
-  <Box sx={{ [WIDE_MEDIA]: { position: "sticky", top: "14vh" } }}>
+  <Box>
     <Stack
       ref={cardRef}
       sx={{

@@ -22,6 +22,10 @@ export interface QuestionSceneViewModel {
   points: TimelinePointViewModel[];
 }
 
+/** Timed light-up of the question after arriving: a short breath, then all the words over ~2.4 s. */
+const WORDS_TIMED_DELAY_MS = 350;
+const WORDS_TIMED_MS = 2400;
+
 /** Fraction of the drawn line at which point `index` lights up; the first one lights as soon as the line starts. */
 const litThresholdOf = (index: number, count: number): number => (count < 2 ? 0 : (index / (count - 1)) * 0.98);
 
@@ -33,6 +37,8 @@ export const useQuestionScene = (): QuestionSceneViewModel => {
   const pointRefs = useRef<(HTMLDivElement | null)[]>([]);
   const litWordCount = useRef(-1);
   const litPointCount = useRef(-1);
+  /** rAF time at which the stage stuck to the top; the words then light on their own, without more scrolling. */
+  const arrivedAt = useRef<number | null>(null);
   const isStatic = useReducedMotion();
 
   const words = useMemo(buildQuestionWords, []);
@@ -55,7 +61,7 @@ export const useQuestionScene = (): QuestionSceneViewModel => {
     });
   };
 
-  useScrollScrub(({ viewportHeight }) => {
+  useScrollScrub(({ viewportHeight, time }) => {
     const section = sectionRef.current;
     const timeline = timelineRef.current;
     if (isStatic || !section || !timeline) return;
@@ -63,8 +69,14 @@ export const useQuestionScene = (): QuestionSceneViewModel => {
     const progress = stickyProgressOf(section, viewportHeight);
     section.style.setProperty("--p", progress.toFixed(4));
 
+    // Landing on the scene (presenter button) starts a timed light-up; scrolling can only be ahead of it.
+    const sectionTop = section.getBoundingClientRect().top;
+    if (sectionTop <= viewportHeight * 0.15 && arrivedAt.current === null) arrivedAt.current = time;
+    if (sectionTop > viewportHeight * 0.9) arrivedAt.current = null;
+    const timed = arrivedAt.current === null ? 0 : phase(time - arrivedAt.current, WORDS_TIMED_DELAY_MS, WORDS_TIMED_DELAY_MS + WORDS_TIMED_MS);
+    const scrolled = phase(progress, WORDS_PHASE.start, WORDS_PHASE.end);
     // Word i is on once the word phase has passed i / (n + 1).
-    applyWordCount(Math.floor(phase(progress, WORDS_PHASE.start, WORDS_PHASE.end) * (words.length + 1)));
+    applyWordCount(Math.floor(Math.max(timed, scrolled) * (words.length + 1)));
 
     const fade = phase(progress, TIMELINE_FADE_PHASE.start, TIMELINE_FADE_PHASE.end);
     const drawn = easeOutCubic(phase(progress, TIMELINE_DRAW_PHASE.start, TIMELINE_DRAW_PHASE.end));

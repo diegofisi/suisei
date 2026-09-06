@@ -14,6 +14,8 @@ export const OriginsShell = ({ sectionRef, left, right }: OriginsShellProps) => 
     component="section"
     ref={sectionRef}
     aria-label="Los inicios, 2018"
+    data-reveal-steps="1"
+    data-presenter-step="0"
     sx={{
       position: "relative",
       padding: "clamp(56px, 10vh, 130px) 7vw clamp(48px, 8vh, 110px)",
@@ -21,7 +23,7 @@ export const OriginsShell = ({ sectionRef, left, right }: OriginsShellProps) => 
       gridTemplateColumns: "minmax(0, 1fr) minmax(300px, 44%)",
       gap: "6vw",
       alignItems: "start",
-      ["@media (max-height: 900px)"]: { paddingTop: "48px", paddingBottom: "40px" },
+      ["@media (max-height: 900px)"]: { paddingTop: "40px", paddingBottom: "32px" },
       ["@media (max-height: 780px)"]: { paddingTop: "36px", paddingBottom: "32px" },
       [NARROW_MEDIA]: {
         gridTemplateColumns: "minmax(0, 1fr)",

@@ -13,6 +13,8 @@ import {
 const REVEAL_THRESHOLD = 0.12;
 /** The fan opens once the section top has risen past this fraction of the viewport. */
 const FAN_TRIGGER = 0.5;
+/** Without the presenter button, the 6.000 and the quote show once the audience scrolls this far past the landing point. */
+const TENSION_RELEASE_VH = 0.2;
 
 export interface OriginsSceneRefs {
   sectionRef: RefObject<HTMLElement | null>;
@@ -37,6 +39,20 @@ export const useOriginsScene = (): OriginsSceneRefs => {
   const counterValueRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
   const fanRef = useRef<HTMLDivElement>(null);
+  const releasedRef = useRef(false);
+  const countUpFrame = useRef(0);
+
+  const runCountUp = () => {
+    const value = counterValueRef.current;
+    if (!value) return;
+    const startedAt = performance.now();
+    const step = (now: number) => {
+      const progress = clamp((now - startedAt) / ORIGINS_COUNT_UP_MS, 0, 1);
+      value.textContent = formatSubscribers(ORIGINS_SUBSCRIBER_TARGET * easeOutCubic(progress));
+      if (progress < 1) countUpFrame.current = requestAnimationFrame(step);
+    };
+    countUpFrame.current = requestAnimationFrame(step);
+  };
 
   // Continuous part: fill the year and decide whether the clips are fanned.
   useScrollScrub((frame) => {
@@ -49,10 +65,20 @@ export const useOriginsScene = (): OriginsSceneRefs => {
       year.style.setProperty("--r", entryProgressOf(section, frame.viewportHeight).toFixed(4));
     }
 
+    const sectionTop = section.getBoundingClientRect().top;
     const fan = fanRef.current;
     if (fan) {
-      const fanned = section.getBoundingClientRect().top < frame.viewportHeight * FAN_TRIGGER ? "true" : "false";
+      const fanned = sectionTop < frame.viewportHeight * FAN_TRIGGER ? "true" : "false";
       if (fan.dataset.fanned !== fanned) fan.dataset.fanned = fanned;
+    }
+
+    // The tension beat: the subscriber count and the quote wait for "next" (data-presenter-step) or for real scrolling.
+    const released =
+      Number(section.dataset.presenterStep ?? "0") >= 1 || sectionTop < -frame.viewportHeight * TENSION_RELEASE_VH;
+    if (released && !releasedRef.current) {
+      releasedRef.current = true;
+      for (const node of [counterRef.current, quoteRef.current]) if (node) node.dataset.on = "true";
+      runCountUp();
     }
   });
 
@@ -69,44 +95,25 @@ export const useOriginsScene = (): OriginsSceneRefs => {
     }
   }, [reducedMotion]);
 
-  // One-shot reveals. The counter also kicks off its own short rAF (a one-off, not a scroll loop).
+  // One-shot reveal of the facts; the counter and the quote are the tension beat handled in the scrub loop.
   useEffect(() => {
     if (reducedMotion) return;
-    const targets = [factsRef.current, counterRef.current, quoteRef.current].filter((node) => node !== null);
-    if (targets.length === 0) return;
-
-    let countUpFrame = 0;
-    const runCountUp = () => {
-      const value = counterValueRef.current;
-      if (!value) return;
-      const startedAt = performance.now();
-      const step = (now: number) => {
-        const progress = clamp((now - startedAt) / ORIGINS_COUNT_UP_MS, 0, 1);
-        value.textContent = formatSubscribers(ORIGINS_SUBSCRIBER_TARGET * easeOutCubic(progress));
-        if (progress < 1) countUpFrame = requestAnimationFrame(step);
-      };
-      countUpFrame = requestAnimationFrame(step);
-    };
-
+    const facts = factsRef.current;
+    if (!facts) return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
-          const node = entry.target;
-          if (!(node instanceof HTMLElement)) continue;
-          observer.unobserve(node);
-          if (node.dataset.on === "true") continue;
-          node.dataset.on = "true";
-          if (node === counterRef.current) runCountUp();
+          observer.unobserve(entry.target);
+          facts.dataset.on = "true";
         }
       },
       { threshold: REVEAL_THRESHOLD },
     );
-    for (const target of targets) observer.observe(target);
-
+    observer.observe(facts);
     return () => {
       observer.disconnect();
-      cancelAnimationFrame(countUpFrame);
+      cancelAnimationFrame(countUpFrame.current);
     };
   }, [reducedMotion]);
 

@@ -47,6 +47,8 @@ export const useRejectionScene = (): RejectionSceneViewModel => {
     if (!stack) return;
     const flag = answered ? "true" : "false";
     if (stack.dataset.answered !== flag) stack.dataset.answered = flag;
+    const lesson = lessonRef.current;
+    if (lesson && lesson.dataset.on !== flag) lesson.dataset.on = flag;
   };
 
   useScrollScrub(({ viewportHeight }) => {
@@ -61,7 +63,8 @@ export const useRejectionScene = (): RejectionSceneViewModel => {
     applyLandedCount(landed, presenterRevealed || (landed >= cardCount && progress >= REJECTION_ANSWER_AT));
   });
 
-  useRevealOnce([factsRef, lessonRef, quoteRef], isStatic);
+  // The lesson card is not a scroll reveal: it lands together with the answer card (same press, same beat).
+  useRevealOnce([factsRef, quoteRef], isStatic);
 
   // Reduced motion: the pile is already dealt and the answer already on top.
   useEffect(() => {

@@ -35,7 +35,7 @@ export const YearReveal = ({ year, yearRef, tone = "comet", animatedFill = false
         alignSelf: "flex-start",
         marginBottom: "0.2rem",
         // Laptop heights: a smaller year keeps a plain scene inside one screen.
-        ["@media (max-height: 900px)"]: { "& > *": { fontSize: "clamp(60px, 7.2vw, 112px)" } },
+        ["@media (max-height: 900px)"]: { "& > *": { fontSize: "clamp(56px, 6.6vw, 104px)" } },
         ["@media (max-height: 780px)"]: { "& > *": { fontSize: "clamp(52px, 6.2vw, 96px)" } },
       }}
     >

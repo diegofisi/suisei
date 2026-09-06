@@ -92,14 +92,14 @@ export const todayCounters: TodayCounterViewModel[] = [
     target: 2.88,
     decimals: 2,
     suffix: " M",
-    caption: "suscriptores · mayo 2026 (por verificar)",
+    caption: "suscriptores · mayo 2026",
   },
   {
     id: "views",
     target: 1670,
     decimals: 0,
     suffix: " M",
-    caption: "reproducciones · mayo 2026 (por verificar)",
+    caption: "reproducciones · mayo 2026",
   },
 ];
 

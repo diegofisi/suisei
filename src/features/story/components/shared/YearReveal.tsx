@@ -54,7 +54,8 @@ export const YearReveal = ({ year, yearRef, tone = "comet", animatedFill = false
           inset: 0,
           color: fill.color,
           textShadow: `0 0 38px ${fill.glow}`,
-          clipPath: `inset(-${GLOW_BLEED} calc(100% - var(--r) * 100%) -${GLOW_BLEED} -${GLOW_BLEED})`,
+          // The right edge travels from the box edge (r = 0) to beyond the glow (r = 1), so a full year keeps its whole halo.
+          clipPath: `inset(-${GLOW_BLEED} calc((1 - var(--r)) * (100% + ${GLOW_BLEED}) - ${GLOW_BLEED}) -${GLOW_BLEED} -${GLOW_BLEED})`,
           transition: animatedFill ? "clip-path 1.4s cubic-bezier(.2,.8,.2,1)" : "none",
           pointerEvents: "none",
         }}

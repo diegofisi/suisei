@@ -118,7 +118,6 @@ pequeño). No publicar. Key visuals y fotos oficiales: páginas de eventos. Capt
 ## 8. Próximos pasos sugeridos
 1. La escena 9 embebe el video oficial de YouTube (jMSXPPSmsVo, desde 1:35): el aula necesita internet.
 2. Verificar cifras y fechas marcadas «por verificar» (guion.md, lista final) y quitar las marcas.
-3. Rellenar «Tu nombre · fecha» en `helpers/heroContent.ts`.
 4. Conseguir los trajes que faltan (Spectra of Nova 2024-11 y Studio STELLAR 2026-08) y añadirlos
    a la línea de tiempo (`helpers/questionContent.ts`) y a la tira del Budokan (`helpers/budokanContent.ts`).
 5. `npm run build`, ensayar con `dist/index.html` en el proyector (1920×1080) y con `prefers-reduced-motion`.

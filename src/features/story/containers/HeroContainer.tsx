@@ -23,7 +23,6 @@ export const HeroContainer = () => {
           japaneseName={heroContent.japaneseName}
           eyebrow={heroContent.eyebrow}
           title={heroContent.title}
-          meta={heroContent.meta}
         />
       }
       cue={<ScrollCue label={heroContent.scrollCue} />}

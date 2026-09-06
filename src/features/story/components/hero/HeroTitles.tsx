@@ -1,17 +1,14 @@
 import { Stack, Typography } from "@mui/material";
-import { HeroMeta } from "@/features/story/components/hero/HeroMeta";
-import type { HeroMetaItem } from "@/features/story/helpers/heroContent";
 
 export interface HeroTitlesProps {
   japaneseName: string;
   eyebrow: string;
   title: string;
-  meta: HeroMetaItem[];
 }
 
 const ENTER_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-export const HeroTitles = ({ japaneseName, eyebrow, title, meta }: HeroTitlesProps) => (
+export const HeroTitles = ({ japaneseName, eyebrow, title }: HeroTitlesProps) => (
   <Stack
     sx={{
       height: "100%",
@@ -73,6 +70,5 @@ export const HeroTitles = ({ japaneseName, eyebrow, title, meta }: HeroTitlesPro
       {title}
     </Typography>
 
-    <HeroMeta items={meta} enterDelay={760} />
   </Stack>
 );

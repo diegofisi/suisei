@@ -21,7 +21,8 @@ export const OriginsShell = ({ sectionRef, left, right }: OriginsShellProps) => 
       gridTemplateColumns: "minmax(0, 1fr) minmax(300px, 44%)",
       gap: "6vw",
       alignItems: "start",
-      ["@media (max-height: 820px)"]: { paddingTop: "48px", paddingBottom: "40px" },
+      ["@media (max-height: 900px)"]: { paddingTop: "48px", paddingBottom: "40px" },
+      ["@media (max-height: 780px)"]: { paddingTop: "36px", paddingBottom: "32px" },
       [NARROW_MEDIA]: {
         gridTemplateColumns: "minmax(0, 1fr)",
         gap: "8vh",

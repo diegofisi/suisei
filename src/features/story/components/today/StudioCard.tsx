@@ -42,6 +42,7 @@ export const StudioCard = ({ cardRef }: StudioCardProps) => (
           display: "block",
           width: "100%",
           maxWidth: 360,
+          ["@media (max-height: 900px)"]: { maxWidth: 220 },
           alignSelf: "center",
           aspectRatio: "1 / 1",
           objectFit: "cover",

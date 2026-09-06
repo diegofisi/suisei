@@ -26,7 +26,8 @@ export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) 
       borderColor: "divider",
       marginTop: "2rem",
       paddingTop: "1.4rem",
-      ["@media (max-height: 820px)"]: { marginTop: "1.2rem", paddingTop: "1rem" },
+      ["@media (max-height: 900px)"]: { marginTop: "1.2rem", paddingTop: "1rem" },
+      ["@media (max-height: 780px)"]: { marginTop: "0.8rem", paddingTop: "0.7rem" },
     }}
   >
     <Typography
@@ -36,6 +37,7 @@ export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) 
       sx={{
         color: "secondary.main",
         fontSize: "clamp(56px, 7vw, 110px)",
+        ["@media (max-height: 900px)"]: { fontSize: "clamp(44px, 5vw, 76px)" },
         fontVariantNumeric: "tabular-nums",
       }}
     >

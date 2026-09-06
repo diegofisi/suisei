@@ -34,7 +34,8 @@ export const SceneShell = ({ sectionRef, label, left, right, mirrored = false, r
         : "minmax(0, 72ch)",
       gap: "6vw",
       alignItems: "start",
-      ["@media (max-height: 820px)"]: { paddingTop: "48px", paddingBottom: "40px" },
+      ["@media (max-height: 900px)"]: { paddingTop: "48px", paddingBottom: "40px" },
+      ["@media (max-height: 780px)"]: { paddingTop: "36px", paddingBottom: "32px" },
       [NARROW_MEDIA]: {
         gridTemplateColumns: "minmax(0, 1fr)",
         gap: "8vh",

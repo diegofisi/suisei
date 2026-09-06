@@ -32,6 +32,7 @@ export const TodayCounter = ({ counter, rowRef, valueRef }: TodayCounterProps) =
       sx={{
         color: "primary.main",
         fontSize: "clamp(38px, 4.2vw, 64px)",
+        ["@media (max-height: 900px)"]: { fontSize: "clamp(32px, 3.4vw, 52px)" },
         whiteSpace: "nowrap",
         fontVariantNumeric: "tabular-nums",
       }}

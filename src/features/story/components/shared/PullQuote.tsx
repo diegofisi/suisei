@@ -16,6 +16,7 @@ export const PullQuote = ({ quote, note, quoteRef, tone = "sakura" }: PullQuoteP
     ref={quoteRef}
     sx={{
       marginTop: "2.4rem",
+      ["@media (max-height: 900px)"]: { marginTop: "1.4rem" },
       opacity: 0,
       transform: "translateY(18px)",
       transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.8,.2,1)",

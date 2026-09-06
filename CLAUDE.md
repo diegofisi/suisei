@@ -89,7 +89,7 @@ a partir de los diseños oficiales: sirven como recorte de la web, **no** como f
 
 Música de fondo: `public/assets/{stellar-stellar,comet,bibbidiba}.mp3` (en el repo; lista en
 `common/helpers/playlist.ts`). El reproductor (`common/components/MusicPlayer.tsx` +
-`common/hooks/useMusicPlayer.ts`) es una píldora fija arriba: arranca con Stellar Stellar tras el primer
+`common/hooks/useMusicPlayer.ts`) es una píldora fija arriba: arranca con comet tras el primer
 clic/tecla (los navegadores bloquean el autoplay con sonido), se esconde al bajar y vuelve al pasar el
 ratón por la franja superior; tiene anterior/siguiente/pausa/silencio y encadena la lista.
 Capturas del concierto SuperNova: `public/concert/concert-01..15.jpg` (1400 px, collage de la escena 8;

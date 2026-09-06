@@ -7,8 +7,8 @@ export interface TrackViewModel {
 
 /** Background music for the talk; the player starts on the first entry. */
 export const PLAYLIST: TrackViewModel[] = [
-  { id: "stellar-stellar", title: "Stellar Stellar", src: "assets/stellar-stellar.mp3" },
   { id: "comet", title: "comet", src: "assets/comet.mp3" },
+  { id: "stellar-stellar", title: "Stellar Stellar", src: "assets/stellar-stellar.mp3" },
   { id: "bibbidiba", title: "Bibbidiba", src: "assets/bibbidiba.mp3" },
 ];
 

@@ -11,7 +11,7 @@ export const ORIGINS_SUBSCRIBER_TARGET = 6000;
 /** Duration of the one-shot count-up, in ms. */
 export const ORIGINS_COUNT_UP_MS = 1400;
 
-export const ORIGINS_CREDIT = "Renders: generados a partir de diseños © COVER Corp. · uso en clase";
+export const ORIGINS_CREDIT = "Renders: generados a partir de diseños © COVER Corp.";
 
 /**
  * Spanish thousands separator ("6.000"). Written by hand instead of Intl because
@@ -70,7 +70,7 @@ export const originsCounterCaption: FactFragment[] = [
 
 export const ORIGINS_QUOTE = "«No quería ser otra. Yo soy Hoshimachi Suisei.»";
 
-export const ORIGINS_QUOTE_NOTE = "Su respuesta a las agencias que le pedían abandonar el nombre. Abre la escena 4.";
+export const ORIGINS_QUOTE_NOTE = "Su respuesta a las agencias que le pedían abandonar el nombre.";
 
 // Order = stacking order: the character render goes last so it lands on top of the fan.
 export const originsClips: ClipViewModel[] = [

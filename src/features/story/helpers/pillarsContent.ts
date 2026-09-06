@@ -10,7 +10,6 @@ export interface PillarViewModel {
 }
 
 export const PILLARS_SECTION_LABEL = "La lección: tres pilares";
-export const PILLARS_EYEBROW = "Escena 11 · La respuesta";
 export const PILLARS_HEADLINE = "Volvamos a la pregunta del inicio.";
 export const PILLARS_LEAD = "Yo encontré tres respuestas.";
 

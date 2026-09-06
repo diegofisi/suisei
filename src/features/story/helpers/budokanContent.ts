@@ -1,6 +1,6 @@
 // Scene 8 — "El momento: Budokan «SuperNova» (01/02/2025)". The only GOLD scene of the page.
 // Facts and setlist come from guion.md (Diapo 8) and CLAUDE.md §4.
-import type { FactViewModel, TimelinePointViewModel } from "@/features/story/interfaces/StoryViewModels";
+import type { FactViewModel } from "@/features/story/interfaces/StoryViewModels";
 
 export const BUDOKAN_YEAR = "2025";
 export const BUDOKAN_DATELINE = "01 · 02 · 2025 — Nippon Budokan";
@@ -37,19 +37,32 @@ export const BUDOKAN_FACTS: FactViewModel[] = [
   },
 ];
 
-/** The interlude video: she walks through her successive outfits, then the tape rewinds to 2018. */
-export const BUDOKAN_REWIND_FRAMES: TimelinePointViewModel[] = [
-  { year: "2018", label: "Debut indie", image: "img/2018-03_indie-original.png", isDestination: false },
-  { year: "2019", label: "hololive", image: "img/2019-12_hololive-default.png", isDestination: false },
-  { year: "2020", label: "甘辛ミックス", image: "img/2020-11_hololive-2nd-amakara.png", isDestination: false },
-  { year: "2021", label: "1st Live", image: "img/2021-10_stellar-into-the-galaxy.png", isDestination: false },
-  { year: "2023", label: "2nd Live", image: "img/2023-01_shout-in-crisis.png", isDestination: false },
-  { year: "2024", label: "Traje oriental", image: "img/2024-03_oriental-suit.png", isDestination: false },
-  { year: "2025", label: "comet · Budokan", image: "img/2025-02_budokan-comet.png", isDestination: true },
-];
+/** One frame of the concert wall; `span: 2` tiles take a 2×2 cell. */
+export interface ConcertTileViewModel {
+  src: string;
+  alt: string;
+  span: 1 | 2;
+}
 
-export const REWIND_LABEL = "◀◀ 2018";
-export const BUDOKAN_CREDIT = "Renders generados a partir de los diseños © COVER Corp. · uso en clase";
+/** Fifteen frames of SuperNova, from the carriage entrance to the thank-you screen. */
+export const CONCERT_TILES: ConcertTileViewModel[] = [
+  { src: "concert/concert-01.jpg", alt: "La carroza dorada baja desde el techo del Budokan", span: 2 },
+  { src: "concert/concert-02.jpg", alt: "Escenario con el cartel BOBBIDI y el público con luces", span: 1 },
+  { src: "concert/concert-03.jpg", alt: "Suisei con el brazo en alto", span: 1 },
+  { src: "concert/concert-04.jpg", alt: "Suisei ante el telón de letras", span: 1 },
+  { src: "concert/concert-05.jpg", alt: "La carroza en lo alto del escenario", span: 1 },
+  { src: "concert/concert-06.jpg", alt: "Suisei entre haces de luz roja", span: 1 },
+  { src: "concert/concert-07.jpg", alt: "Silueta bajo la luz azul", span: 1 },
+  { src: "concert/concert-08.jpg", alt: "Suisei con capa negra y micrófono", span: 1 },
+  { src: "concert/concert-09.jpg", alt: "Primer plano con luz dorada", span: 1 },
+  { src: "concert/concert-10.jpg", alt: "Las bailarinas y el número 2025", span: 1 },
+  { src: "concert/concert-11.jpg", alt: "Primer plano con el traje indie rediseñado", span: 1 },
+  { src: "concert/concert-12.jpg", alt: "Suisei en el centro del escenario", span: 1 },
+  { src: "concert/concert-13.jpg", alt: "Suisei guiña un ojo con el micrófono", span: 2 },
+  { src: "concert/concert-14.jpg", alt: "Suisei sonríe con el brazo en alto", span: 1 },
+  { src: "concert/concert-15.jpg", alt: "Pantalla final: SuperNova, gracias por venir", span: 1 },
+];
+export const BUDOKAN_CREDIT = "Capturas del concierto «SuperNova» © COVER Corp.";
 
 export const DREAM_QUOTE = "«¡Mi sueño es hacer un concierto en el Budokan!»";
 export const DREAM_QUOTE_SOURCE = "Hoshimachi Suisei, 2018 · ~7 años antes de esa noche";
@@ -65,18 +78,14 @@ export const DOME_CAPTION = "El público, al unísono.";
 
 export const BUDOKAN_BRIDGE_QUOTE =
   "«Pero el momento más importante de esa noche… es el que les voy a mostrar ahora.»";
-export const BUDOKAN_BRIDGE_NOTE = "Escena 9: el video.";
+export const BUDOKAN_BRIDGE_NOTE = "";
 
 // Scene pacing, in sticky-progress units (p = 0 at section top, 1 at its bottom).
 // The components mirror these numbers as CSS clamp() windows on --p.
 export const YEAR_FILL_PHASE = { start: 0, end: 0.15 } as const;
-export const REWIND_PHASE = { start: 0.38, end: 0.6 } as const;
+export const COLLAGE_PHASE = { start: 0.36, end: 0.62 } as const;
 /** p at which the facts list starts its staggered reveal (step 1). */
 export const FACTS_REVEAL_AT = 0.18;
-/** p at which the 2025 frame lights up again in gold (M13 "comet"). */
-export const COMET_RELIGHT_AT = 0.66;
-/** Rewind fraction at which the 2018 frame takes focus and grows. */
-export const FRAME_FOCUS_AT = 0.88;
 /** p at which the bridge pull quote reveals (step 4). */
 export const BRIDGE_REVEAL_AT = 0.9;
 /** Upper bound of steps 0..3; anything past the last bound is step 4. */

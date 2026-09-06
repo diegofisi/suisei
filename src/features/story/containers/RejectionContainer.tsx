@@ -6,7 +6,6 @@ import { PullQuote } from "@/features/story/components/shared/PullQuote";
 import { SceneShell } from "@/features/story/components/shared/SceneShell";
 import {
   REJECTION_ANSWER,
-  REJECTION_EYEBROW,
   REJECTION_HEADLINE,
   REJECTION_LESSON_LABEL,
   REJECTION_LESSON_NUMBER,
@@ -27,7 +26,7 @@ export const RejectionContainer = () => {
       label="El rechazo y la terquedad"
       left={
         <>
-          <RejectionHeadline eyebrow={REJECTION_EYEBROW} headline={REJECTION_HEADLINE} />
+          <RejectionHeadline headline={REJECTION_HEADLINE} />
           <FactsList facts={rejectionFacts} listRef={scene.factsRef} />
           <LessonCard
             number={REJECTION_LESSON_NUMBER}

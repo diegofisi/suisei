@@ -4,17 +4,16 @@ import type { ClipViewModel, FactFragment } from "@/features/story/interfaces/St
 
 export const CONSOLIDATION_LABEL = "La consolidación, 2022–2024";
 
-export const CONSOLIDATION_EYEBROW = "Escena 7 · 2022–2024";
 
 export const CONSOLIDATION_HEADLINE = "El cometa se vuelve constante";
 
 export const CONSOLIDATION_CREDIT =
-  "Renders generados a partir de los diseños © COVER Corp. · uso en clase";
+  "Renders generados a partir de los diseños © COVER Corp.";
 
 export const CONSOLIDATION_QUOTE =
   "«Y entonces… llegó el momento que ella había estado esperando desde su primer video.»";
 
-export const CONSOLIDATION_QUOTE_NOTE = "Puente a la escena 8: el Budokan.";
+export const CONSOLIDATION_QUOTE_NOTE = "";
 
 /** A tile of the milestone grid: a date on top, the fact below. */
 export interface MilestoneViewModel {

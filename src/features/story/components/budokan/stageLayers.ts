@@ -16,7 +16,7 @@ export const INTRO_LAYER_SX: SxProps<Theme> = {
   justifySelf: "start",
   width: "46%",
   // Fully lit at p = 0 so the year and title are there the moment the stage sticks.
-  opacity: fadeWindow(-0.05, 0.05, 0.48, 0.1),
+  opacity: fadeWindow(-0.05, 0.05, 0.26, 0.08),
   [NARROW_MEDIA]: { width: "100%", alignSelf: "start" },
 };
 
@@ -27,7 +27,7 @@ export const FACTS_LAYER_SX: SxProps<Theme> = {
   alignSelf: "end",
   justifySelf: "end",
   width: "min(46%, 52ch)",
-  opacity: fadeWindow(0.18, 0.08, 0.38, 0.06),
+  opacity: fadeWindow(0.14, 0.06, 0.26, 0.06),
   [NARROW_MEDIA]: { width: "100%" },
 };
 

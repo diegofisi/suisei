@@ -5,8 +5,7 @@ import { NARROW_MEDIA } from "@/features/story/helpers/layout";
 import {
   CLOSING_END_ROLL,
   CLOSING_END_ROLL_CAPTION,
-  CLOSING_EYEBROW,
-} from "@/features/story/helpers/closingContent";
+  } from "@/features/story/helpers/closingContent";
 
 interface ClosingEndRollProps {
   chorusRef: Ref<HTMLDivElement>;
@@ -28,9 +27,6 @@ export const ClosingEndRoll = ({ chorusRef }: ClosingEndRollProps) => (
     }}
   >
     <Stack sx={{ gap: "1.1rem", maxWidth: "46ch" }}>
-      <Typography variant="label" sx={{ color: "primary.main" }}>
-        {CLOSING_EYEBROW}
-      </Typography>
       <Typography variant="body1" color="text.secondary">
         {CLOSING_END_ROLL}
       </Typography>

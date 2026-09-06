@@ -4,13 +4,12 @@ import type { FactViewModel } from "@/features/story/interfaces/StoryViewModels"
 
 export const TODAY_SECTION_LABEL = "Actualidad, 2026";
 export const TODAY_YEAR = "2026";
-export const TODAY_EYEBROW = "Escena 10 · Hoy";
 export const TODAY_HEADLINE = "Dueña de su propia órbita";
 
 /** Duration of each one-shot count-up, in ms. */
 export const TODAY_COUNT_UP_MS = 1400;
 
-export const TODAY_CREDIT = "Logo © Studio STELLAR · uso en clase";
+export const TODAY_CREDIT = "Logo © Studio STELLAR";
 
 export const TODAY_CARD = {
   image: "img/studio-stellar.jpg",

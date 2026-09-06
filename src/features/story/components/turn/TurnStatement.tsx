@@ -3,7 +3,6 @@ import { NARROW_MEDIA } from "@/features/story/helpers/layout";
 import { TURN_NO_PHASE, TURN_YET_PHASE, rampOf } from "@/features/story/helpers/turnContent";
 
 interface TurnStatementProps {
-  eyebrow: string;
   /** The word the agencies gave her. */
   before: string;
   /** What it turned out to mean. */
@@ -15,12 +14,8 @@ const NO_RAMP = rampOf(TURN_NO_PHASE);
 const YET_RAMP = rampOf(TURN_YET_PHASE);
 
 /** «No» shrinks away while «Todavía no.» settles in its place: the color turn of the whole talk. */
-export const TurnStatement = ({ eyebrow, before, after, body }: TurnStatementProps) => (
+export const TurnStatement = ({ before, after, body }: TurnStatementProps) => (
   <Stack sx={{ gap: "1.2rem" }}>
-    <Typography variant="label" sx={{ color: "secondary.main" }}>
-      {eyebrow}
-    </Typography>
-
     <Box
       sx={{
         display: "grid",

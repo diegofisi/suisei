@@ -6,7 +6,6 @@ import { TurnStatement } from "@/features/story/components/turn/TurnStatement";
 import {
   TURN_CLOSING_HEADLINE,
   TURN_CLOSING_NOTE,
-  TURN_EYEBROW,
   TURN_RENDER_ALT,
   TURN_RENDER_CREDIT,
   TURN_RENDER_SRC,
@@ -26,7 +25,6 @@ export const TurnContainer = () => {
       sectionRef={scene.sectionRef}
       statement={
         <TurnStatement
-          eyebrow={TURN_EYEBROW}
           before={TURN_STATEMENT_BEFORE}
           after={TURN_STATEMENT_AFTER}
           body={TURN_STATEMENT_BODY}

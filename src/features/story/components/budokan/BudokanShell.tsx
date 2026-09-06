@@ -18,13 +18,13 @@ interface BudokanShellProps {
   notes: ReactNode;
   dome: ReactNode;
   bridge: ReactNode;
-  strip: ReactNode;
+  collage: ReactNode;
 }
 
 const STATIC = '[data-static="true"] &';
 
-/** Tall sticky section: one 100vh stage where the five steps cross-fade over a gold nebula, strip pinned at the bottom. */
-export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, strip }: BudokanShellProps) => (
+/** Tall sticky section: one 100vh stage where the five steps cross-fade over a gold nebula, collage pinned at the bottom. */
+export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, collage }: BudokanShellProps) => (
   <Box
     component="section"
     ref={sectionRef}
@@ -63,7 +63,8 @@ export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, st
       <Box
         sx={{
           position: "relative",
-          zIndex: 1,
+          // Above the collage: the 2018 note and TOKIO DOME land on top of the dimmed wall.
+          zIndex: 2,
           flex: 1,
           minHeight: 0,
           display: "grid",
@@ -83,7 +84,7 @@ export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, st
         <Box sx={BRIDGE_LAYER_SX}>{bridge}</Box>
       </Box>
 
-      {strip}
+      {collage}
     </Box>
   </Box>
 );

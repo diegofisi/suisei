@@ -1,5 +1,4 @@
 // Scene 9 — "Video: «Orbital Period»" (guion.md, Diapo 9). The clip is played live in class.
-export const VIDEO_LABEL = "Escena 9 · Clímax";
 export const VIDEO_TITLE = "«Orbital Period»";
 export const VIDEO_INTRO =
   "Esa misma noche, Suisei contó algo que no había contado en público: problemas de garganta, una operación, dejó de disfrutar la música… y llegó a pensar en renunciar a todo. Pero pensó que la gente que la apoyaba se pondría triste, y siguió cantando. Por eso escribió esta canción: como una carta de gracias.";

@@ -1,7 +1,6 @@
 // Scene 4 — "El rechazo y la terquedad" (guion.md, Diapo 4). Static copy only.
 import type { FactViewModel } from "@/features/story/interfaces/StoryViewModels";
 
-export const REJECTION_EYEBROW = "Escena 4 · 2018–2019";
 
 export const REJECTION_HEADLINE = "Todas pedían lo mismo: dejar de ser ella";
 

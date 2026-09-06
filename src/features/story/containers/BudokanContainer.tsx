@@ -1,7 +1,7 @@
 import { BudokanIntro } from "@/features/story/components/budokan/BudokanIntro";
 import { BudokanShell } from "@/features/story/components/budokan/BudokanShell";
 import { FlashbackNotes } from "@/features/story/components/budokan/FlashbackNotes";
-import { RewindStrip } from "@/features/story/components/budokan/RewindStrip";
+import { ConcertCollage } from "@/features/story/components/budokan/ConcertCollage";
 import { TokyoDomeShout } from "@/features/story/components/budokan/TokyoDomeShout";
 import { FactsList } from "@/features/story/components/shared/FactsList";
 import { PullQuote } from "@/features/story/components/shared/PullQuote";
@@ -9,7 +9,8 @@ import {
   BUDOKAN_BRIDGE_NOTE,
   BUDOKAN_BRIDGE_QUOTE,
   BUDOKAN_FACTS,
-  BUDOKAN_REWIND_FRAMES,
+  BUDOKAN_CREDIT,
+  CONCERT_TILES,
 } from "@/features/story/helpers/budokanContent";
 import { useBudokanScene } from "@/features/story/hooks/useBudokanScene";
 
@@ -31,9 +32,7 @@ export const BudokanContainer = () => {
           tone="comet"
         />
       }
-      strip={
-        <RewindStrip frames={BUDOKAN_REWIND_FRAMES} stripRef={scene.stripRef} frameRefs={scene.frameRefs} />
-      }
+      collage={<ConcertCollage tiles={CONCERT_TILES} collageRef={scene.collageRef} credit={BUDOKAN_CREDIT} />}
     />
   );
 };

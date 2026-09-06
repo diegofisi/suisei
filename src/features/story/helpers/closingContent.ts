@@ -4,7 +4,6 @@ import { hashNoise } from "@/common/helpers/math";
 export const CLOSING_SECTION_LABEL = "Cierre y preguntas";
 
 // --- Phase A: the end roll -------------------------------------------------
-export const CLOSING_EYEBROW = "Escena 12 · End roll";
 export const CLOSING_END_ROLL =
   "Cuando cayó el telón del Budokan y corrieron los créditos, el público no se fue. Se quedó cantando, a capela, la melodía de «comet» —su primera canción, la de los seis mil suscriptores—, aunque ella ya no estaba en el escenario.";
 /** The audience carrying her back is the human beat: SAKURA. */

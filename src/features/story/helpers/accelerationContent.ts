@@ -2,7 +2,6 @@
 // Every figure comes from guion.md (Diapo 6); the concert line comes from CLAUDE.md §4.
 import type { FactViewModel } from "@/features/story/interfaces/StoryViewModels";
 
-export const ACCELERATION_EYEBROW = "Escena 6 · 2020–2021";
 
 export const ACCELERATION_HEADLINE = "Un cohete de tres etapas";
 
@@ -21,7 +20,7 @@ export const ACCELERATION_QUOTE_POINT = 0.85;
 export const ACCELERATION_COUNT_UP_MS = 1500;
 
 export const ACCELERATION_CREDIT =
-  "Renders generados a partir de los diseños © COVER Corp. · uso en clase";
+  "Renders generados a partir de los diseños © COVER Corp.";
 
 export const ACCELERATION_QUOTE = "«La chica que empezó con seis mil empezó a llenar salas.»";
 

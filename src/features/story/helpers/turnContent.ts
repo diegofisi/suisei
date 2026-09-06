@@ -1,7 +1,6 @@
 // Scene 5 — "El giro: INoNaKa Music y hololive (2019)" (guion.md, Diapo 5).
 // This is where the page turns from SAKURA to COMET.
 
-export const TURN_EYEBROW = "Escena 5 · 2019";
 
 /** The word she kept hearing, and the word the story actually ends on. */
 export const TURN_STATEMENT_BEFORE = "«No»";
@@ -33,7 +32,7 @@ export const TURN_RENDER_SRC = "img/2019-12_hololive-default.png";
 export const TURN_RENDER_ALT =
   "Render del primer traje de Suisei en hololive: boina a cuadros, chaqueta gris y calcetines desparejos";
 export const TURN_RENDER_TAG = "Modelo hololive · dic. 2019 · Teshima Nari";
-export const TURN_RENDER_CREDIT = "Render generado a partir del diseño © COVER Corp. · uso en clase";
+export const TURN_RENDER_CREDIT = "Render generado a partir del diseño © COVER Corp.";
 
 export const TURN_CLOSING_HEADLINE = "La chica que una vez fue rechazada… ya estaba adentro.";
 export const TURN_CLOSING_NOTE =

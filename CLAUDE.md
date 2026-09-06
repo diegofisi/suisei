@@ -88,7 +88,8 @@ a partir de los diseños oficiales: sirven como recorte de la web, **no** como f
 | `2024-03_oriental-suit.jpg` | 東洋風スーツ (traje oriental, 8.º modelo 2D): negro y dorado, cuello mao, capa corta con cadenas, pantalón, tacones. Tema "gángster oriental años 20", hay 2 colores | 15/03/2024 | Ishihara Tatsuya (diseño) + Saekiyahiro (confección) |
 | `2025-02_budokan-comet.jpg` | Traje **comet** del Budokan: el traje indie "vestido de gala" — boina blanca, corbata degradada, gran lazo rosa, falda de volantes tornasolados (prisma), sandalias | 01/02/2025, Nippon Budokan, estreno en "comet -TAKU INOUE Remix-" | Saekiyahiro |
 
-Otras imágenes en `public/img/`: `2018-03_perfil-debut.png` (ficha de perfil del debut, escena 3), `firma.jpg` (firma manuscrita, negro sobre blanco → partículas de
+Capturas del concierto SuperNova: `public/concert/concert-01..15.jpg` (1400 px, collage de la escena 8;
+los PNG originales quedaron fuera del repo en `files/concert-src/`). Otras imágenes en `public/img/`: `2018-03_perfil-debut.png` (ficha de perfil del debut, escena 3), `firma.jpg` (firma manuscrita, negro sobre blanco → partículas de
 la escena 1), `emblema.jpg`, `studio-stellar.jpg` (logo, punto 2026), `supernova-kv.jpg`,
 `the-first-take.jpg`, `ft-songs-284.jpg`, `retrato-amakara.jpg`, `corbata-estrella.jpg`,
 `chibi-risa.jpg`, `chibi-headpat.jpg`, `chibi-gun.jpg`, `meme-3d.jpg` (fan art; solo con crédito).

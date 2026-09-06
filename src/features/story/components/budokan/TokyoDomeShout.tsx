@@ -9,7 +9,7 @@ const STATIC = '[data-static="true"] &';
 export const TokyoDomeShout = () => (
   <Stack
     sx={{
-      "--slam": "clamp(0, (var(--p, 0) - 0.78) / 0.08, 1)",
+      "--slam": "clamp(0, (var(--p, 0) - 0.82) / 0.08, 1)",
       alignItems: "center",
       textAlign: "center",
       gap: "1.2rem",

@@ -4,10 +4,7 @@ import { FlashbackNotes } from "@/features/story/components/budokan/FlashbackNot
 import { ConcertCollage } from "@/features/story/components/budokan/ConcertCollage";
 import { TokyoDomeShout } from "@/features/story/components/budokan/TokyoDomeShout";
 import { FactsList } from "@/features/story/components/shared/FactsList";
-import { PullQuote } from "@/features/story/components/shared/PullQuote";
 import {
-  BUDOKAN_BRIDGE_NOTE,
-  BUDOKAN_BRIDGE_QUOTE,
   BUDOKAN_FACTS,
   BUDOKAN_CREDIT,
   CONCERT_TILES,
@@ -24,14 +21,6 @@ export const BudokanContainer = () => {
       facts={<FactsList facts={BUDOKAN_FACTS} listRef={scene.factsRef} />}
       notes={<FlashbackNotes />}
       dome={<TokyoDomeShout />}
-      bridge={
-        <PullQuote
-          quote={BUDOKAN_BRIDGE_QUOTE}
-          note={BUDOKAN_BRIDGE_NOTE}
-          quoteRef={scene.bridgeRef}
-          tone="comet"
-        />
-      }
       collage={<ConcertCollage tiles={CONCERT_TILES} collageRef={scene.collageRef} credit={BUDOKAN_CREDIT} />}
     />
   );

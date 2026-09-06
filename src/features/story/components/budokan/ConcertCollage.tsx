@@ -30,7 +30,7 @@ export const ConcertCollage = ({ tiles, collageRef, credit }: ConcertCollageProp
       position: "relative",
       zIndex: 1,
       // Fades in once the intro is gone, then dims to a backdrop when the 2018 note lands on top of it.
-      opacity: "calc(clamp(0, (var(--p, 0) - 0.34) / 0.06, 1) * (1 - 0.72 * clamp(0, (var(--p, 0) - 0.62) / 0.05, 1)))",
+      opacity: "calc(clamp(0, (var(--p, 0) - 0.28) / 0.06, 1) * (1 - 0.72 * clamp(0, (var(--p, 0) - 0.56) / 0.05, 1)))",
       transition: "opacity 0.3s ease",
       [STATIC]: { opacity: 1 },
     }}

@@ -17,7 +17,7 @@ interface BudokanShellProps {
   facts: ReactNode;
   notes: ReactNode;
   dome: ReactNode;
-  bridge: ReactNode;
+  bridge?: ReactNode;
   collage: ReactNode;
 }
 
@@ -27,7 +27,7 @@ const STATIC = '[data-static="true"] &';
 export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, collage }: BudokanShellProps) => (
   <Box
     component="section"
-    data-beats="0.18,0.4,0.66,0.86"
+    data-beats="0.52,0.62,0.72,0.9"
     ref={sectionRef}
     aria-label="El momento: Budokan SuperNova, 1 de febrero de 2025"
     data-step="0"
@@ -82,7 +82,7 @@ export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, co
         <Box sx={FACTS_LAYER_SX}>{facts}</Box>
         <Box sx={NOTES_LAYER_SX}>{notes}</Box>
         <Box sx={DOME_LAYER_SX}>{dome}</Box>
-        <Box sx={BRIDGE_LAYER_SX}>{bridge}</Box>
+        {bridge && <Box sx={BRIDGE_LAYER_SX}>{bridge}</Box>}
       </Box>
 
       {collage}

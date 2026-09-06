@@ -16,7 +16,7 @@ export const INTRO_LAYER_SX: SxProps<Theme> = {
   justifySelf: "start",
   width: "46%",
   // Fully lit at p = 0 so the year and title are there the moment the stage sticks.
-  opacity: fadeWindow(-0.05, 0.05, 0.26, 0.08),
+  opacity: fadeWindow(-0.05, 0.05, 0.22, 0.08),
   [NARROW_MEDIA]: { width: "100%", alignSelf: "start" },
 };
 
@@ -27,7 +27,8 @@ export const FACTS_LAYER_SX: SxProps<Theme> = {
   alignSelf: "end",
   justifySelf: "end",
   width: "min(46%, 52ch)",
-  opacity: fadeWindow(0.14, 0.06, 0.26, 0.06),
+  // Facts sit next to the year from the very first frame of the scene.
+  opacity: fadeWindow(-0.05, 0.05, 0.22, 0.06),
   [NARROW_MEDIA]: { width: "100%" },
 };
 
@@ -37,7 +38,7 @@ export const NOTES_LAYER_SX: SxProps<Theme> = {
   alignSelf: "end",
   justifySelf: "stretch",
   width: "100%",
-  opacity: fadeWindow(0.6, 0.06, 0.72, 0.06),
+  opacity: fadeWindow(0.56, 0.05, 0.76, 0.05),
 };
 
 /** Step 3: the new dream, shouted by the room. */
@@ -46,7 +47,8 @@ export const DOME_LAYER_SX: SxProps<Theme> = {
   alignSelf: "center",
   justifySelf: "center",
   width: "min(100%, 62ch)",
-  opacity: fadeWindow(0.74, 0.06, 0.88, 0.06),
+  // Stays until the next scene takes over: the shout is the last beat of the night.
+  opacity: fadeWindow(0.8, 0.05, 1.5, 0.1),
 };
 
 /** Step 4: the bridge into scene 9. Its own reveal comes from `data-on`, not from --p. */

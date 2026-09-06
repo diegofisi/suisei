@@ -6,7 +6,7 @@ import { COMET_NOTE } from "@/features/story/helpers/budokanContent";
 import { NARROW_MEDIA } from "@/features/story/helpers/layout";
 
 /** The M13 note trails the quote card by a few percent of scroll, when the gold frame lights up again. */
-const NOTE_OPACITY = "clamp(0, (var(--p, 0) - 0.66) / 0.05, 1)";
+const NOTE_OPACITY = "clamp(0, (var(--p, 0) - 0.68) / 0.04, 1)";
 const STATIC = '[data-static="true"] &';
 
 /** Tail of step 2: the 2018 note over the leftmost frame, the "comet" note over the gold one. */

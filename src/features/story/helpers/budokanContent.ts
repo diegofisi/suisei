@@ -81,10 +81,10 @@ export const BUDOKAN_BRIDGE_NOTE = "";
 // The components mirror these numbers as CSS clamp() windows on --p.
 /** The year wipes in once the section top is within this fraction of the viewport height. */
 export const YEAR_FILL_PHASE = { start: 0, end: 0.6 } as const;
-export const COLLAGE_PHASE = { start: 0.36, end: 0.62 } as const;
+export const COLLAGE_PHASE = { start: 0.3, end: 0.52 } as const;
 /** p at which the facts list starts its staggered reveal (step 1). */
-export const FACTS_REVEAL_AT = 0.18;
+export const FACTS_REVEAL_AT = 0;
 /** p at which the bridge pull quote reveals (step 4). */
 export const BRIDGE_REVEAL_AT = 0.9;
 /** Upper bound of steps 0..3; anything past the last bound is step 4. */
-export const BUDOKAN_STEP_BOUNDS: readonly number[] = [0.18, 0.38, 0.72, 0.9];
+export const BUDOKAN_STEP_BOUNDS: readonly number[] = [0.3, 0.56, 0.78, 0.95];

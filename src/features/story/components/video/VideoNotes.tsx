@@ -16,7 +16,7 @@ export const VideoNotes = ({ notesRef }: VideoNotesProps) => (
     ref={notesRef}
     sx={{
       gap: "1rem",
-      maxWidth: "72ch",
+      maxWidth: "40ch",
       opacity: 0,
       transform: "translateY(16px)",
       transition: "opacity 0.7s ease, transform 0.7s cubic-bezier(.2,.8,.2,1)",
@@ -29,7 +29,7 @@ export const VideoNotes = ({ notesRef }: VideoNotesProps) => (
     <Typography variant="h4" sx={{ color: "secondary.main" }}>
       {VIDEO_THESIS}
     </Typography>
-    <Typography variant="caption" color="text.secondary">
+    <Typography variant="body2" color="text.secondary">
       {VIDEO_LYRIC_NOTE}
     </Typography>
   </Stack>

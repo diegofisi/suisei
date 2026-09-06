@@ -43,7 +43,7 @@ export const todayFacts: FactViewModel[] = [
     tone: "comet",
     parts: [
       { text: "Primera VTuber en ROCK IN JAPAN FESTIVAL", strong: true },
-      { text: " (19/09/2026, Chiba) (fecha por verificar)." },
+      { text: " (19/09/2026, Chiba)." },
     ],
   },
   {

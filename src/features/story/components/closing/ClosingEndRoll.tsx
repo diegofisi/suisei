@@ -16,8 +16,10 @@ export const ClosingEndRoll = ({ chorusRef }: ClosingEndRollProps) => (
   <Box
     sx={{
       display: "grid",
-      gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1fr)",
-      gap: "5vw",
+      // Content-sized columns pulled to the centre, so text and word stay close on wide screens too.
+      gridTemplateColumns: "minmax(0, 32ch) auto",
+      justifyContent: "center",
+      gap: "clamp(2.5rem, 5vw, 6rem)",
       alignItems: "center",
       width: "100%",
       [NARROW_MEDIA]: {
@@ -26,7 +28,7 @@ export const ClosingEndRoll = ({ chorusRef }: ClosingEndRollProps) => (
       },
     }}
   >
-    <Stack sx={{ gap: "1.4rem", maxWidth: "30ch" }}>
+    <Stack sx={{ gap: "1.4rem", maxWidth: "30ch", justifySelf: "end" }}>
       <Typography variant="h3" component="p" sx={{ color: "text.primary", fontWeight: 600 }}>
         {CLOSING_END_ROLL}
       </Typography>

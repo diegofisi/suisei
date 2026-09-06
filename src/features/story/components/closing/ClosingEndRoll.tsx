@@ -26,11 +26,11 @@ export const ClosingEndRoll = ({ chorusRef }: ClosingEndRollProps) => (
       },
     }}
   >
-    <Stack sx={{ gap: "1.1rem", maxWidth: "46ch" }}>
-      <Typography variant="body1" color="text.secondary">
+    <Stack sx={{ gap: "1.4rem", maxWidth: "30ch" }}>
+      <Typography variant="h3" component="p" sx={{ color: "text.primary", fontWeight: 600 }}>
         {CLOSING_END_ROLL}
       </Typography>
-      <Typography variant="body2" sx={{ color: "secondary.main", maxWidth: "38ch" }}>
+      <Typography variant="h4" component="p" sx={{ color: "secondary.main" }}>
         {CLOSING_END_ROLL_CAPTION}
       </Typography>
     </Stack>

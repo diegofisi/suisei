@@ -18,6 +18,9 @@ export const FactItem = ({ fact, index }: FactItemProps) => {
       spacing={1.75}
       sx={{
         alignItems: "flex-start",
+        // Same font size as the sentence, so the dot can be centred on its first line with em math.
+        fontSize: (theme) => theme.typography.body1.fontSize,
+        lineHeight: 1.6,
         opacity: 0,
         transform: "translateX(-14px)",
         transition: "opacity 0.6s ease, transform 0.7s cubic-bezier(.2,.8,.2,1)",
@@ -33,7 +36,9 @@ export const FactItem = ({ fact, index }: FactItemProps) => {
         aria-hidden
         sx={{
           flex: "0 0 auto",
-          marginTop: "0.62em",
+          // First line box is 1.6em tall: centre a 7px dot in it. (Stack resets child margins, so offset via `top`.)
+          position: "relative",
+          top: "calc(0.8em - 3.5px)",
           width: 7,
           height: 7,
           borderRadius: "50%",

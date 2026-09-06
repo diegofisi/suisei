@@ -103,11 +103,11 @@ export const ConcertWall = ({ tiles, wallRef, credit }: ConcertWallProps) => (
                 transformStyle: "preserve-3d",
                 filter: "brightness(0.22) saturate(0.5)",
                 "@keyframes lidOpen": {
-                  "0%": { transform: "rotateX(-96deg)", filter: "brightness(0.18) saturate(0.4)" },
-                  "55%": { transform: "rotateX(9deg)", filter: "brightness(1.2) saturate(1.05)" },
-                  "100%": { transform: "rotateX(0deg)", filter: "brightness(1) saturate(1)" },
+                  "0%": { transform: "rotateX(-96deg) scale(0.96)", filter: "brightness(0.18) saturate(0.4)" },
+                  "55%": { transform: "rotateX(9deg) scale(1.02)", filter: "brightness(1.25) saturate(1.05)" },
+                  "100%": { transform: "rotateX(0deg) scale(1)", filter: "brightness(1) saturate(1)" },
                 },
-                '&[data-lit="true"]': { animation: "lidOpen 0.95s cubic-bezier(0.2, 0.8, 0.2, 1) both" },
+                '&[data-lit="true"]': { animation: "lidOpen 1.05s cubic-bezier(0.2, 0.8, 0.2, 1) both" },
                 [STATIC]: { filter: "none", animation: "none" },
               }}
             >

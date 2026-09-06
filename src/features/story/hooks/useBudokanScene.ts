@@ -113,18 +113,35 @@ export const useBudokanScene = (): BudokanSceneRefs => {
     dealWall(dealt);
   });
 
+  /** Spread the lids' clocks over the next few seconds, so swaps trickle continuously instead of arriving in waves. */
+  const reseedClocks = (now: number) => {
+    for (const tile of tiles()) tile.nextSwapAt = now + Math.random() * (WALL_HOLD_MAX_MS + WALL_HOLD_MIN_MS);
+  };
+
   // Keep the wall alive while the scene is on screen: a coarse tick checks which lids are due to swap.
   useEffect(() => {
     if (isStatic) return;
+    let onScreen = false;
     const timer = window.setInterval(() => {
       const section = sectionRef.current;
       if (!section) return;
       const rect = section.getBoundingClientRect();
-      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
-      swapDueLids(performance.now());
+      const visible = rect.bottom > 0 && rect.top < window.innerHeight;
+      if (!visible) {
+        onScreen = false;
+        return;
+      }
+      const now = performance.now();
+      // Clocks seeded while the scene was off screen would all be overdue at once: reseed on entry.
+      if (!onScreen) {
+        onScreen = true;
+        reseedClocks(now);
+        return;
+      }
+      swapDueLids(now);
     }, WALL_TICK_MS);
     return () => window.clearInterval(timer);
-    // swapDueLids only reads refs.
+    // swapDueLids / reseedClocks only read refs.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isStatic]);
 

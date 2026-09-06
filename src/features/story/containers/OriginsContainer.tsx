@@ -4,12 +4,9 @@ import { StatsClipBody } from "@/features/story/components/origins/StatsClipBody
 import { SubscriberCounter } from "@/features/story/components/origins/SubscriberCounter";
 import { ClipFan } from "@/features/story/components/shared/ClipFan";
 import { FactsList } from "@/features/story/components/shared/FactsList";
-import { PullQuote } from "@/features/story/components/shared/PullQuote";
 import { YearReveal } from "@/features/story/components/shared/YearReveal";
 import {
   ORIGINS_CREDIT,
-  ORIGINS_QUOTE,
-  ORIGINS_QUOTE_NOTE,
   ORIGINS_YEAR,
   originsClips,
   originsFacts,
@@ -31,7 +28,6 @@ export const OriginsContainer = () => {
           <OriginsHeadline />
           <FactsList facts={originsFacts} listRef={scene.factsRef} />
           <SubscriberCounter rowRef={scene.counterRef} valueRef={scene.counterValueRef} />
-          <PullQuote quote={ORIGINS_QUOTE} note={ORIGINS_QUOTE_NOTE} quoteRef={scene.quoteRef} />
         </>
       }
       right={

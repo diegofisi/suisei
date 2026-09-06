@@ -2,7 +2,6 @@ import { LessonCard } from "@/features/story/components/rejection/LessonCard";
 import { RejectionHeadline } from "@/features/story/components/rejection/RejectionHeadline";
 import { RejectionStack } from "@/features/story/components/rejection/RejectionStack";
 import { FactsList } from "@/features/story/components/shared/FactsList";
-import { PullQuote } from "@/features/story/components/shared/PullQuote";
 import { SceneShell } from "@/features/story/components/shared/SceneShell";
 import {
   REJECTION_ANSWER,
@@ -10,8 +9,6 @@ import {
   REJECTION_LESSON_LABEL,
   REJECTION_LESSON_NUMBER,
   REJECTION_LESSON_TEXT,
-  REJECTION_QUOTE,
-  REJECTION_QUOTE_NOTE,
   rejectionConditions,
   rejectionFacts,
 } from "@/features/story/helpers/rejectionContent";
@@ -44,12 +41,6 @@ export const RejectionContainer = () => {
             answer={REJECTION_ANSWER}
             stackRef={scene.stackRef}
             cardRefs={scene.cardRefs}
-          />
-          <PullQuote
-            quote={REJECTION_QUOTE}
-            note={REJECTION_QUOTE_NOTE}
-            quoteRef={scene.quoteRef}
-            tone="sakura"
           />
         </>
       }

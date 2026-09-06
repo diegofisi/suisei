@@ -25,6 +25,10 @@ export interface ClosingSceneViewModel {
 const SWAY_FROM = 0.02;
 
 /** The brain of scene 12: the sung "comet", the two lighting lines and the thanks. */
+/** Timed chorus after arriving: a short breath, then the word fills over ~2.6 s. */
+const CHORUS_TIMED_DELAY_MS = 400;
+const CHORUS_TIMED_MS = 2600;
+
 export const useClosingScene = (): ClosingSceneViewModel => {
   const reducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
@@ -33,6 +37,8 @@ export const useClosingScene = (): ClosingSceneViewModel => {
   const litWordCount = useRef(-1);
 
   const lines = useMemo(buildClosingLines, []);
+  /** rAF time at which the stage stuck to the top; the crowd then sings "comet" without more scrolling. */
+  const arrivedAt = useRef<number | null>(null);
 
   // Writes only on change: the loop runs at 60 fps and attribute churn forces style recalcs.
   const applyWordCount = (count: number) => {
@@ -49,12 +55,18 @@ export const useClosingScene = (): ClosingSceneViewModel => {
     if (chorus && chorus.dataset.singing !== flag) chorus.dataset.singing = flag;
   };
 
-  useScrollScrub(({ viewportHeight }) => {
+  useScrollScrub(({ viewportHeight, time }) => {
     const section = sectionRef.current;
     if (reducedMotion || !section) return;
 
     const progress = stickyProgressOf(section, viewportHeight);
-    const sung = phase(progress, CHORUS_PHASE.start, CHORUS_PHASE.end);
+    // Landing on the scene (presenter button) starts the chorus on its own; scrolling can only be ahead of it.
+    const sectionTop = section.getBoundingClientRect().top;
+    if (sectionTop <= viewportHeight * 0.15 && arrivedAt.current === null) arrivedAt.current = time;
+    if (sectionTop > viewportHeight * 0.9) arrivedAt.current = null;
+    const timed =
+      arrivedAt.current === null ? 0 : phase(time - arrivedAt.current, CHORUS_TIMED_DELAY_MS, CHORUS_TIMED_DELAY_MS + CHORUS_TIMED_MS);
+    const sung = Math.max(timed, phase(progress, CHORUS_PHASE.start, CHORUS_PHASE.end));
     section.style.setProperty("--p", progress.toFixed(4));
     section.style.setProperty("--sing", sung.toFixed(4));
     applySinging(sung > SWAY_FROM && progress < END_ROLL_UNTIL);

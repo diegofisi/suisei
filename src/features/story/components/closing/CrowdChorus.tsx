@@ -30,7 +30,7 @@ export const CrowdChorus = ({ chorusRef }: CrowdChorusProps) => (
           inset: 0,
           color: "text.primary",
           fontSize: WORD_SIZE,
-          clipPath: "inset(0 calc(100% - var(--sing, 0) * 100%) 0 0)",
+          clipPath: "inset(-40px calc((1 - var(--sing, 0)) * (100% + 40px) - 40px) -40px -40px)", // bleeds past the box so the last glyph (and the glow) is fully painted at 1
           pointerEvents: "none",
         }}
       >

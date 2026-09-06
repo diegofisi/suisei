@@ -5,7 +5,7 @@ import { VIDEO_INTRO, VIDEO_TITLE } from "@/features/story/helpers/videoContent"
 export const VideoIntro = () => (
   <Stack sx={{ gap: "1rem", maxWidth: "72ch" }}>
     <Typography variant="h3">{VIDEO_TITLE}</Typography>
-    <Typography variant="body1" color="text.secondary">
+    <Typography variant="label" sx={{ color: "secondary.main", lineHeight: 1.6 }}>
       {VIDEO_INTRO}
     </Typography>
   </Stack>

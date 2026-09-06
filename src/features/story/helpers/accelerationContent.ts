@@ -22,9 +22,9 @@ export const ACCELERATION_COUNT_UP_MS = 1500;
 export const ACCELERATION_CREDIT =
   "Renders generados a partir de los diseños © COVER Corp.";
 
-export const ACCELERATION_QUOTE = "«La chica que empezó con seis mil empezó a llenar salas.»";
+export const ACCELERATION_QUOTE = "6.000 → 1.000.000";
 
-export const ACCELERATION_QUOTE_NOTE = "Pero el cometa todavía no había terminado de encenderse.";
+export const ACCELERATION_QUOTE_NOTE = "";
 
 /**
  * Selector list that matches once the rocket has reached `minStage` (1-based).

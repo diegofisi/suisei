@@ -5,8 +5,7 @@ import type { FactViewModel } from "@/features/story/interfaces/StoryViewModels"
 export const BUDOKAN_YEAR = "2025";
 export const BUDOKAN_DATELINE = "01 · 02 · 2025 — Nippon Budokan";
 export const BUDOKAN_TITLE = "SuperNova";
-export const BUDOKAN_LEAD =
-  "La catedral del rock japonés, donde tocaron los Beatles. Ella anunció ese sueño en su primer video, en 2018, cuando nadie la veía. Siete años después… lo estaba haciendo.";
+export const BUDOKAN_LEAD = "";
 
 export const BUDOKAN_FACTS: FactViewModel[] = [
   {
@@ -71,18 +70,17 @@ export const DREAM_QUOTE_TEARS = "La cámara la captó llorando.";
 export const COMET_NOTE =
   "M13 «comet -TAKU INOUE Remix-» — estrena el traje indie rediseñado. Canta llorando.";
 
-export const DOME_LEAD =
-  "Cerca del final preguntó: «Ya cumplí mi sueño del Budokan… ¿cuál es el siguiente?». Y todo el recinto gritó:";
+export const DOME_LEAD = "«¿Cuál es el siguiente sueño?»";
 export const DOME_SHOUT = "¡¡TOKIO DOME!!";
 export const DOME_CAPTION = "El público, al unísono.";
 
-export const BUDOKAN_BRIDGE_QUOTE =
-  "«Pero el momento más importante de esa noche… es el que les voy a mostrar ahora.»";
+export const BUDOKAN_BRIDGE_QUOTE = "▶ «Orbital Period»";
 export const BUDOKAN_BRIDGE_NOTE = "";
 
 // Scene pacing, in sticky-progress units (p = 0 at section top, 1 at its bottom).
 // The components mirror these numbers as CSS clamp() windows on --p.
-export const YEAR_FILL_PHASE = { start: 0, end: 0.15 } as const;
+/** The year wipes in once the section top is within this fraction of the viewport height. */
+export const YEAR_FILL_PHASE = { start: 0, end: 0.6 } as const;
 export const COLLAGE_PHASE = { start: 0.36, end: 0.62 } as const;
 /** p at which the facts list starts its staggered reveal (step 1). */
 export const FACTS_REVEAL_AT = 0.18;

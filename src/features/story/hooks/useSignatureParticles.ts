@@ -23,7 +23,7 @@ const FORM_SPAN = FORM_END - FORM_START - MAX_STAGGER;
 /** Scroll point where the cloud has finished drifting to the center. */
 const DRIFT_END = 0.3;
 
-// The resting shape follows public/img/cometa-referencia.png: a blazing head low on the right and a long,
+// The resting shape follows files/unused-img/cometa-referencia.png (the user's reference photo): a blazing head low on the right and a long,
 // wide tail of filaments streaming to the upper left across the whole stage.
 const HEAD_SHARE = 0.13;
 const COMA_SHARE = 0;

@@ -16,6 +16,7 @@ interface TurnShellProps {
 export const TurnShell = ({ sectionRef, statement, milestones, render, closing }: TurnShellProps) => (
   <Box
     component="section"
+    data-beats="0.5"
     ref={sectionRef}
     aria-label="El giro: INoNaKa Music y hololive, 2019"
     sx={{ position: "relative", height: TURN_SECTION_HEIGHT }}

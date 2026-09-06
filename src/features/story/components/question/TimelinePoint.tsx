@@ -16,12 +16,13 @@ interface TimelinePointProps {
 const LIT = "[data-lit='true'] &";
 
 /** Frame sizes: the full-body renders need a tall frame; logos get a circle. The destination (today) is the biggest. */
-const PORTRAIT_FRAME = { width: 168, height: 260 };
-const PORTRAIT_FRAME_DESTINATION = { width: 190, height: 292 };
-const PORTRAIT_FRAME_COMPACT = { width: 48, height: 72 };
-const CIRCLE_FRAME = { width: 124, height: 124 };
-const CIRCLE_FRAME_DESTINATION = { width: 150, height: 150 };
-const CIRCLE_FRAME_COMPACT = { width: 48, height: 48 };
+// Capped by viewport height too, so a 768px laptop keeps the frames under the question.
+const PORTRAIT_FRAME = { width: "min(168px, 19.4vh)", height: "min(260px, 30vh)" };
+const PORTRAIT_FRAME_DESTINATION = { width: "min(190px, 22vh)", height: "min(292px, 34vh)" };
+const PORTRAIT_FRAME_COMPACT = { width: "48px", height: "72px" };
+const CIRCLE_FRAME = { width: "min(124px, 15vh)", height: "min(124px, 15vh)" };
+const CIRCLE_FRAME_DESTINATION = { width: "min(150px, 18vh)", height: "min(150px, 18vh)" };
+const CIRCLE_FRAME_COMPACT = { width: "48px", height: "48px" };
 
 /** One milestone: whole render above the rail, dot on it, year + label below. Pops when the comet reaches it. */
 export const TimelinePoint = ({ point, index, count, keepYearWhenTight, rootRef }: TimelinePointProps) => {

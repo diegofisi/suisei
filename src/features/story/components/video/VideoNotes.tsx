@@ -1,7 +1,6 @@
 import type { Ref } from "react";
 import { Stack, Typography } from "@mui/material";
 import {
-  VIDEO_ALTERNATIVES,
   VIDEO_CUE,
   VIDEO_LYRIC_NOTE,
   VIDEO_THESIS,
@@ -32,9 +31,6 @@ export const VideoNotes = ({ notesRef }: VideoNotesProps) => (
     </Typography>
     <Typography variant="caption" color="text.secondary">
       {VIDEO_LYRIC_NOTE}
-    </Typography>
-    <Typography variant="caption" color="text.secondary">
-      {VIDEO_ALTERNATIVES}
     </Typography>
   </Stack>
 );

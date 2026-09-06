@@ -9,7 +9,7 @@ interface CrowdChorusProps {
   chorusRef: Ref<HTMLDivElement>;
 }
 
-const WORD_SIZE = "clamp(56px, 11vw, 168px)";
+const WORD_SIZE = "clamp(56px, 8.6vw, 168px)";
 
 /** The word "comet" sung by the audience: an outline that fills left to right with `--sing`. */
 export const CrowdChorus = ({ chorusRef }: CrowdChorusProps) => (

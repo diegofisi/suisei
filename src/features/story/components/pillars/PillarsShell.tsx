@@ -16,6 +16,7 @@ interface PillarsShellProps {
 export const PillarsShell = ({ sectionRef, intro, cards, bonus, quote }: PillarsShellProps) => (
   <Box
     component="section"
+    data-beats="0.2,0.42,0.64,0.8"
     ref={sectionRef}
     aria-label={PILLARS_SECTION_LABEL}
     data-step="0"

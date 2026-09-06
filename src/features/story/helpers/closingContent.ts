@@ -4,11 +4,9 @@ import { hashNoise } from "@/common/helpers/math";
 export const CLOSING_SECTION_LABEL = "Cierre y preguntas";
 
 // --- Phase A: the end roll -------------------------------------------------
-export const CLOSING_END_ROLL =
-  "Cuando cayó el telón del Budokan y corrieron los créditos, el público no se fue. Se quedó cantando, a capela, la melodía de «comet» —su primera canción, la de los seis mil suscriptores—, aunque ella ya no estaba en el escenario.";
+export const CLOSING_END_ROLL = "End roll del Budokan: el público canta «comet» a capela.";
 /** The audience carrying her back is the human beat: SAKURA. */
-export const CLOSING_END_ROLL_CAPTION =
-  "Ella los había cargado a ellos durante su carrera. Esa noche, ellos la cargaron a ella.";
+export const CLOSING_END_ROLL_CAPTION = "Ella los cargó durante años. Esa noche, ellos la cargaron a ella.";
 export const CHORUS_WORD = "comet";
 
 export interface CrowdDotViewModel {

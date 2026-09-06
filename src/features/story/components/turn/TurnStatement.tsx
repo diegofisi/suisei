@@ -50,12 +50,14 @@ export const TurnStatement = ({ before, after, body }: TurnStatementProps) => (
       </Typography>
     </Box>
 
-    <Typography
-      variant="body1"
-      color="text.secondary"
-      sx={{ maxWidth: "42ch", [NARROW_MEDIA]: { maxWidth: "100%" } }}
-    >
-      {body}
-    </Typography>
+    {body && (
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ maxWidth: "42ch", [NARROW_MEDIA]: { maxWidth: "100%" } }}
+      >
+        {body}
+      </Typography>
+    )}
   </Stack>
 );

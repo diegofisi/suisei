@@ -51,7 +51,7 @@ export const theme = createTheme({
     body1: { fontWeight: 300, lineHeight: 1.6, fontSize: "clamp(15px, 1.15vw, 18px)" },
     body2: { fontWeight: 300, lineHeight: 1.5, fontSize: 15 },
     caption: { fontWeight: 300, lineHeight: 1.45, fontSize: 12.5, letterSpacing: "0.01em" },
-    display: { fontFamily: FONT_DISPLAY, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.05em", fontSize: "clamp(90px, 16vw, 240px)" },
+    display: { fontFamily: FONT_DISPLAY, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.05em", fontSize: "clamp(72px, 11.5vw, 220px)" },
     label: { fontFamily: FONT_DISPLAY, fontWeight: 500, fontSize: 12, letterSpacing: "0.2em", textTransform: "uppercase", lineHeight: 1 },
     jp: { fontFamily: FONT_JP, fontWeight: 900, fontSize: "clamp(14px, 1.4vw, 20px)", letterSpacing: "0.5em", lineHeight: 1 },
   },

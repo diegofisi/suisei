@@ -10,29 +10,29 @@ export interface PillarViewModel {
 }
 
 export const PILLARS_SECTION_LABEL = "La lección: tres pilares";
-export const PILLARS_HEADLINE = "Volvamos a la pregunta del inicio.";
-export const PILLARS_LEAD = "Yo encontré tres respuestas.";
+export const PILLARS_HEADLINE = "La pregunta del inicio";
+export const PILLARS_LEAD = "Tres respuestas.";
 
 export const pillars: PillarViewModel[] = [
   {
     id: "identity",
     numeral: "01",
     title: "Identidad inquebrantable",
-    body: "Le ofrecieron éxito a cambio de renunciar a su nombre, y dijo que no.",
+    body: "Éxito a cambio de su nombre: dijo que no.",
     step: 1,
   },
   {
     id: "consistency",
     numeral: "02",
     title: "Consistencia invisible",
-    body: "Nadie la aplaudía con seis mil suscriptores… pero seguía publicando. El músculo de la resiliencia se entrena en la oscuridad.",
+    body: "6.000 suscriptores y seguía publicando. El músculo se entrena en la oscuridad.",
     step: 2,
   },
   {
     id: "pivot",
     numeral: "03",
     title: "Flexibilidad para pivotar",
-    body: "Quiso ser idol real, y falló. Fue VTuber independiente, y era pobre. Entró a un sello, y creció. Hoy es su propia jefa.",
+    body: "Idol → VTuber indie → sello → su propia agencia.",
     step: 3,
   },
 ];

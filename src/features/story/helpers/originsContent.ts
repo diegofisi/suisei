@@ -65,12 +65,12 @@ export const originsFacts: FactViewModel[] = [
 
 export const originsCounterCaption: FactFragment[] = [
   { text: "suscriptores", strong: true },
-  { text: " después de un año entero. Decenas de viewers por stream. Pensó en renunciar varias veces." },
+  { text: " tras un año entero." },
 ];
 
 export const ORIGINS_QUOTE = "«No quería ser otra. Yo soy Hoshimachi Suisei.»";
 
-export const ORIGINS_QUOTE_NOTE = "Su respuesta a las agencias que le pedían abandonar el nombre.";
+export const ORIGINS_QUOTE_NOTE = "";
 
 // Order = stacking order: the character render goes last so it lands on top of the fan.
 export const originsClips: ClipViewModel[] = [

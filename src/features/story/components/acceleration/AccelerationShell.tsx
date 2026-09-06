@@ -17,6 +17,7 @@ interface AccelerationShellProps {
 export const AccelerationShell = ({ sectionRef, header, rocket, telemetry, quote }: AccelerationShellProps) => (
   <Box
     component="section"
+    data-beats="0.15,0.45,0.75"
     ref={sectionRef}
     aria-label="La aceleración, 2020–2021"
     data-stage="0"

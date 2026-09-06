@@ -10,7 +10,8 @@ interface QuestionShellProps {
 
 /** Tall section + sticky stage. The scene progress (--p) is written on the section and inherited by everything inside. */
 export const QuestionShell = ({ sectionRef, question, timeline }: QuestionShellProps) => (
-  <Box component="section" ref={sectionRef} sx={{ position: "relative", height: "300vh" }}>
+  <Box component="section"
+    data-beats="0.55" ref={sectionRef} sx={{ position: "relative", height: "300vh" }}>
     <Box
       sx={{
         position: "sticky",
@@ -39,7 +40,7 @@ export const QuestionShell = ({ sectionRef, question, timeline }: QuestionShellP
           width: "100%",
           // Once the timeline fades in (p 0.55-0.66) the question slides up and shrinks to make room for the renders.
           "--lift": "clamp(0, (var(--p, 0) - 0.55) / 0.11, 1)",
-          transform: "translateY(calc(var(--lift) * -17vh)) scale(calc(1 - var(--lift) * 0.22))",
+          transform: "translateY(calc(var(--lift) * -20vh)) scale(calc(1 - var(--lift) * 0.26))",
           transformOrigin: "50% 50%",
         }}
       >

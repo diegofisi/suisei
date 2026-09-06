@@ -5,8 +5,7 @@
 /** The word she kept hearing, and the word the story actually ends on. */
 export const TURN_STATEMENT_BEFORE = "«No»";
 export const TURN_STATEMENT_AFTER = "«Todavía no.»";
-export const TURN_STATEMENT_BODY =
-  "La historia del cometa no termina en «no». Termina en «todavía no».";
+export const TURN_STATEMENT_BODY = "";
 
 export interface TurnMilestoneViewModel {
   id: string;
@@ -35,8 +34,7 @@ export const TURN_RENDER_TAG = "Modelo hololive · dic. 2019 · Teshima Nari";
 export const TURN_RENDER_CREDIT = "Render generado a partir del diseño © COVER Corp.";
 
 export const TURN_CLOSING_HEADLINE = "La chica que una vez fue rechazada… ya estaba adentro.";
-export const TURN_CLOSING_NOTE =
-  "Pero el despegue no fue inmediato. Lo que siguió fue un cohete de tres etapas.";
+export const TURN_CLOSING_NOTE = "";
 
 /** Tall section: 240vh of scroll drive the 100vh sticky stage. */
 export const TURN_SECTION_HEIGHT = "240vh";

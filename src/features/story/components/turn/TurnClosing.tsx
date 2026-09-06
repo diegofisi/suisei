@@ -22,8 +22,10 @@ export const TurnClosing = ({ headline, note }: TurnClosingProps) => (
     <Typography variant="h4" sx={{ color: "primary.main", maxWidth: "28ch" }}>
       {headline}
     </Typography>
-    <Typography variant="caption" color="text.secondary" sx={{ maxWidth: "44ch" }}>
-      {note}
-    </Typography>
+    {note && (
+      <Typography variant="caption" color="text.secondary" sx={{ maxWidth: "44ch" }}>
+        {note}
+      </Typography>
+    )}
   </Stack>
 );

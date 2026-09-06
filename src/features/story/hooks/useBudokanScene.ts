@@ -54,10 +54,9 @@ export const useBudokanScene = (): BudokanSceneRefs => {
     const step = stepOf(progress);
     if (section.dataset.step !== step) section.dataset.step = step;
 
-    yearRef.current?.style.setProperty(
-      "--r",
-      phase(progress, YEAR_FILL_PHASE.start, YEAR_FILL_PHASE.end).toFixed(4),
-    );
+    // The year fills completely as soon as the stage is on screen (a timed wipe), so landing at p = 0 never shows it empty.
+    const stageVisible = section.getBoundingClientRect().top < viewportHeight * YEAR_FILL_PHASE.end;
+    yearRef.current?.style.setProperty("--r", stageVisible ? "1" : "0");
     setFlag(factsRef.current, progress >= FACTS_REVEAL_AT);
     collageRef.current?.style.setProperty(
       "--rw",

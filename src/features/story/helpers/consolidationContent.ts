@@ -10,8 +10,7 @@ export const CONSOLIDATION_HEADLINE = "El cometa se vuelve constante";
 export const CONSOLIDATION_CREDIT =
   "Renders generados a partir de los diseños © COVER Corp.";
 
-export const CONSOLIDATION_QUOTE =
-  "«Y entonces… llegó el momento que ella había estado esperando desde su primer video.»";
+export const CONSOLIDATION_QUOTE = "Siguiente parada: Nippon Budokan.";
 
 export const CONSOLIDATION_QUOTE_NOTE = "";
 

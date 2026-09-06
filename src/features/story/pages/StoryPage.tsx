@@ -1,10 +1,12 @@
 import { Box } from "@mui/material";
 import { MusicPlayer } from "@/common/components/MusicPlayer";
 import { Nebula } from "@/common/components/Nebula";
+import { PresenterControls } from "@/common/components/PresenterControls";
 import { ProgressComet } from "@/common/components/ProgressComet";
 import { StarField } from "@/common/components/StarField";
 import { PLAYLIST } from "@/common/helpers/playlist";
 import { useMusicPlayer } from "@/common/hooks/useMusicPlayer";
+import { usePresenterNavigation } from "@/common/hooks/usePresenterNavigation";
 import { StoryFooter } from "@/features/story/components/shared/StoryFooter";
 import { AccelerationContainer } from "@/features/story/containers/AccelerationContainer";
 import { BudokanContainer } from "@/features/story/containers/BudokanContainer";
@@ -26,10 +28,12 @@ import {
 // Composition root: shared sky behind everything, the music bar, then the twelve scenes in talk order.
 export const StoryPage = () => {
   const player = useMusicPlayer(PLAYLIST);
+  const navigation = usePresenterNavigation();
   return (
     <>
       <StarField />
       <MusicPlayer {...player} />
+      <PresenterControls {...navigation} />
       <Nebula />
       <ProgressComet startLabel="2018" endLabel="2026" />
       <Box component="main" sx={{ position: "relative", zIndex: 1 }}>

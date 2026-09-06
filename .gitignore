@@ -1,4 +1,5 @@
 node_modules
 dist
-files/concert-src
+files/
+pnpm-lock.yaml
 public/assets/*.mp3

@@ -15,13 +15,13 @@ export const TODAY_CARD = {
   image: "img/studio-stellar.jpg",
   imageAlt: "Logo de Studio STELLAR",
   label: "Studio STELLAR · 22/03/2026",
-  body: "Su propia agencia, fundada en su octavo aniversario. La chica que fue rechazada por todas las agencias… ahora es dueña de la suya.",
+  body: "Su propia agencia · fundada en su 8.º aniversario.",
 } as const;
 
 /** The omikuji anecdote is the person behind the milestone, so it reads in SAKURA. */
 export const TODAY_OMIKUJI = {
   title: "御神籤 · 大吉",
-  body: "En los momentos de duda consultó un omikuji. Le salió bendición mayor: «No me queda más que creer en esto».",
+  body: "Omikuji en la duda: 大吉, bendición mayor. «No me queda más que creer en esto».",
 } as const;
 
 export const TODAY_QUOTE = "«Quiero seguir rompiendo mi propio caparazón… y el caparazón del mundo virtual.»";

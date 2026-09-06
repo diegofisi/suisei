@@ -1,0 +1,173 @@
+import { useCallback, useEffect, useRef, type RefObject } from "react";
+import { clamp, easeInOutCubic } from "@/common/helpers/math";
+import { subscribeScrub } from "@/common/helpers/scrollScrubber";
+
+export interface PresenterNavigation {
+  /** Counter root; the hook writes `data-scene` and the "NN / MM" text into `counterRef`. */
+  counterRef: RefObject<HTMLSpanElement | null>;
+  sceneCount: number;
+  onNext: () => void;
+  onPrevious: () => void;
+}
+
+interface Stop {
+  /** Page y to land on. */
+  y: number;
+  /** 1-based scene number the stop belongs to. */
+  scene: number;
+}
+
+/** Scroll speed of a "next" press: ms per viewport of travel, so long sticky scenes take longer and stay readable. */
+const MS_PER_VIEWPORT = 2200;
+const MIN_TWEEN_MS = 1200;
+const MAX_TWEEN_MS = 12000;
+/** A section this much taller than the viewport gets a second stop at its end, so one press plays its animation. */
+const TALL_SECTION_RATIO = 1.5;
+const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"]);
+const PREVIOUS_KEYS = new Set(["ArrowLeft", "ArrowUp", "PageUp", "Backspace"]);
+
+const pad = (value: number): string => String(value).padStart(2, "0");
+
+/** Every landing point of the talk: each scene's top, its declared beats, and the end of tall (sticky) scenes. */
+const collectStops = (): Stop[] => {
+  const sections = [...document.querySelectorAll<HTMLElement>("main > section")];
+  const viewport = window.innerHeight;
+  const stops: Stop[] = [];
+  sections.forEach((section, index) => {
+    const top = Math.round(section.getBoundingClientRect().top + window.scrollY);
+    const height = section.offsetHeight;
+    stops.push({ y: top, scene: index + 1 });
+    if (height <= viewport * TALL_SECTION_RATIO) return;
+    // Sticky scenes list their inner beats (facts, collage, shout…) as progress fractions in `data-beats`.
+    const travel = height - viewport;
+    const beats = (section.dataset.beats ?? "")
+      .split(",")
+      .map((value) => Number(value))
+      .filter((value) => Number.isFinite(value) && value > 0 && value < 1);
+    beats.forEach((beat) => stops.push({ y: top + Math.round(travel * beat), scene: index + 1 }));
+    stops.push({ y: top + travel, scene: index + 1 });
+  });
+  // Drop end-stops that sit almost on top of the next scene: that press would move a few pixels for nothing.
+  return stops.filter((stop, index) => {
+    const following = stops[index + 1];
+    return !following || following.y - stop.y > viewport * 0.35;
+  });
+};
+
+const isTypingTarget = (target: EventTarget | null): boolean =>
+  target instanceof HTMLElement && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
+
+/** Space/Enter on a focused button must keep activating that button, not turn the page. */
+const isActivationOnControl = (event: KeyboardEvent): boolean =>
+  (event.key === " " || event.key === "Enter") &&
+  event.target instanceof HTMLElement &&
+  event.target.closest("button, a, [role='button']") !== null;
+
+/**
+ * PowerPoint-style control over a scroll-driven page: arrow keys, PageDown/Up, space, a clicker, or the on-screen
+ * buttons glide to the next landing point at a readable speed, so every scroll animation still plays.
+ */
+export const usePresenterNavigation = (): PresenterNavigation => {
+  const counterRef = useRef<HTMLSpanElement>(null);
+  const sceneCountRef = useRef(0);
+  const tweenFrame = useRef(0);
+  const targetY = useRef<number | null>(null);
+
+  const cancelTween = useCallback(() => {
+    cancelAnimationFrame(tweenFrame.current);
+    targetY.current = null;
+  }, []);
+
+  const glideTo = useCallback(
+    (y: number) => {
+      cancelAnimationFrame(tweenFrame.current);
+      const from = window.scrollY;
+      const to = clamp(y, 0, document.documentElement.scrollHeight - window.innerHeight);
+      const distance = Math.abs(to - from);
+      if (distance < 1) return;
+      const duration = clamp((distance / window.innerHeight) * MS_PER_VIEWPORT, MIN_TWEEN_MS, MAX_TWEEN_MS);
+      const startedAt = performance.now();
+      targetY.current = to;
+      const step = (now: number) => {
+        const progress = clamp((now - startedAt) / duration, 0, 1);
+        // "instant": the page has smooth scroll-behavior, which would otherwise fight the tween.
+        window.scrollTo({ top: from + (to - from) * easeInOutCubic(progress), behavior: "instant" });
+        if (progress < 1) {
+          tweenFrame.current = requestAnimationFrame(step);
+          return;
+        }
+        targetY.current = null;
+      };
+      tweenFrame.current = requestAnimationFrame(step);
+    },
+    [],
+  );
+
+  const move = useCallback(
+    (direction: 1 | -1) => {
+      const stops = collectStops();
+      // While gliding, count from where we are heading, so quick double presses skip ahead cleanly.
+      const origin = targetY.current ?? window.scrollY;
+      const tolerance = 6;
+      const next =
+        direction === 1
+          ? stops.find((stop) => stop.y > origin + tolerance)
+          : [...stops].reverse().find((stop) => stop.y < origin - tolerance);
+      if (next) glideTo(next.y);
+    },
+    [glideTo],
+  );
+
+  const onNext = useCallback(() => move(1), [move]);
+  const onPrevious = useCallback(() => move(-1), [move]);
+
+  // Keys: the presenter (or a clicker) drives the page; the user's own wheel/touch cancels a glide in progress.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || isTypingTarget(event.target) || isActivationOnControl(event)) return;
+      if (NEXT_KEYS.has(event.key)) {
+        event.preventDefault();
+        move(1);
+      } else if (PREVIOUS_KEYS.has(event.key)) {
+        event.preventDefault();
+        move(-1);
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        glideTo(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        glideTo(document.documentElement.scrollHeight);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("wheel", cancelTween, { passive: true });
+    window.addEventListener("touchstart", cancelTween, { passive: true });
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("wheel", cancelTween);
+      window.removeEventListener("touchstart", cancelTween);
+      cancelAnimationFrame(tweenFrame.current);
+    };
+  }, [move, glideTo, cancelTween]);
+
+  // Scene counter: written straight into the DOM from the shared scroll loop.
+  useEffect(() => {
+    sceneCountRef.current = document.querySelectorAll("main > section").length;
+    let lastScene = -1;
+    return subscribeScrub(({ scrollY, viewportHeight }) => {
+      const counter = counterRef.current;
+      if (!counter) return;
+      const sections = document.querySelectorAll<HTMLElement>("main > section");
+      let scene = 1;
+      sections.forEach((section, index) => {
+        if (section.getBoundingClientRect().top + window.scrollY <= scrollY + viewportHeight * 0.4) scene = index + 1;
+      });
+      if (scene === lastScene) return;
+      lastScene = scene;
+      counter.textContent = `${pad(scene)} / ${pad(sections.length)}`;
+      counter.dataset.scene = String(scene);
+    });
+  }, []);
+
+  return { counterRef, sceneCount: sceneCountRef.current, onNext, onPrevious };
+};

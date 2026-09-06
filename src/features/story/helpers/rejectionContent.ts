@@ -56,8 +56,7 @@ export const rejectionConditions: RejectionConditionViewModel[] = [
 export const REJECTION_ANSWER = "Yo soy Hoshimachi Suisei.";
 
 export const REJECTION_QUOTE = "«Yo no quiero ser otra persona. Yo soy Hoshimachi Suisei.»";
-export const REJECTION_QUOTE_NOTE =
-  "Lo que respondió, una y otra vez, cuando le ofrecían firmar a cambio del nombre.";
+export const REJECTION_QUOTE_NOTE = "";
 
 /** `entryProgressOf` settle point: negative so the deal spreads over most of the section. */
 export const REJECTION_SETTLE_AT = -0.5;

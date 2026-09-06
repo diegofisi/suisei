@@ -17,7 +17,8 @@ const CAPTION_FADE = "clamp(0, calc((var(--p, 0) - 0.85) / 0.12), 1)";
 const CAPTION_RISE = "translateY(calc((1 - clamp(0, (var(--p, 0) - 0.85) / 0.12, 1)) * 16px))";
 
 export const HeroShell = ({ sectionRef, titles, canvas, cue, caption }: HeroShellProps) => (
-  <Box component="section" ref={sectionRef} sx={{ position: "relative", height: "260vh" }}>
+  <Box component="section"
+    data-beats="0.85" ref={sectionRef} sx={{ position: "relative", height: "260vh" }}>
     <Box
       sx={{
         position: "sticky",

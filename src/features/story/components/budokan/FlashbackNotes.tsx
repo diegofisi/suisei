@@ -23,17 +23,22 @@ export const FlashbackNotes = () => (
     <DreamQuoteCard />
     <Stack
       sx={{
-        maxWidth: "32ch",
-        paddingLeft: "1rem",
-        borderLeft: `2px solid ${Palette.GOLD}`,
+        maxWidth: "38ch",
+        padding: "1.3rem 1.6rem",
+        borderRadius: 2,
+        border: `1px solid ${alpha(Palette.GOLD, 0.45)}`,
+        borderLeft: `3px solid ${Palette.GOLD}`,
+        background: alpha(Palette.SKY, 0.95),
+        backdropFilter: "blur(14px)",
+        boxShadow: `0 24px 60px ${alpha(Palette.SKY_DEEP, 0.6)}`,
         opacity: NOTE_OPACITY,
         [STATIC]: { opacity: 1 },
       }}
     >
-      <Typography variant="body2" sx={{ color: "text.primary" }}>
+      <Typography variant="body1" sx={{ color: "text.primary", fontWeight: 600 }}>
         {COMET_NOTE}
       </Typography>
-      <Typography variant="caption" sx={{ color: alpha(Palette.GOLD, 0.85), marginTop: "0.5rem" }}>
+      <Typography variant="body2" sx={{ color: alpha(Palette.GOLD, 0.9), marginTop: "0.5rem" }}>
         M13 · setlist SuperNova
       </Typography>
     </Stack>

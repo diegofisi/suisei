@@ -1,3 +1,4 @@
 node_modules
 dist
 files/concert-src
+public/assets/*.mp3

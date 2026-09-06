@@ -23,34 +23,60 @@ interface ClipCardProps {
   isPortrait: boolean;
   /** Bespoke body for an image-less clip; otherwise the clip text is used. */
   body?: ReactNode;
+  /** True for the card on top of the fan. */
+  isFront: boolean;
+  /** Bring this card to the front. */
+  onSelect: () => void;
 }
 
 /** One "recorte": media (or a typographic body) plus a source/tag caption row. */
-export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body }: ClipCardProps) => {
+export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body, isFront, onSelect }: ClipCardProps) => {
   const tagColor = tone === "sakura" ? "secondary.main" : "primary.main";
   return (
     <Stack
       component="figure"
+      role="button"
+      tabIndex={0}
+      aria-pressed={isFront}
+      aria-label={`Traer al frente: ${clip.title}`}
+      onClick={onSelect}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect();
+        }
+      }}
       sx={{
+        cursor: isFront ? "default" : "pointer",
+        outline: "none",
         "--rot": pose.rot,
         "--x": pose.x,
         "--y": pose.y,
         margin: 0,
         zIndex: depth,
         width: "min(78%, 360px)",
-        aspectRatio: clip.aspectRatio ?? (isPortrait ? "3 / 4" : "4 / 3"),
+        // Every card in a fan shares the same 3:4 frame so they read as one deck.
+        aspectRatio: "3 / 4",
         overflow: "hidden",
         borderRadius: 1,
         border: "1px solid",
         borderColor: "divider",
-        background: `linear-gradient(160deg, ${alpha(Palette.SKY_2, 0.95)} 0%, ${alpha(Palette.SKY, 0.95)} 100%)`,
+        background: `linear-gradient(160deg, ${Palette.SKY_2} 0%, ${Palette.SKY} 100%)`,
         boxShadow: `0 26px 62px ${alpha(Palette.SKY_DEEP, 0.62)}`,
         transform: "rotate(0deg)",
-        transition: "transform 0.5s cubic-bezier(.2,.8,.2,1)",
+        // Springy swap when a card is brought to the front; the pose vars change and the transform follows.
+        transition: "transform 0.7s cubic-bezier(.34,1.4,.64,1), box-shadow 0.4s ease, border-color 0.3s ease",
+        "&:focus-visible": { borderColor: "primary.main" },
         [WIDE_MEDIA]: {
           position: "absolute",
           '[data-fanned="true"] &': {
             transform: "translate(var(--x), var(--y)) rotate(var(--rot))",
+          },
+          '[data-fanned="true"] &:hover': {
+            transform: isFront
+              ? "translate(var(--x), var(--y)) rotate(var(--rot)) scale(1.02)"
+              : "translate(var(--x), calc(var(--y) - 18px)) rotate(var(--rot))",
+            boxShadow: `0 34px 70px ${alpha(Palette.SKY_DEEP, 0.75)}`,
           },
         },
         [NARROW_MEDIA]: {
@@ -64,10 +90,8 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body }: ClipCard
             flex: 1,
             minHeight: 0,
             position: "relative",
-            padding: isPortrait ? "1.1rem 1.1rem 0" : 0,
-            background: isPortrait
-              ? `radial-gradient(circle at 50% 58%, ${Palette.COMET_SOFT} 0%, transparent 68%)`
-              : "none",
+            padding: isPortrait ? "1.1rem 1.1rem 0" : "1rem 1rem 0",
+            background: `radial-gradient(circle at 50% 58%, ${Palette.COMET_SOFT} 0%, transparent 68%)`,
           }}
         >
           <Box
@@ -78,8 +102,9 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body }: ClipCard
             sx={{
               width: "100%",
               height: "100%",
-              objectFit: isPortrait ? "contain" : "cover",
+              objectFit: "contain",
               objectPosition: "center",
+              borderRadius: isPortrait ? 0 : 6,
               display: "block",
             }}
           />

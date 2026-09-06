@@ -1,26 +1,11 @@
-import type { Ref } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
-import {
-  VIDEO_MISSING_HINT,
-  VIDEO_MISSING_MESSAGE,
-  VIDEO_SRC,
-} from "@/features/story/helpers/videoContent";
+import { VIDEO_EMBED_SRC, VIDEO_EMBED_TITLE } from "@/features/story/helpers/videoContent";
 
-interface VideoPlayerProps {
-  /** Root; the scene hook flips `data-missing` on it when the file is not in `public/video/`. */
-  playerRef: Ref<HTMLDivElement>;
-  videoRef: Ref<HTMLVideoElement>;
-}
-
-const MISSING = '[data-missing="true"] &';
-
-/** The 60–90 s cut, played by hand: controls visible, no autoplay, and a clear notice if the mp4 is not there. */
-export const VideoPlayer = ({ playerRef, videoRef }: VideoPlayerProps) => (
+/** The official upload, embedded and cued to the verse; played by hand in class, never on autoplay. */
+export const VideoPlayer = () => (
   <Box
-    ref={playerRef}
-    data-missing="false"
     sx={{
       position: "relative",
       width: "100%",
@@ -45,41 +30,14 @@ export const VideoPlayer = ({ playerRef, videoRef }: VideoPlayerProps) => (
       }}
     />
     <Box
-      component="video"
-      ref={videoRef}
-      src={VIDEO_SRC}
-      controls
-      preload="metadata"
-      playsInline
-      sx={{
-        display: "block",
-        width: "100%",
-        height: "100%",
-        backgroundColor: Palette.SKY_DEEP,
-        // Without the file, Chrome paints its own grey error box: hide it and let the notice show instead.
-        [MISSING]: { visibility: "hidden" },
-      }}
+      component="iframe"
+      src={VIDEO_EMBED_SRC}
+      title={VIDEO_EMBED_TITLE}
+      allow="fullscreen; picture-in-picture"
+      allowFullScreen
+      loading="lazy"
+      referrerPolicy="strict-origin-when-cross-origin"
+      sx={{ display: "block", width: "100%", height: "100%", border: 0 }}
     />
-    <Stack
-      sx={{
-        position: "absolute",
-        inset: 0,
-        display: "none",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        gap: "0.6rem",
-        padding: "2rem",
-        pointerEvents: "none",
-        [MISSING]: { display: "flex" },
-      }}
-    >
-      <Typography variant="body2" sx={{ color: "secondary.main", fontWeight: 600 }}>
-        {VIDEO_MISSING_MESSAGE}
-      </Typography>
-      <Typography variant="caption" color="text.secondary">
-        {VIDEO_MISSING_HINT}
-      </Typography>
-    </Stack>
   </Box>
 );

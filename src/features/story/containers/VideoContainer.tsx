@@ -13,7 +13,7 @@ export const VideoContainer = () => {
     <VideoShell
       sectionRef={scene.sectionRef}
       intro={<VideoIntro />}
-      player={<VideoPlayer playerRef={scene.playerRef} videoRef={scene.videoRef} />}
+      player={<VideoPlayer />}
       notes={<VideoNotes notesRef={scene.notesRef} />}
       quote={<PullQuote quote={VIDEO_QUOTE} note={VIDEO_QUOTE_NOTE} quoteRef={scene.quoteRef} tone="sakura" />}
     />

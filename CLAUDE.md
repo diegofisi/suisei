@@ -10,8 +10,7 @@ expositor en clase (no se publica). 12 escenas = las 12 diapositivas de `guion.m
 Estado actual: proyecto **Vite + React 19 + TS + MUI 5** en esta carpeta (raíz = proyecto), siguiendo
 `.claude/skills/frontend` (leer `references/project.md`, que ata el skill a este proyecto). Las 12 escenas
 están construidas en `src/features/story/` (un contenedor + hook + subcarpeta de componentes por
-escena; piezas compartidas en `components/shared/`). Falta el corte de video de la escena 9
-(`public/video/orbital-period.mp4`) y verificar las cifras marcadas «por verificar».
+escena; piezas compartidas en `components/shared/`). Falta verificar las cifras marcadas «por verificar».
 El preview HTML antiguo quedó en `files/suisei-web/index.html` solo como referencia.
 
 ## 2. Dirección de diseño (ya aprobada)
@@ -88,6 +87,11 @@ a partir de los diseños oficiales: sirven como recorte de la web, **no** como f
 | `2024-03_oriental-suit.jpg` | 東洋風スーツ (traje oriental, 8.º modelo 2D): negro y dorado, cuello mao, capa corta con cadenas, pantalón, tacones. Tema "gángster oriental años 20", hay 2 colores | 15/03/2024 | Ishihara Tatsuya (diseño) + Saekiyahiro (confección) |
 | `2025-02_budokan-comet.jpg` | Traje **comet** del Budokan: el traje indie "vestido de gala" — boina blanca, corbata degradada, gran lazo rosa, falda de volantes tornasolados (prisma), sandalias | 01/02/2025, Nippon Budokan, estreno en "comet -TAKU INOUE Remix-" | Saekiyahiro |
 
+Música de fondo: `public/assets/{stellar-stellar,comet,bibbidiba}.mp3` (fuera del repo; lista en
+`common/helpers/playlist.ts`). El reproductor (`common/components/MusicPlayer.tsx` +
+`common/hooks/useMusicPlayer.ts`) es una píldora fija arriba: arranca con Stellar Stellar tras el primer
+clic/tecla (los navegadores bloquean el autoplay con sonido), se esconde al bajar y vuelve al pasar el
+ratón por la franja superior; tiene anterior/siguiente/pausa/silencio y encadena la lista.
 Capturas del concierto SuperNova: `public/concert/concert-01..15.jpg` (1400 px, collage de la escena 8;
 los PNG originales quedaron fuera del repo en `files/concert-src/`). Otras imágenes en `public/img/`: `2018-03_perfil-debut.png` (ficha de perfil del debut, escena 3), `firma.jpg` (firma manuscrita, negro sobre blanco → partículas de
 la escena 1), `emblema.jpg`, `studio-stellar.jpg` (logo, punto 2026), `supernova-kv.jpg`,
@@ -114,7 +118,7 @@ pequeño). No publicar. Key visuals y fotos oficiales: páginas de eventos. Capt
 - Marcar en el guion datos a verificar y transiciones que se puedan apretar (pedido pendiente).
 
 ## 8. Próximos pasos sugeridos
-1. Colocar el corte de «Orbital Period» (60–90 s, H.264+AAC) en `public/video/orbital-period.mp4`.
+1. La escena 9 embebe el video oficial de YouTube (jMSXPPSmsVo, desde 1:35): el aula necesita internet.
 2. Verificar cifras y fechas marcadas «por verificar» (guion.md, lista final) y quitar las marcas.
 3. Rellenar «Tu nombre · fecha» en `helpers/heroContent.ts`.
 4. Conseguir los trajes que faltan (Spectra of Nova 2024-11 y Studio STELLAR 2026-08) y añadirlos

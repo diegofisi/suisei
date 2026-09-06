@@ -3,10 +3,10 @@ export const VIDEO_TITLE = "«Orbital Period»";
 export const VIDEO_INTRO =
   "Esa misma noche, Suisei contó algo que no había contado en público: problemas de garganta, una operación, dejó de disfrutar la música… y llegó a pensar en renunciar a todo. Pero pensó que la gente que la apoyaba se pondría triste, y siguió cantando. Por eso escribió esta canción: como una carta de gracias.";
 
-/** Dropped by hand into `public/video/`; see `public/video/LEEME.txt`. */
-export const VIDEO_SRC = "video/orbital-period.mp4";
-export const VIDEO_MISSING_MESSAGE = "Falta el archivo: public/video/orbital-period.mp4";
-export const VIDEO_MISSING_HINT = "Corte de 60–90 s · controles visibles · sin autoplay";
+/** Official upload, cued to 1:35 where the verse she breaks on begins. Needs internet in the room. */
+export const VIDEO_EMBED_SRC = "https://www.youtube.com/embed/jMSXPPSmsVo?start=95&rel=0";
+export const VIDEO_EMBED_TITLE = "Orbital Period / 星街すいせい (official)";
+export const VIDEO_WATCH_URL = "https://www.youtube.com/watch?v=jMSXPPSmsVo&t=95s";
 
 export const VIDEO_CUE = "▶ Reproducir 60–90 s";
 export const VIDEO_THESIS = "La resiliencia no es no llorar: es llorar y seguir cantando.";

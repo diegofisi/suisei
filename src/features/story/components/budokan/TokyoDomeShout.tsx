@@ -13,10 +13,16 @@ export const TokyoDomeShout = () => (
       alignItems: "center",
       textAlign: "center",
       gap: "1.2rem",
+      // A dark, blurred panel so the shout and its lead stay legible over the concert wall.
+      padding: "2.2rem 3rem 1.8rem",
+      borderRadius: 3,
+      background: alpha(Palette.SKY, 0.8),
+      backdropFilter: "blur(16px)",
+      boxShadow: `0 30px 80px ${alpha(Palette.SKY_DEEP, 0.7)}`,
       [STATIC]: { "--slam": 1 },
     }}
   >
-    <Typography variant="body1" color="text.secondary" sx={{ maxWidth: "52ch" }}>
+    <Typography variant="h4" sx={{ color: "text.primary", maxWidth: "36ch" }}>
       {DOME_LEAD}
     </Typography>
     <Typography
@@ -30,7 +36,7 @@ export const TokyoDomeShout = () => (
     >
       {DOME_SHOUT}
     </Typography>
-    <Typography variant="caption" color="text.secondary">
+    <Typography variant="body1" color="text.secondary">
       {DOME_CAPTION}
     </Typography>
   </Stack>

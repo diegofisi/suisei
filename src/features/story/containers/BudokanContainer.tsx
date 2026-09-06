@@ -1,14 +1,9 @@
 import { BudokanIntro } from "@/features/story/components/budokan/BudokanIntro";
 import { BudokanShell } from "@/features/story/components/budokan/BudokanShell";
-import { FlashbackNotes } from "@/features/story/components/budokan/FlashbackNotes";
-import { ConcertCollage } from "@/features/story/components/budokan/ConcertCollage";
+import { ConcertWall } from "@/features/story/components/budokan/ConcertWall";
 import { TokyoDomeShout } from "@/features/story/components/budokan/TokyoDomeShout";
 import { FactsList } from "@/features/story/components/shared/FactsList";
-import {
-  BUDOKAN_FACTS,
-  BUDOKAN_CREDIT,
-  CONCERT_TILES,
-} from "@/features/story/helpers/budokanContent";
+import { BUDOKAN_CREDIT, BUDOKAN_FACTS, CONCERT_TILES } from "@/features/story/helpers/budokanContent";
 import { useBudokanScene } from "@/features/story/hooks/useBudokanScene";
 
 /** Scene 8 — "El momento: Budokan «SuperNova» (01/02/2025)": the climax, and the only gold scene of the page. */
@@ -19,9 +14,8 @@ export const BudokanContainer = () => {
       sectionRef={scene.sectionRef}
       intro={<BudokanIntro yearRef={scene.yearRef} />}
       facts={<FactsList facts={BUDOKAN_FACTS} listRef={scene.factsRef} />}
-      notes={<FlashbackNotes />}
       dome={<TokyoDomeShout />}
-      collage={<ConcertCollage tiles={CONCERT_TILES} collageRef={scene.collageRef} credit={BUDOKAN_CREDIT} />}
+      wall={<ConcertWall tiles={CONCERT_TILES} wallRef={scene.wallRef} credit={BUDOKAN_CREDIT} />}
     />
   );
 };

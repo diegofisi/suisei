@@ -36,55 +36,45 @@ export const BUDOKAN_FACTS: FactViewModel[] = [
   },
 ];
 
-/** One frame of the concert wall; `span: 2` tiles take a 2×2 cell. */
+/** One frame of the concert wall. */
 export interface ConcertTileViewModel {
   src: string;
   alt: string;
-  span: 1 | 2;
 }
 
 /** Fifteen frames of SuperNova, from the carriage entrance to the thank-you screen. */
 export const CONCERT_TILES: ConcertTileViewModel[] = [
-  { src: "concert/concert-01.jpg", alt: "La carroza dorada baja desde el techo del Budokan", span: 2 },
-  { src: "concert/concert-02.jpg", alt: "Escenario con el cartel BOBBIDI y el público con luces", span: 1 },
-  { src: "concert/concert-03.jpg", alt: "Suisei con el brazo en alto", span: 1 },
-  { src: "concert/concert-04.jpg", alt: "Suisei ante el telón de letras", span: 1 },
-  { src: "concert/concert-05.jpg", alt: "La carroza en lo alto del escenario", span: 1 },
-  { src: "concert/concert-06.jpg", alt: "Suisei entre haces de luz roja", span: 1 },
-  { src: "concert/concert-07.jpg", alt: "Silueta bajo la luz azul", span: 1 },
-  { src: "concert/concert-08.jpg", alt: "Suisei con capa negra y micrófono", span: 1 },
-  { src: "concert/concert-09.jpg", alt: "Primer plano con luz dorada", span: 1 },
-  { src: "concert/concert-10.jpg", alt: "Las bailarinas y el número 2025", span: 1 },
-  { src: "concert/concert-11.jpg", alt: "Primer plano con el traje indie rediseñado", span: 1 },
-  { src: "concert/concert-12.jpg", alt: "Suisei en el centro del escenario", span: 1 },
-  { src: "concert/concert-13.jpg", alt: "Suisei guiña un ojo con el micrófono", span: 2 },
-  { src: "concert/concert-14.jpg", alt: "Suisei sonríe con el brazo en alto", span: 1 },
-  { src: "concert/concert-15.jpg", alt: "Pantalla final: SuperNova, gracias por venir", span: 1 },
+  { src: "concert/concert-01.jpg", alt: "La carroza dorada baja desde el techo del Budokan" },
+  { src: "concert/concert-02.jpg", alt: "Escenario con el cartel BOBBIDI y el público con luces" },
+  { src: "concert/concert-03.jpg", alt: "Suisei con el brazo en alto" },
+  { src: "concert/concert-04.jpg", alt: "Suisei ante el telón de letras" },
+  { src: "concert/concert-05.jpg", alt: "La carroza en lo alto del escenario" },
+  { src: "concert/concert-06.jpg", alt: "Suisei entre haces de luz roja" },
+  { src: "concert/concert-07.jpg", alt: "Silueta bajo la luz azul" },
+  { src: "concert/concert-08.jpg", alt: "Suisei con capa negra y micrófono" },
+  { src: "concert/concert-09.jpg", alt: "Primer plano con luz dorada" },
+  { src: "concert/concert-10.jpg", alt: "Las bailarinas y el número 2025" },
+  { src: "concert/concert-11.jpg", alt: "Primer plano con el traje indie rediseñado" },
+  { src: "concert/concert-12.jpg", alt: "Suisei en el centro del escenario" },
+  { src: "concert/concert-13.jpg", alt: "Suisei guiña un ojo con el micrófono" },
+  { src: "concert/concert-14.jpg", alt: "Suisei sonríe con el brazo en alto" },
+  { src: "concert/concert-15.jpg", alt: "Pantalla final: SuperNova, gracias por venir" },
 ];
 export const BUDOKAN_CREDIT = "Capturas del concierto «SuperNova» © COVER Corp.";
-
-export const DREAM_QUOTE = "«¡Mi sueño es hacer un concierto en el Budokan!»";
-export const DREAM_QUOTE_SOURCE = "Hoshimachi Suisei, 2018 · ~7 años antes de esa noche";
-export const DREAM_QUOTE_TEARS = "La cámara la captó llorando.";
-
-export const COMET_NOTE =
-  "M13 «comet -TAKU INOUE Remix-» — estrena el traje indie rediseñado. Canta llorando.";
 
 export const DOME_LEAD = "«¿Cuál es el siguiente sueño?»";
 export const DOME_SHOUT = "¡¡TOKIO DOME!!";
 export const DOME_CAPTION = "El público, al unísono.";
 
-export const BUDOKAN_BRIDGE_QUOTE = "▶ «Orbital Period»";
-export const BUDOKAN_BRIDGE_NOTE = "";
-
 // Scene pacing, in sticky-progress units (p = 0 at section top, 1 at its bottom).
 // The components mirror these numbers as CSS clamp() windows on --p.
 /** The year wipes in once the section top is within this fraction of the viewport height. */
 export const YEAR_FILL_PHASE = { start: 0, end: 0.6 } as const;
-export const COLLAGE_PHASE = { start: 0.3, end: 0.52 } as const;
+/** The wall deals itself out (tiles flip open) across this window. */
+export const WALL_PHASE = { start: -0.28, end: 0.6 } as const; // negative start: a third of the lids are already open on arrival
+/** How often a lid on the lit wall closes and reopens on another frame. */
+export const WALL_SWAP_MS = 700;
 /** p at which the facts list starts its staggered reveal (step 1). */
 export const FACTS_REVEAL_AT = 0;
-/** p at which the bridge pull quote reveals (step 4). */
-export const BRIDGE_REVEAL_AT = 0.9;
-/** Upper bound of steps 0..3; anything past the last bound is step 4. */
-export const BUDOKAN_STEP_BOUNDS: readonly number[] = [0.3, 0.56, 0.78, 0.95];
+/** Upper bound of steps 0..2; anything past the last bound is step 3. */
+export const BUDOKAN_STEP_BOUNDS: readonly number[] = [0.32, 0.62, 0.8];

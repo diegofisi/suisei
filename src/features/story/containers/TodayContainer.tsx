@@ -32,6 +32,11 @@ export const TodayContainer = () => {
             rowRefs={scene.counterRowRefs}
             valueRefs={scene.counterValueRefs}
           />
+        </>
+      }
+      right={
+        <>
+          <StudioCard cardRef={scene.cardRef} />
           <PullQuote
             quote={TODAY_QUOTE}
             note={TODAY_QUOTE_NOTE}
@@ -40,7 +45,6 @@ export const TodayContainer = () => {
           />
         </>
       }
-      right={<StudioCard cardRef={scene.cardRef} />}
     />
   );
 };

@@ -4,14 +4,14 @@ import { PlayerIcon } from "@/common/components/PlayerIcon";
 import type { PresenterNavigation } from "@/common/hooks/usePresenterNavigation";
 import { Palette } from "@/common/models/palette";
 
-/** Discreet pill in the top-left corner: scene counter plus previous/next, mirroring the keyboard. */
+/** Discreet pill in the top-right corner, above the progress rail: scene counter plus previous/next, mirroring the keyboard. */
 export const PresenterControls = ({ counterRef, onNext, onPrevious }: PresenterNavigation) => (
   <Stack
     direction="row"
     spacing={0.25}
     sx={{
       position: "fixed",
-      left: 24,
+      right: 24,
       top: 14,
       zIndex: 20,
       alignItems: "center",
@@ -25,7 +25,7 @@ export const PresenterControls = ({ counterRef, onNext, onPrevious }: PresenterN
       opacity: 0.85,
       transition: "opacity 0.3s ease",
       "&:hover": { opacity: 1 },
-      "@media (max-width: 760px)": { left: 12, top: 10 },
+      "@media (max-width: 760px)": { right: 12, top: 10 },
     }}
   >
     <IconButton size="small" aria-label="Sección anterior (←)" onClick={onPrevious} sx={{ color: "text.secondary" }}>

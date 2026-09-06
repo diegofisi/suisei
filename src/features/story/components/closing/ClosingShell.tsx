@@ -39,7 +39,7 @@ const phaseLayerSx = (opacity: string, transform: string): SxProps<Theme> => ({
 export const ClosingShell = ({ sectionRef, endRoll, thought, thanks }: ClosingShellProps) => (
   <Box
     component="section"
-    data-beats="0.35,0.58,0.75"
+    data-beats="0.35,0.75"
     ref={sectionRef}
     aria-label={CLOSING_SECTION_LABEL}
     data-static="false"

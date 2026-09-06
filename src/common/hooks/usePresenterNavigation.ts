@@ -105,9 +105,10 @@ export const usePresenterNavigation = (): PresenterNavigation => {
 
   const move = useCallback(
     (direction: 1 | -1) => {
+      // One press = one full glide: presses (and key auto-repeat) during a glide are ignored, so no beat is skipped.
+      if (targetY.current !== null) return;
       const stops = collectStops();
-      // While gliding, count from where we are heading, so quick double presses skip ahead cleanly.
-      const origin = targetY.current ?? window.scrollY;
+      const origin = window.scrollY;
       const tolerance = 6;
       const next =
         direction === 1
@@ -124,7 +125,7 @@ export const usePresenterNavigation = (): PresenterNavigation => {
   // Keys: the presenter (or a clicker) drives the page; the user's own wheel/touch cancels a glide in progress.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.altKey || event.ctrlKey || event.metaKey || isTypingTarget(event.target) || isActivationOnControl(event)) return;
+      if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || isTypingTarget(event.target) || isActivationOnControl(event)) return;
       if (NEXT_KEYS.has(event.key)) {
         event.preventDefault();
         move(1);
@@ -139,10 +140,18 @@ export const usePresenterNavigation = (): PresenterNavigation => {
         glideTo(document.documentElement.scrollHeight);
       }
     };
+    // Any element marked data-presenter-next / data-presenter-previous (e.g. the hero's SCROLL cue) turns the page too.
+    const onClick = (event: MouseEvent) => {
+      if (!(event.target instanceof Element)) return;
+      if (event.target.closest("[data-presenter-next]")) move(1);
+      else if (event.target.closest("[data-presenter-previous]")) move(-1);
+    };
+    window.addEventListener("click", onClick);
     window.addEventListener("keydown", onKey);
     window.addEventListener("wheel", cancelTween, { passive: true });
     window.addEventListener("touchstart", cancelTween, { passive: true });
     return () => {
+      window.removeEventListener("click", onClick);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("wheel", cancelTween);
       window.removeEventListener("touchstart", cancelTween);

@@ -11,7 +11,7 @@ interface QuestionShellProps {
 /** Tall section + sticky stage. The scene progress (--p) is written on the section and inherited by everything inside. */
 export const QuestionShell = ({ sectionRef, question, timeline }: QuestionShellProps) => (
   <Box component="section"
-    data-beats="0.3,0.55,0.75" ref={sectionRef} sx={{ position: "relative", height: "300vh" }}>
+    data-beats="0.55" ref={sectionRef} sx={{ position: "relative", height: "300vh" }}>
     <Box
       sx={{
         position: "sticky",

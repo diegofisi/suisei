@@ -61,6 +61,8 @@ export const HeroTitles = ({ japaneseName, eyebrow, title, meta }: HeroTitlesPro
       sx={{
         mt: 1.5,
         maxWidth: { xs: "100%", md: "min(46vw, 760px)" },
+        // Short screens (laptops, 720-800px tall): a smaller title keeps the meta row clear of the SCROLL cue.
+        "@media (max-height: 840px)": { fontSize: "clamp(38px, 5.2vw, 76px)" },
         "@keyframes heroTitleIn": {
           from: { opacity: 0, transform: "translateY(38px)" },
           to: { opacity: 1, transform: "translateY(0)" },

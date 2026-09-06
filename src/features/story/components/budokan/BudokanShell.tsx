@@ -23,7 +23,7 @@ const VEIL_OPACITY =
 export const BudokanShell = ({ sectionRef, intro, facts, dome, wall }: BudokanShellProps) => (
   <Box
     component="section"
-    data-beats="0.62,0.9"
+    data-beats="0.9"
     ref={sectionRef}
     aria-label="El momento: Budokan SuperNova, 1 de febrero de 2025"
     data-step="0"

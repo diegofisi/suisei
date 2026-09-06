@@ -25,6 +25,8 @@ export const SceneShell = ({ sectionRef, label, left, right, mirrored = false, r
     data-presenter-step="0"
     sx={{
       position: "relative",
+      // Never shorter than the screen: the next scene must not peek in under a short one.
+      minHeight: "100vh",
       padding: "clamp(56px, 10vh, 130px) 7vw clamp(48px, 8vh, 110px)",
       display: "grid",
       gridTemplateColumns: right

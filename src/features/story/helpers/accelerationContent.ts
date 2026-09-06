@@ -9,7 +9,8 @@ export const ACCELERATION_HEADLINE = "Un cohete de tres etapas";
 export const ACCELERATION_SECTION_HEIGHT = "340vh";
 
 /** Scene progress (--p) at which each stage ignites; index 0 = stage 1. */
-export const STAGE_IGNITION_POINTS = [0.15, 0.45, 0.75] as const;
+// Stage 1 is already burning when the presenter lands (p = 0); the next two ignite on the next presses.
+export const STAGE_IGNITION_POINTS = [0, 0.45, 0.75] as const;
 
 export const ROCKET_STAGE_COUNT = STAGE_IGNITION_POINTS.length;
 

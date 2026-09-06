@@ -10,14 +10,14 @@ interface AccelerationShellProps {
   header: ReactNode;
   rocket: ReactNode;
   telemetry: ReactNode;
-  quote: ReactNode;
+  quote?: ReactNode;
 }
 
 /** Scene 6 frame: a tall section with a 100vh sticky stage (normal flow under 760px). */
 export const AccelerationShell = ({ sectionRef, header, rocket, telemetry, quote }: AccelerationShellProps) => (
   <Box
     component="section"
-    data-beats="0.15,0.45,0.75"
+    data-beats="0.5,0.9"
     ref={sectionRef}
     aria-label="La aceleración, 2020–2021"
     data-stage="0"
@@ -72,7 +72,7 @@ export const AccelerationShell = ({ sectionRef, header, rocket, telemetry, quote
         <Box sx={{ minWidth: 0 }}>{rocket}</Box>
         <Stack sx={{ minWidth: 0, gap: "2.2vh" }}>{telemetry}</Stack>
       </Box>
-      <Box sx={{ position: "relative", zIndex: 1 }}>{quote}</Box>
+      {quote && <Box sx={{ position: "relative", zIndex: 1 }}>{quote}</Box>}
     </Box>
   </Box>
 );

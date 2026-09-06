@@ -29,7 +29,7 @@ const flowProgressOf = (element: HTMLElement, viewportHeight: number): number =>
 
 /** How many stages have ignited at this progress. */
 const ignitedStageCountOf = (progress: number): number =>
-  STAGE_IGNITION_POINTS.reduce((count, point) => (progress >= point ? count + 1 : count), 0);
+  STAGE_IGNITION_POINTS.reduce<number>((count, point) => (progress >= point ? count + 1 : count), 0);
 
 export interface AccelerationSceneRefs {
   /** Carries `--p` (0→1) and `data-stage` ("0".."3") for every descendant to style against. */

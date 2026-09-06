@@ -11,17 +11,21 @@ interface SceneShellProps {
   right?: ReactNode;
   /** Swap the columns so the visual sits on the left. */
   mirrored?: boolean;
+  /** Presenter "next" presses that reveal something in place (no scroll) before leaving the scene. */
+  revealSteps?: number;
 }
 
 /** Normal (non-sticky) scene frame: a text column plus an optional visual column; single column under 760px. */
-export const SceneShell = ({ sectionRef, label, left, right, mirrored = false }: SceneShellProps) => (
+export const SceneShell = ({ sectionRef, label, left, right, mirrored = false, revealSteps }: SceneShellProps) => (
   <Box
     component="section"
     ref={sectionRef}
     aria-label={label}
+    data-reveal-steps={revealSteps}
+    data-presenter-step="0"
     sx={{
       position: "relative",
-      padding: "18vh 7vw 22vh",
+      padding: "clamp(56px, 10vh, 130px) 7vw clamp(48px, 8vh, 110px)",
       display: "grid",
       gridTemplateColumns: right
         ? mirrored
@@ -30,6 +34,7 @@ export const SceneShell = ({ sectionRef, label, left, right, mirrored = false }:
         : "minmax(0, 72ch)",
       gap: "6vw",
       alignItems: "start",
+      ["@media (max-height: 820px)"]: { paddingTop: "48px", paddingBottom: "40px" },
       [NARROW_MEDIA]: {
         gridTemplateColumns: "minmax(0, 1fr)",
         gap: "8vh",

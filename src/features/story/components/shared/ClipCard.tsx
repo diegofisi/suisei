@@ -102,8 +102,8 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body, isFront, o
             sx={{
               width: "100%",
               height: "100%",
-              objectFit: "contain",
-              objectPosition: "center",
+              objectFit: isPortrait ? "contain" : "cover",
+              objectPosition: isPortrait ? "center" : "50% 35%",
               borderRadius: isPortrait ? 0 : 6,
               display: "block",
             }}

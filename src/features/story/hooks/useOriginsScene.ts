@@ -10,7 +10,7 @@ import {
 } from "@/features/story/helpers/originsContent";
 
 /** Visible fraction a block needs before its one-shot reveal fires. */
-const REVEAL_THRESHOLD = 0.35;
+const REVEAL_THRESHOLD = 0.12;
 /** The fan opens once the section top has risen past this fraction of the viewport. */
 const FAN_TRIGGER = 0.5;
 

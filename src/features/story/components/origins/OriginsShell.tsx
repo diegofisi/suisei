@@ -16,11 +16,12 @@ export const OriginsShell = ({ sectionRef, left, right }: OriginsShellProps) => 
     aria-label="Los inicios, 2018"
     sx={{
       position: "relative",
-      padding: "18vh 7vw 22vh",
+      padding: "clamp(56px, 10vh, 130px) 7vw clamp(48px, 8vh, 110px)",
       display: "grid",
       gridTemplateColumns: "minmax(0, 1fr) minmax(300px, 44%)",
       gap: "6vw",
       alignItems: "start",
+      ["@media (max-height: 820px)"]: { paddingTop: "48px", paddingBottom: "40px" },
       [NARROW_MEDIA]: {
         gridTemplateColumns: "minmax(0, 1fr)",
         gap: "8vh",

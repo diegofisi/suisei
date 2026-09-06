@@ -23,6 +23,7 @@ export const RejectionContainer = () => {
   return (
     <SceneShell
       sectionRef={scene.sectionRef}
+      revealSteps={1}
       label="El rechazo y la terquedad"
       left={
         <>

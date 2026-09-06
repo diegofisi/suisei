@@ -55,8 +55,10 @@ export const useRejectionScene = (): RejectionSceneViewModel => {
 
     const progress = entryProgressOf(section, viewportHeight, REJECTION_SETTLE_AT);
     const dealt = phase(progress, REJECTION_DEAL_PHASE.start, REJECTION_DEAL_PHASE.end);
-    const landed = Math.min(cardCount, Math.floor(dealt * (cardCount + 1)));
-    applyLandedCount(landed, landed >= cardCount && progress >= REJECTION_ANSWER_AT);
+    // The presenter's "next" press reveals the answer in place (data-presenter-step on the section), without scrolling.
+    const presenterRevealed = Number(section.dataset.presenterStep ?? "0") >= 1;
+    const landed = presenterRevealed ? cardCount : Math.min(cardCount, Math.floor(dealt * (cardCount + 1)));
+    applyLandedCount(landed, presenterRevealed || (landed >= cardCount && progress >= REJECTION_ANSWER_AT));
   });
 
   useRevealOnce([factsRef, lessonRef, quoteRef], isStatic);

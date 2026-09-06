@@ -22,7 +22,7 @@ const MS_PER_VIEWPORT = 2200;
 const MIN_TWEEN_MS = 1200;
 const MAX_TWEEN_MS = 12000;
 /** A section this much taller than the viewport also stops at its end, so nothing below the fold is skipped. */
-const TALL_SECTION_RATIO = 1.2;
+const TALL_SECTION_RATIO = 1.5;
 const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"]);
 const PREVIOUS_KEYS = new Set(["ArrowLeft", "ArrowUp", "PageUp", "Backspace"]);
 
@@ -37,7 +37,8 @@ const collectStops = (): Stop[] => {
     const top = Math.round(section.getBoundingClientRect().top + window.scrollY);
     const height = section.offsetHeight;
     stops.push({ y: top, scene: index + 1 });
-    if (height <= viewport * TALL_SECTION_RATIO) return;
+    // Plain scenes are laid out to fit one screen: a single stop, their reveals fire on arrival.
+    if (section.dataset.beats === undefined || height <= viewport * TALL_SECTION_RATIO) return;
     // Sticky scenes list their inner beats (facts, collage, shout…) as progress fractions in `data-beats`.
     const travel = height - viewport;
     const beats = (section.dataset.beats ?? "")
@@ -52,6 +53,17 @@ const collectStops = (): Stop[] => {
     const following = stops[index + 1];
     return !following || following.y - stop.y > viewport * 0.35;
   });
+};
+
+/** The scene whose top is closest above the 40%-of-viewport line: what the audience is looking at. */
+const currentSection = (): HTMLElement | null => {
+  const sections = [...document.querySelectorAll<HTMLElement>("main > section")];
+  const line = window.scrollY + window.innerHeight * 0.4;
+  let current: HTMLElement | null = null;
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top + window.scrollY <= line) current = section;
+  }
+  return current;
 };
 
 const isTypingTarget = (target: EventTarget | null): boolean =>
@@ -107,6 +119,20 @@ export const usePresenterNavigation = (): PresenterNavigation => {
     (direction: 1 | -1) => {
       // One press = one full glide: presses (and key auto-repeat) during a glide are ignored, so no beat is skipped.
       if (targetY.current !== null) return;
+      // Scenes with `data-reveal-steps` first reveal in place (no scroll) before the page moves on.
+      const current = currentSection();
+      if (current && current.dataset.revealSteps !== undefined) {
+        const steps = Number(current.dataset.revealSteps);
+        const step = Number(current.dataset.presenterStep ?? "0");
+        if (direction === 1 && step < steps) {
+          current.dataset.presenterStep = String(step + 1);
+          return;
+        }
+        if (direction === -1 && step > 0) {
+          current.dataset.presenterStep = String(step - 1);
+          return;
+        }
+      }
       const stops = collectStops();
       const origin = window.scrollY;
       const tolerance = 6;

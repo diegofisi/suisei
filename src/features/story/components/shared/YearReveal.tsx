@@ -33,7 +33,9 @@ export const YearReveal = ({ year, yearRef, tone = "comet", animatedFill = false
         position: "relative",
         display: "inline-block",
         alignSelf: "flex-start",
-        marginBottom: "0.4rem",
+        marginBottom: "0.2rem",
+        // Laptop heights: a smaller year keeps a plain scene inside one screen.
+        ["@media (max-height: 820px)"]: { "& > *": { fontSize: "clamp(64px, 8.5vw, 132px)" } },
       }}
     >
       <Typography

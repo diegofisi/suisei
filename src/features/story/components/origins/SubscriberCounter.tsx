@@ -24,8 +24,9 @@ export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) 
       flexWrap: "wrap",
       borderTop: "1px solid",
       borderColor: "divider",
-      marginTop: "3rem",
-      paddingTop: "2rem",
+      marginTop: "2rem",
+      paddingTop: "1.4rem",
+      ["@media (max-height: 820px)"]: { marginTop: "1.2rem", paddingTop: "1rem" },
     }}
   >
     <Typography

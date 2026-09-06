@@ -1,7 +1,7 @@
 import { useEffect, type RefObject } from "react";
 
 /** Visible fraction a block needs before its one-shot reveal fires. */
-const DEFAULT_THRESHOLD = 0.35;
+const DEFAULT_THRESHOLD = 0.12;
 
 /**
  * Sets `data-on="true"` on each ref'd node the first time it scrolls into view (or immediately under reduced motion).

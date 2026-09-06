@@ -18,7 +18,8 @@ export const FactsList = ({ facts, listRef }: FactsListProps) => (
       margin: 0,
       padding: 0,
       display: "grid",
-      gap: "1.6rem",
+      gap: "1.2rem",
+      ["@media (max-height: 820px)"]: { gap: "0.8rem" },
       maxWidth: "56ch",
     }}
   >

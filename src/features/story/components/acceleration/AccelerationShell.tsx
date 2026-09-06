@@ -51,6 +51,10 @@ export const AccelerationShell = ({ sectionRef, header, rocket, telemetry, quote
           // The exhaust glow grows with the scene: faint at lift-off, bright in orbit.
           opacity: "calc(var(--p, 0) * 0.85)",
           background: `radial-gradient(52% 40% at 26% 88%, ${Palette.COMET_SOFT} 0%, transparent 72%)`,
+          // The ellipse reaches below the stage, which clips it: fade it out before the edge so the stage never
+          // leaves a hard horizontal seam when it scrolls away into scene 7.
+          maskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 55%, transparent 100%)",
         }}
       />
       <Box sx={{ position: "relative", zIndex: 1 }}>{header}</Box>

@@ -78,7 +78,7 @@ export const originsClips: ClipViewModel[] = [
     imageAlt: "",
     body: "Mesera de día.\nEditora de noche.",
     title: "Sobrevivir mientras nadie miraba",
-    source: "Pub + edición freelance · 2018–2019",
+    source: "Contado por ella en sus directos",
     tag: "la persona",
   },
   {

@@ -18,9 +18,9 @@ interface Stop {
 }
 
 /** Scroll speed of a "next" press: ms per viewport of travel, so long sticky scenes take longer and stay readable. */
-const MS_PER_VIEWPORT = 2200;
-const MIN_TWEEN_MS = 1200;
-const MAX_TWEEN_MS = 12000;
+const MS_PER_VIEWPORT = 1540;
+const MIN_TWEEN_MS = 840;
+const MAX_TWEEN_MS = 8400;
 /** A section this much taller than the viewport also stops at its end, so nothing below the fold is skipped. */
 const TALL_SECTION_RATIO = 1.5;
 const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"]);

@@ -29,7 +29,7 @@ export const VideoNotes = ({ notesRef }: VideoNotesProps) => (
     <Typography variant="h4" sx={{ color: "secondary.main" }}>
       {VIDEO_THESIS}
     </Typography>
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body1" color="text.secondary" sx={{ fontSize: "clamp(1.1rem, 1.35vw, 1.4rem)" }}>
       {VIDEO_LYRIC_NOTE}
     </Typography>
   </Stack>

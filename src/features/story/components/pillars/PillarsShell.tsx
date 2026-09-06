@@ -56,8 +56,18 @@ export const PillarsShell = ({ sectionRef, intro, cards, bonus, quote }: Pillars
         {intro}
         {cards}
         {bonus}
-        {/* The shared PullQuote carries its own 4rem top margin; trimmed so the stage still fits 100vh. */}
-        <Box sx={{ marginTop: "-2.6rem" }}>{quote}</Box>
+        {/* The closing line stands alone, centred under the row, with room to breathe. */}
+        <Box
+          sx={{
+            marginTop: "-0.6rem",
+            display: "flex",
+            justifyContent: "center",
+            textAlign: "center",
+            "& blockquote": { marginInline: "auto", maxWidth: "48ch" },
+          }}
+        >
+          {quote}
+        </Box>
       </Stack>
     </Stack>
   </Box>

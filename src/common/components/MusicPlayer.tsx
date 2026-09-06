@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Slider, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { PlayerIcon } from "@/common/components/PlayerIcon";
 import type { MusicPlayerState } from "@/common/hooks/useMusicPlayer";
@@ -16,11 +16,13 @@ export const MusicPlayer = ({
   track,
   isPlaying,
   isMuted,
+  volume,
   awaitingGesture,
   onToggle,
   onNext,
   onPrevious,
   onToggleMute,
+  onVolumeChange,
 }: MusicPlayerState) => (
   <Box
     sx={{
@@ -105,6 +107,23 @@ export const MusicPlayer = ({
       >
         <PlayerIcon kind={isMuted ? "muted" : "sound"} />
       </IconButton>
+      <Slider
+        aria-label="Volumen"
+        size="small"
+        min={0}
+        max={1}
+        step={0.02}
+        value={isMuted ? 0 : volume}
+        onChange={(_event, value) => onVolumeChange(Array.isArray(value) ? (value[0] ?? 0) : value)}
+        sx={{
+          width: 72,
+          marginLeft: "4px",
+          marginRight: "12px",
+          color: "primary.main",
+          "& .MuiSlider-thumb": { width: 10, height: 10, boxShadow: "none", "&:hover, &.Mui-focusVisible": { boxShadow: `0 0 0 6px ${alpha(Palette.COMET, 0.18)}` } },
+          "& .MuiSlider-rail": { color: Palette.ICE_FAINT, opacity: 1 },
+        }}
+      />
       <Box
         aria-hidden
         sx={{

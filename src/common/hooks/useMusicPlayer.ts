@@ -9,12 +9,15 @@ export interface MusicPlayerState {
   track: TrackViewModel;
   isPlaying: boolean;
   isMuted: boolean;
+  /** 0..1 */
+  volume: number;
   /** Autoplay was blocked: the first click or key anywhere will start the music. */
   awaitingGesture: boolean;
   onToggle: () => void;
   onNext: () => void;
   onPrevious: () => void;
   onToggleMute: () => void;
+  onVolumeChange: (volume: number) => void;
 }
 
 /** Scroll distance (px) before the bar hides; it comes back on any upward scroll or when hovered. */
@@ -28,6 +31,7 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
   const [trackIndex, setTrackIndex] = useState(defaultIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(PLAYER_VOLUME);
   const [awaitingGesture, setAwaitingGesture] = useState(false);
   const wantsPlayback = useRef(true);
   const track = tracks[trackIndex] ?? tracks[0];
@@ -45,9 +49,9 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = PLAYER_VOLUME;
+    audio.volume = volume;
     audio.muted = isMuted;
-  }, [isMuted]);
+  }, [isMuted, volume]);
 
   // Track change: (re)load and resume if the player was running.
   useEffect(() => {
@@ -126,6 +130,11 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
     [tracks.length],
   );
   const onToggleMute = useCallback(() => setIsMuted((muted) => !muted), []);
+  const onVolumeChange = useCallback((next: number) => {
+    setVolume(Math.min(1, Math.max(0, next)));
+    // Dragging the slider up again is the natural way to un-mute.
+    if (next > 0) setIsMuted(false);
+  }, []);
 
   return {
     barRef,
@@ -133,10 +142,12 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
     track: track ?? { id: "none", title: "", src: "" },
     isPlaying,
     isMuted,
+    volume,
     awaitingGesture,
     onToggle,
     onNext,
     onPrevious,
     onToggleMute,
+    onVolumeChange,
   };
 };

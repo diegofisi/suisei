@@ -12,4 +12,4 @@ export const PLAYLIST: TrackViewModel[] = [
   { id: "bibbidiba", title: "Bibbidiba", src: "assets/bibbidiba.mp3" },
 ];
 
-export const PLAYER_VOLUME = 0.55;
+export const PLAYER_VOLUME = 0.28;

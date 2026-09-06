@@ -1,5 +1,5 @@
 // Scene 3 — "Los inicios (2018)". Static copy; figures come from guion.md (Diapo 3).
-import type { ClipViewModel, FactFragment, FactViewModel } from "@/features/story/interfaces/StoryViewModels";
+import type { ClipViewModel, FactViewModel } from "@/features/story/interfaces/StoryViewModels";
 
 export const ORIGINS_YEAR = "2018";
 
@@ -63,10 +63,9 @@ export const originsFacts: FactViewModel[] = [
   },
 ];
 
-export const originsCounterCaption: FactFragment[] = [
-  { text: "suscriptores", strong: true },
-  { text: " tras un año entero." },
-];
+/** Caption beside the number: "suscriptores" is there from the start; the tail unfolds with the count-up. */
+export const ORIGINS_COUNTER_LEAD = "suscriptores";
+export const ORIGINS_COUNTER_TAIL = " tras un año entero";
 
 export const ORIGINS_QUOTE = "«No quería ser otra. Yo soy Hoshimachi Suisei.»";
 

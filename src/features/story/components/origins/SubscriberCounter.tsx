@@ -1,9 +1,11 @@
 import type { Ref } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import {
+  ORIGINS_COUNTER_LEAD,
+  ORIGINS_COUNTER_TAIL,
+  ORIGINS_COUNT_UP_MS,
   ORIGINS_SUBSCRIBER_TARGET,
   formatSubscribers,
-  originsCounterCaption,
 } from "@/features/story/helpers/originsContent";
 
 interface SubscriberCounterProps {
@@ -44,15 +46,26 @@ export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) 
       0
     </Typography>
     <Typography variant="body2" color="text.secondary" sx={{ maxWidth: "28ch" }}>
-      {originsCounterCaption.map((part, index) =>
-        part.strong ? (
-          <Box key={`caption-${index}`} component="span" sx={{ fontWeight: 600, color: "text.primary" }}>
-            {part.text}
-          </Box>
-        ) : (
-          part.text
-        ),
-      )}
+      <Box component="span" sx={{ fontWeight: 600, color: "text.primary" }}>
+        {ORIGINS_COUNTER_LEAD}
+      </Box>
+      <Box
+        component="span"
+        sx={{
+          // "0 suscriptores." at first; the tail unfolds while the number runs, and the full stop slides with it.
+          display: "inline-block",
+          verticalAlign: "bottom",
+          whiteSpace: "pre",
+          overflow: "hidden",
+          maxWidth: 0,
+          opacity: 0,
+          transition: `max-width ${ORIGINS_COUNT_UP_MS}ms ease-out, opacity ${ORIGINS_COUNT_UP_MS * 0.6}ms ease-out ${ORIGINS_COUNT_UP_MS * 0.25}ms`,
+          '[data-on="true"] &': { maxWidth: "24ch", opacity: 1 },
+        }}
+      >
+        {ORIGINS_COUNTER_TAIL}
+      </Box>
+      .
     </Typography>
   </Stack>
 );

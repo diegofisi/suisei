@@ -39,7 +39,8 @@ export const ConcertWall = ({ tiles, wallRef, credit }: ConcertWallProps) => (
       zIndex: 0,
       overflow: "hidden",
       pointerEvents: "none",
-      backgroundColor: Palette.SKY_DEEP,
+      // Only a thin tint: the cases hang on the same star sky as the rest of the page, not on a black wall.
+      backgroundColor: alpha(Palette.SKY_DEEP, 0.28),
       // Soft edges: the wall dissolves into the sky instead of ending on a hard line.
       maskImage: `radial-gradient(92% 94% at 50% 50%, ${Palette.SKY} 58%, transparent 100%)`,
       [STATIC]: { position: "relative", height: "70vh", maskImage: "none" },
@@ -86,7 +87,7 @@ export const ConcertWall = ({ tiles, wallRef, credit }: ConcertWallProps) => (
               padding: "3.5%",
               borderRadius: 1,
               backgroundColor: alpha(Palette.ICE, 0.055),
-              boxShadow: `inset 0 0 0 1px ${alpha(Palette.ICE, 0.05)}, 0 18px 30px ${alpha(Palette.SKY_DEEP, 0.8)}`,
+              boxShadow: `inset 0 0 0 1px ${alpha(Palette.ICE, 0.05)}, 0 14px 26px ${alpha(Palette.SKY_DEEP, 0.5)}`,
               transformStyle: "preserve-3d",
             }}
           >

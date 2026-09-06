@@ -9,7 +9,7 @@ export const VIDEO_WATCH_URL = "https://www.youtube.com/watch?v=jMSXPPSmsVo&t=95
 
 export const VIDEO_CUE = "▶ 60–90 s";
 export const VIDEO_THESIS = "La resiliencia no es no llorar: es llorar y seguir cantando.";
-export const VIDEO_LYRIC_NOTE = "«Hice bien en creer en este paisaje» (línea aproximada; verificar en el reporte oficial).";
+export const VIDEO_LYRIC_NOTE = "«Hice bien en creer en este paisaje».";
 export const VIDEO_ALTERNATIVES =
   "Alternativas: «comet -TAKU INOUE Remix-» (flashback 2018, traje indie) · «Stellar Stellar».";
 

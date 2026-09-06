@@ -11,7 +11,6 @@ const FAN_POSES: readonly FanPose[] = [
   { rot: "-2deg", x: "0%", y: "-2%" },
 ];
 const STACKED_POSE: FanPose = { rot: "0deg", x: "0%", y: "0%" };
-const HINT = "Toca una tarjeta para traerla al frente";
 
 interface ClipFanProps {
   clips: ClipViewModel[];
@@ -83,9 +82,6 @@ export const ClipFan = ({
         })}
       </Box>
       <Stack sx={{ marginTop: "1.4rem", alignItems: "center", gap: 0.5 }}>
-        <Typography variant="caption" color="text.secondary" sx={{ textAlign: "center", [NARROW_MEDIA]: { display: "none" } }}>
-          {HINT}
-        </Typography>
         {credit && (
           <Typography variant="caption" color="text.disabled" sx={{ textAlign: "center", maxWidth: "40ch" }}>
             {credit}

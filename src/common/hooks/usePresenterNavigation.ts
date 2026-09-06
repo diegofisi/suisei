@@ -21,8 +21,8 @@ interface Stop {
 const MS_PER_VIEWPORT = 2200;
 const MIN_TWEEN_MS = 1200;
 const MAX_TWEEN_MS = 12000;
-/** A section this much taller than the viewport gets a second stop at its end, so one press plays its animation. */
-const TALL_SECTION_RATIO = 1.5;
+/** A section this much taller than the viewport also stops at its end, so nothing below the fold is skipped. */
+const TALL_SECTION_RATIO = 1.2;
 const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"]);
 const PREVIOUS_KEYS = new Set(["ArrowLeft", "ArrowUp", "PageUp", "Backspace"]);
 

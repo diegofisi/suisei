@@ -125,4 +125,5 @@ pequeño). No publicar. Key visuals y fotos oficiales: páginas de eventos. Capt
    Capturas de control: `node scripts/screenshot-scenes.mjs http://localhost:5173/ <carpeta> [ancho] [alto]`.
 6. Navegación de presentador: flechas / PageDown / Espacio / clicker avanzan al siguiente punto (inicio de
    escena, y fin de escena en las escenas largas) con un desplazamiento suave que deja ver la animación;
-   el contador «NN / 12» está abajo a la izquierda. La página no muestra el guion: solo apoyo visual.
+   el contador «NN / 12» está arriba a la izquierda. Cada escena larga declara sus paradas internas en
+   `data-beats="0.18,0.4,…"` (fracciones del progreso sticky) en su Shell; las escenas cortas paran arriba y abajo. La página no muestra el guion: solo apoyo visual.

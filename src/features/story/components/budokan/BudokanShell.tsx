@@ -27,7 +27,7 @@ const STATIC = '[data-static="true"] &';
 export const BudokanShell = ({ sectionRef, intro, facts, notes, dome, bridge, collage }: BudokanShellProps) => (
   <Box
     component="section"
-    data-beats="0.18,0.38,0.62,0.8"
+    data-beats="0.18,0.4,0.66,0.86"
     ref={sectionRef}
     aria-label="El momento: Budokan SuperNova, 1 de febrero de 2025"
     data-step="0"

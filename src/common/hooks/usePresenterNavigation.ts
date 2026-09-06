@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, type RefObject } from "react";
-import { clamp, easeInOutCubic } from "@/common/helpers/math";
+import { clamp, easeInOutCubic, easeOutCubic } from "@/common/helpers/math";
 import { subscribeScrub } from "@/common/helpers/scrollScrubber";
 
 export interface PresenterNavigation {
@@ -91,7 +91,7 @@ export const usePresenterNavigation = (): PresenterNavigation => {
   }, []);
 
   const glideTo = useCallback(
-    (y: number) => {
+    (y: number, easing: (t: number) => number = easeInOutCubic) => {
       cancelAnimationFrame(tweenFrame.current);
       const from = window.scrollY;
       const to = clamp(y, 0, document.documentElement.scrollHeight - window.innerHeight);
@@ -103,7 +103,7 @@ export const usePresenterNavigation = (): PresenterNavigation => {
       const step = (now: number) => {
         const progress = clamp((now - startedAt) / duration, 0, 1);
         // "instant": the page has smooth scroll-behavior, which would otherwise fight the tween.
-        window.scrollTo({ top: from + (to - from) * easeInOutCubic(progress), behavior: "instant" });
+        window.scrollTo({ top: from + (to - from) * easing(progress), behavior: "instant" });
         if (progress < 1) {
           tweenFrame.current = requestAnimationFrame(step);
           return;
@@ -140,7 +140,9 @@ export const usePresenterNavigation = (): PresenterNavigation => {
         direction === 1
           ? stops.find((stop) => stop.y > origin + tolerance)
           : [...stops].reverse().find((stop) => stop.y < origin - tolerance);
-      if (next) glideTo(next.y);
+      // A scene marked data-glide="out" answers the press at once (no ease-in) and settles gently at the stop.
+      const easing = current?.dataset.glide === "out" ? easeOutCubic : easeInOutCubic;
+      if (next) glideTo(next.y, easing);
     },
     [glideTo],
   );

@@ -17,13 +17,14 @@ const STATIC = '[data-static="true"] &';
 
 /** Darkens the wall while text sits on it: fully during the intro, lifted while the wall is the show, back for the shout. */
 const VEIL_OPACITY =
-  "min(1, calc(1 - clamp(0, (var(--p, 0) - 0.3) / 0.08, 1) + clamp(0, (var(--p, 0) - 0.78) / 0.06, 1)))";
+  "min(1, calc(1 - clamp(0, (var(--p, 0) - 0.06) / 0.1, 1) + clamp(0, (var(--p, 0) - 0.78) / 0.06, 1)))";
 
 /** Sticky stage: the concert wall fills the screen; year + facts sit on it at first, the shout lands on it at the end. */
 export const BudokanShell = ({ sectionRef, intro, facts, dome, wall }: BudokanShellProps) => (
   <Box
     component="section"
     data-beats="0.9"
+    data-glide="out"
     ref={sectionRef}
     aria-label="El momento: Budokan SuperNova, 1 de febrero de 2025"
     data-step="0"

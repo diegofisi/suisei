@@ -25,7 +25,10 @@ interface ClipFanProps {
   bodyByClipId?: Record<string, ReactNode>;
 }
 
-/** Sticky pile of clips that fans out when the scene hook sets `data-fanned`; tapping a card brings it to the front. */
+/**
+ * Pile of clips that fans out when the scene hook sets `data-fanned`; tapping a card brings it to the front.
+ * Sticky beside the text on wide screens; under 760px the same deck sits in the flow, one card-height tall.
+ */
 export const ClipFan = ({
   clips,
   fanRef,
@@ -48,19 +51,16 @@ export const ClipFan = ({
         ref={fanRef}
         data-fanned="false"
         sx={{
+          position: "relative",
+          display: "grid",
+          placeItems: "center",
           [WIDE_MEDIA]: {
             position: "sticky",
             top: "12vh",
             height: "76vh",
-            display: "grid",
-            placeItems: "center",
           },
-          [NARROW_MEDIA]: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "2.4rem",
-          },
+          // A 3:4 card at 78 % width plus the fan's spread, so the deck never overlaps what follows.
+          [NARROW_MEDIA]: { height: "min(124vw, 560px)" },
         }}
       >
         {clips.map((clip) => {

@@ -13,7 +13,7 @@ interface RocketStageProps {
 export const RocketStage = ({ stage }: RocketStageProps) => {
   const ignited = ignitedSelector(stage.stageNumber);
   return (
-    <Box component="li" sx={{ listStyle: "none" }}>
+    <Box component="li" data-rocket-stage={stage.stageNumber} sx={{ listStyle: "none" }}>
       <Stack
         sx={{
           gap: "0.4rem",

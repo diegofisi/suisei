@@ -14,8 +14,6 @@ export const OriginsShell = ({ sectionRef, left, right }: OriginsShellProps) => 
     component="section"
     ref={sectionRef}
     aria-label="Los inicios, 2018"
-    data-reveal-steps="1"
-    data-presenter-step="0"
     sx={{
       position: "relative",
       // Never shorter than the screen: the next scene must not peek in under a short one.

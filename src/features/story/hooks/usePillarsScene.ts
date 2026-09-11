@@ -1,10 +1,10 @@
 import { useEffect, useRef, type RefObject } from "react";
-import { stickyProgressOf } from "@/common/helpers/scrollScrubber";
+import { hasEnteredView, stickyProgressOf } from "@/common/helpers/scrollScrubber";
 import { useReducedMotion } from "@/common/hooks/useReducedMotion";
 import { useScrollScrub } from "@/common/hooks/useScrollScrub";
+import { isNarrowViewport } from "@/features/story/helpers/layout";
 import {
   PILLARS_QUOTE_AT,
-  PILLARS_STATIC_MAX_WIDTH,
   PILLARS_STEP_THRESHOLDS,
   PILLARS_TOTAL_STEPS,
 } from "@/features/story/helpers/pillarsContent";
@@ -15,9 +15,13 @@ export interface PillarsSceneRefs {
   quoteRef: RefObject<HTMLDivElement | null>;
 }
 
-/** How many steps the given progress has passed. */
+/** How many steps the given sticky progress has passed (wide screens). */
 const stepOf = (progress: number): number =>
   PILLARS_STEP_THRESHOLDS.filter((threshold) => progress >= threshold).length;
+
+/** Narrow screens: the highest step whose card has scrolled in (the cards stack in step order). */
+const enteredStepOf = (cards: HTMLElement[], viewportHeight: number): number =>
+  cards.reduce((step, card) => (hasEnteredView(card, viewportHeight) ? Math.max(step, Number(card.dataset.pillarStep)) : step), 0);
 
 /** The brain of scene 11: sticky progress → one `data-step` attribute, plus the closing quote. */
 export const usePillarsScene = (): PillarsSceneRefs => {
@@ -25,6 +29,13 @@ export const usePillarsScene = (): PillarsSceneRefs => {
   const sectionRef = useRef<HTMLElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
   const currentStep = useRef(-1);
+  const cardNodes = useRef<HTMLElement[] | null>(null);
+
+  /** The three pillars plus the bonus, each tagged with its step; looked up once. */
+  const cards = (section: HTMLElement): HTMLElement[] => {
+    if (!cardNodes.current) cardNodes.current = [...section.querySelectorAll<HTMLElement>("[data-pillar-step]")];
+    return cardNodes.current;
+  };
 
   // Writes only on change: the loop runs at 60 fps and attribute churn forces style recalcs.
   const applyStep = (step: number) => {
@@ -44,11 +55,12 @@ export const usePillarsScene = (): PillarsSceneRefs => {
     const section = sectionRef.current;
     if (reducedMotion || !section) return;
 
-    // Under 760px the stage is not sticky and the cards stack: show everything.
-    if (viewportWidth <= PILLARS_STATIC_MAX_WIDTH) {
+    // Under 760px the stage is not sticky and the cards stack: each one turns on as it scrolls in.
+    if (isNarrowViewport(viewportWidth)) {
       section.style.setProperty("--p", "1");
-      applyStep(PILLARS_TOTAL_STEPS);
-      applyQuote(true);
+      applyStep(enteredStepOf(cards(section), viewportHeight));
+      const quote = quoteRef.current;
+      applyQuote(quote !== null && hasEnteredView(quote, viewportHeight));
       return;
     }
 

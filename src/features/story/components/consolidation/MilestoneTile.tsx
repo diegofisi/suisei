@@ -9,7 +9,7 @@ interface MilestoneTileProps {
   index: number;
 }
 
-/** One milestone: the date in COMET on top, the fact below. Revealed by `data-on` on the grid root. */
+/** One milestone: the date in COMET on top, the fact below. Revealed by `data-on` on the tile (or on the grid root). */
 export const MilestoneTile = ({ milestone, index }: MilestoneTileProps) => (
   <Stack
     component="li"
@@ -25,7 +25,7 @@ export const MilestoneTile = ({ milestone, index }: MilestoneTileProps) => (
       transform: "translateY(14px)",
       transition: "opacity 0.6s ease, transform 0.7s cubic-bezier(.2,.8,.2,1)",
       transitionDelay: `${index * 0.09}s`,
-      '[data-on="true"] &': {
+      '&[data-on="true"], [data-on="true"] &': {
         opacity: 1,
         transform: "translateY(0)",
       },

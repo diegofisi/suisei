@@ -92,7 +92,7 @@ Música de fondo: `public/assets/{stellar-stellar,comet,bibbidiba}.mp3` (en el r
 `common/helpers/playlist.ts`). El reproductor (`common/components/MusicPlayer.tsx` +
 `common/hooks/useMusicPlayer.ts`) es una píldora fija arriba: arranca con comet tras el primer
 clic/tecla (los navegadores bloquean el autoplay con sonido), se esconde al bajar y vuelve al pasar el
-ratón por la franja superior; tiene anterior/siguiente/pausa/silencio y encadena la lista.
+ratón por la franja superior; tiene anterior/siguiente/pausa/silencio y encadena la lista. Bajo 760px es una barra inferior a ancho completo (título, pausa, silencio y volumen), arranca silenciada y el contador de escena conserva la esquina superior derecha.
 Capturas del concierto SuperNova: `public/concert/concert-01..15.jpg` (1400 px, collage de la escena 8;
 los PNG originales quedaron fuera del repo en `files/concert-src/`). Otras imágenes en `public/img/`: `2018-03_perfil-debut.png` (ficha de perfil del debut, escena 3), `firma.jpg` (firma manuscrita → partículas de la escena 1), `studio-stellar.jpg` (logo, punto 2026).
 Extras sin usar (chibis, key visuals, emblema, foto de referencia del cometa) están en `files/unused-img/` (fuera del repo).
@@ -123,6 +123,8 @@ pequeño). No publicar. Key visuals y fotos oficiales: páginas de eventos. Capt
    a la línea de tiempo (`helpers/questionContent.ts`) y a la tira del Budokan (`helpers/budokanContent.ts`).
 5. `npm run build`, ensayar con `dist/index.html` en el proyector (1920×1080) y con `prefers-reduced-motion`.
    Capturas de control: `node scripts/screenshot-scenes.mjs http://localhost:5173/ <carpeta> [ancho] [alto]`.
+   Recorrido con el botón «siguiente» (una captura por parada): `node scripts/walk-presenter.mjs http://localhost:5173/ <carpeta> [ancho] [alto]`;
+   comprobar siempre también a 375×667 (iPhone SE): bajo 760px las escenas se apilan y cada bloque se revela por su propia posición.
 6. Navegación de presentador: flechas / PageDown / Espacio / clicker avanzan al siguiente punto (inicio de
    escena, y fin de escena en las escenas largas) con un desplazamiento suave que deja ver la animación;
    el contador «NN / 12» está arriba a la izquierda. Cada escena larga declara sus paradas internas en

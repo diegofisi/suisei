@@ -445,7 +445,7 @@ export const useSignatureParticles = (
       boxWidth = boxHeight * aspect;
     }
     const boxX = parked ? width * 0.95 - boxWidth : (width - boxWidth) / 2;
-    const boxY = (narrow ? height * 0.6 : height * 0.5) - boxHeight / 2;
+    const boxY = (narrow ? height * 0.5 : height * 0.5) - boxHeight / 2;
 
     ctx.clearRect(0, 0, width, height);
     ctx.globalCompositeOperation = "lighter";

@@ -8,9 +8,6 @@ export const ORIGINS_HEADLINE = "El principio es casi ridículo de humilde";
 /** Subscribers after one full year of publishing alone. */
 export const ORIGINS_SUBSCRIBER_TARGET = 6000;
 
-/** Duration of the one-shot count-up, in ms. */
-export const ORIGINS_COUNT_UP_MS = 1400;
-
 export const ORIGINS_CREDIT = "Renders: generados a partir de diseños © COVER Corp.";
 
 /**
@@ -63,7 +60,7 @@ export const originsFacts: FactViewModel[] = [
   },
 ];
 
-/** Caption beside the number: "suscriptores" is there from the start; the tail unfolds with the count-up. */
+/** Caption beside the number. */
 export const ORIGINS_COUNTER_LEAD = "suscriptores";
 export const ORIGINS_COUNTER_TAIL = " tras un año entero";
 

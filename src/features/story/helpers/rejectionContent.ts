@@ -58,9 +58,13 @@ export const REJECTION_ANSWER = "Yo soy Hoshimachi Suisei.";
 export const REJECTION_QUOTE = "«Yo no quiero ser otra persona. Yo soy Hoshimachi Suisei.»";
 export const REJECTION_QUOTE_NOTE = "";
 
-/** `entryProgressOf` settle point: negative so the deal spreads over most of the section. */
-export const REJECTION_SETTLE_AT = -0.5;
-/** Entry progress window in which the four condition cards land, one by one. */
-export const REJECTION_DEAL_PHASE = { start: 0.18, end: 0.74 } as const;
-/** Entry progress at which the COMET answer flips on top of the finished pile. */
-export const REJECTION_ANSWER_AT = 0.82;
+/**
+ * Wide screens: the four notes are dealt while the section top travels from `from` to `to` viewport heights,
+ * so the pile is complete by the time the scene has settled at the top.
+ */
+export const REJECTION_DEAL_WINDOW = { from: 0.85, to: 0.1 } as const;
+/**
+ * Wide screens: the COMET answer flips on top once the section top has scrolled this far past the viewport top.
+ * A small nudge only: the presenter's "next" reveals it in place, a scrolling reader gets it after one wheel notch.
+ */
+export const REJECTION_ANSWER_TOP = -0.08;

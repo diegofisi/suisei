@@ -2,6 +2,7 @@ import type { ReactNode, Ref } from "react";
 import { Box } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
+import { STAGE_HEIGHT_SX } from "@/features/story/helpers/layout";
 import { DOME_LAYER_SX, FACTS_LAYER_SX, INTRO_LAYER_SX } from "@/features/story/components/budokan/stageLayers";
 
 interface BudokanShellProps {
@@ -34,7 +35,7 @@ export const BudokanShell = ({ sectionRef, intro, facts, dome, wall }: BudokanSh
       sx={{
         position: "sticky",
         top: 0,
-        height: "100vh",
+        ...STAGE_HEIGHT_SX,
         overflow: "hidden",
         isolation: "isolate",
         [STATIC]: { position: "static", height: "auto" },

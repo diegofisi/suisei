@@ -1,3 +1,4 @@
+import type { Ref } from "react";
 import { Box, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
@@ -7,11 +8,13 @@ interface RejectionAnswerCardProps {
   text: string;
   /** Sits above every condition card. */
   depth: number;
+  cardRef: Ref<HTMLDivElement>;
 }
 
 /** The punchline: her answer flips in over the finished pile, in COMET. Driven by `data-answered` on the stack root. */
-export const RejectionAnswerCard = ({ text, depth }: RejectionAnswerCardProps) => (
+export const RejectionAnswerCard = ({ text, depth, cardRef }: RejectionAnswerCardProps) => (
   <Box
+    ref={cardRef}
     sx={{
       zIndex: depth,
       width: "min(100%, 380px)",

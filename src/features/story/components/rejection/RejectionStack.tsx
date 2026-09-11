@@ -19,10 +19,11 @@ interface RejectionStackProps {
   answer: string;
   stackRef: Ref<HTMLDivElement>;
   cardRefs: RefObject<(HTMLDivElement | null)[]>;
+  answerRef: Ref<HTMLDivElement>;
 }
 
 /** The pile of conditions plus her answer on top. Sticky while the section scrolls; a plain list under 760px. */
-export const RejectionStack = ({ conditions, answer, stackRef, cardRefs }: RejectionStackProps) => (
+export const RejectionStack = ({ conditions, answer, stackRef, cardRefs, answerRef }: RejectionStackProps) => (
   // The outer height bounds the sticky travel, so the pile never slides over the quote below it.
   <Box ref={stackRef} data-answered="false" sx={{ [WIDE_MEDIA]: { height: "76vh" } }}>
     <Box
@@ -47,7 +48,7 @@ export const RejectionStack = ({ conditions, answer, stackRef, cardRefs }: Rejec
           }}
         />
       ))}
-      <RejectionAnswerCard text={answer} depth={conditions.length + 1} />
+      <RejectionAnswerCard text={answer} depth={conditions.length + 1} cardRef={answerRef} />
     </Box>
   </Box>
 );

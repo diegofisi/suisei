@@ -27,7 +27,7 @@ export const OriginsContainer = () => {
           <YearReveal year={ORIGINS_YEAR} yearRef={scene.yearRef} />
           <OriginsHeadline />
           <FactsList facts={originsFacts} listRef={scene.factsRef} />
-          <SubscriberCounter rowRef={scene.counterRef} valueRef={scene.counterValueRef} />
+          <SubscriberCounter rowRef={scene.counterRef} />
         </>
       }
       right={

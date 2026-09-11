@@ -1,15 +1,15 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
-import { COMPACT_MEDIA, TIGHT_MEDIA } from "@/features/story/helpers/questionContent";
+import { COMPACT_MEDIA } from "@/features/story/helpers/questionContent";
 import type { TimelinePointViewModel } from "@/features/story/interfaces/StoryViewModels";
 
 interface TimelinePointProps {
   point: TimelinePointViewModel;
   index: number;
   count: number;
-  /** Kept visible when the rail is too narrow for every year. */
-  keepYearWhenTight: boolean;
+  /** Under 760px every other frame hangs below the rail (its year goes above), so eight frames fit a phone. */
+  isBelowRail: boolean;
   rootRef: (node: HTMLDivElement | null) => void;
 }
 
@@ -19,13 +19,13 @@ const LIT = "[data-lit='true'] &";
 // Capped by viewport height too, so a 768px laptop keeps the frames under the question.
 const PORTRAIT_FRAME = { width: "min(168px, 19.4vh)", height: "min(260px, 30vh)" };
 const PORTRAIT_FRAME_DESTINATION = { width: "min(190px, 22vh)", height: "min(292px, 34vh)" };
-const PORTRAIT_FRAME_COMPACT = { width: "48px", height: "72px" };
+const PORTRAIT_FRAME_COMPACT = { width: "58px", height: "88px" };
 const CIRCLE_FRAME = { width: "min(124px, 15vh)", height: "min(124px, 15vh)" };
 const CIRCLE_FRAME_DESTINATION = { width: "min(150px, 18vh)", height: "min(150px, 18vh)" };
-const CIRCLE_FRAME_COMPACT = { width: "48px", height: "48px" };
+const CIRCLE_FRAME_COMPACT = { width: "60px", height: "60px" };
 
 /** One milestone: whole render above the rail, dot on it, year + label below. Pops when the comet reaches it. */
-export const TimelinePoint = ({ point, index, count, keepYearWhenTight, rootRef }: TimelinePointProps) => {
+export const TimelinePoint = ({ point, index, count, isBelowRail, rootRef }: TimelinePointProps) => {
   const accent = point.isDestination ? Palette.GOLD : Palette.COMET;
   const offset = count < 2 ? 50 : (index / (count - 1)) * 100;
   const isCircle = point.thumbnailShape === "circle";
@@ -70,7 +70,9 @@ export const TimelinePoint = ({ point, index, count, keepYearWhenTight, rootRef 
             "0%, 100%": { boxShadow: `0 0 0 1px ${Palette.SKY}, 0 0 22px ${alpha(Palette.GOLD, 0.35)}` },
             "50%": { boxShadow: `0 0 0 1px ${Palette.SKY}, 0 0 44px ${alpha(Palette.GOLD, 0.7)}` },
           },
-          [COMPACT_MEDIA]: { width: compactFrame.width, height: compactFrame.height, bottom: 12 },
+          [COMPACT_MEDIA]: isBelowRail
+            ? { width: compactFrame.width, height: compactFrame.height, bottom: "auto", top: 14, transformOrigin: "50% 0%" }
+            : { width: compactFrame.width, height: compactFrame.height, bottom: 14 },
           [LIT]: {
             opacity: 1,
             transform: "translateX(-50%) translateY(0) scale(1)",
@@ -155,7 +157,7 @@ export const TimelinePoint = ({ point, index, count, keepYearWhenTight, rootRef 
           width: 170,
           alignItems: "center",
           transform: "translateX(-50%)",
-          [COMPACT_MEDIA]: { top: 12, width: 64 },
+          [COMPACT_MEDIA]: isBelowRail ? { top: "auto", bottom: 14, width: 64 } : { top: 14, width: 64 },
         }}
       >
         <Typography
@@ -170,7 +172,7 @@ export const TimelinePoint = ({ point, index, count, keepYearWhenTight, rootRef 
               color: point.isDestination ? Palette.GOLD : Palette.ICE,
               textShadow: point.isDestination ? `0 0 16px ${alpha(Palette.GOLD, 0.7)}` : "none",
             },
-            [TIGHT_MEDIA]: { display: keepYearWhenTight ? "block" : "none" },
+            [COMPACT_MEDIA]: { fontSize: point.isDestination ? 16 : 13 },
           }}
         >
           {point.year}

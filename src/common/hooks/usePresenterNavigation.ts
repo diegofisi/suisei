@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, type RefObject } from "react";
 import { clamp, easeInOutCubic, easeOutCubic } from "@/common/helpers/math";
 import { subscribeScrub } from "@/common/helpers/scrollScrubber";
+import { isNarrowViewport } from "@/common/helpers/viewport";
 
 export interface PresenterNavigation {
   /** Counter root; the hook writes `data-scene` and the "NN / MM" text into `counterRef`. */
@@ -15,6 +16,8 @@ interface Stop {
   y: number;
   /** 1-based scene number the stop belongs to. */
   scene: number;
+  /** The scene's own top: always kept, however close the next stop is. */
+  isTop?: boolean;
 }
 
 /** Scroll speed of a "next" press: ms per viewport of travel, so long sticky scenes take longer and stay readable. */
@@ -22,7 +25,14 @@ const MS_PER_VIEWPORT = 1540;
 const MIN_TWEEN_MS = 840;
 const MAX_TWEEN_MS = 8400;
 /** A section this much taller than the viewport also stops at its end, so nothing below the fold is skipped. */
-const TALL_SECTION_RATIO = 1.5;
+const TALL_SECTION_RATIO = 1.15;
+/** Plain scenes taller than that are paged: one stop per this fraction of a viewport, so every block gets its screen time. */
+const PAGE_FRACTION = 0.8;
+/**
+ * `data-beats` describe a sticky stage, which is always at least this many viewports tall. A shorter section with
+ * beats is that same scene stacked in normal flow (phones), where the beats mean nothing: it is paged instead.
+ */
+const STAGE_MIN_RATIO = 2;
 const NEXT_KEYS = new Set(["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"]);
 const PREVIOUS_KEYS = new Set(["ArrowLeft", "ArrowUp", "PageUp", "Backspace"]);
 
@@ -36,11 +46,18 @@ const collectStops = (): Stop[] => {
   sections.forEach((section, index) => {
     const top = Math.round(section.getBoundingClientRect().top + window.scrollY);
     const height = section.offsetHeight;
-    stops.push({ y: top, scene: index + 1 });
-    // Plain scenes are laid out to fit one screen: a single stop, their reveals fire on arrival.
-    if (section.dataset.beats === undefined || height <= viewport * TALL_SECTION_RATIO) return;
-    // Sticky scenes list their inner beats (facts, collage, shout…) as progress fractions in `data-beats`.
+    stops.push({ y: top, scene: index + 1, isTop: true });
+    // Scenes that fit one screen: a single stop, their reveals fire on arrival.
+    if (height <= viewport * TALL_SECTION_RATIO) return;
     const travel = height - viewport;
+    // Plain scenes that overflow the screen (single-column phone layouts, short windows) are paged screen by screen.
+    if (section.dataset.beats === undefined || height < viewport * STAGE_MIN_RATIO) {
+      const pages = Math.max(1, Math.ceil(travel / (viewport * PAGE_FRACTION)));
+      for (let page = 1; page < pages; page += 1) stops.push({ y: top + Math.round((travel * page) / pages), scene: index + 1 });
+      stops.push({ y: top + travel, scene: index + 1 });
+      return;
+    }
+    // Sticky scenes list their inner beats (facts, collage, shout…) as progress fractions in `data-beats`.
     const beats = (section.dataset.beats ?? "")
       .split(",")
       .map((value) => Number(value))
@@ -51,7 +68,7 @@ const collectStops = (): Stop[] => {
   // Drop end-stops that sit almost on top of the next scene: that press would move a few pixels for nothing.
   return stops.filter((stop, index) => {
     const following = stops[index + 1];
-    return !following || following.y - stop.y > viewport * 0.35;
+    return stop.isTop || !following || following.y - stop.y > viewport * 0.35;
   });
 };
 
@@ -119,9 +136,10 @@ export const usePresenterNavigation = (): PresenterNavigation => {
     (direction: 1 | -1) => {
       // One press = one full glide: presses (and key auto-repeat) during a glide are ignored, so no beat is skipped.
       if (targetY.current !== null) return;
-      // Scenes with `data-reveal-steps` first reveal in place (no scroll) before the page moves on.
+      // Scenes with `data-reveal-steps` first reveal in place (no scroll) before the page moves on. Only on wide
+      // screens: stacked on a phone, what the step would reveal sits below the fold, so the press would look dead.
       const current = currentSection();
-      if (current && current.dataset.revealSteps !== undefined) {
+      if (current && current.dataset.revealSteps !== undefined && !isNarrowViewport(window.innerWidth)) {
         const steps = Number(current.dataset.revealSteps);
         const step = Number(current.dataset.presenterStep ?? "0");
         if (direction === 1 && step < steps) {

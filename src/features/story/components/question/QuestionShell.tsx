@@ -1,6 +1,7 @@
 import type { ReactNode, Ref } from "react";
 import { Box } from "@mui/material";
 import { Palette } from "@/common/models/palette";
+import { STAGE_HEIGHT_SX } from "@/features/story/helpers/layout";
 
 interface QuestionShellProps {
   sectionRef: Ref<HTMLElement>;
@@ -16,7 +17,7 @@ export const QuestionShell = ({ sectionRef, question, timeline }: QuestionShellP
       sx={{
         position: "sticky",
         top: 0,
-        height: "100vh",
+        ...STAGE_HEIGHT_SX,
         display: "grid",
         placeItems: "center",
         px: "8vw",

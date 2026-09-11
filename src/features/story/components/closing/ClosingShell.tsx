@@ -2,6 +2,7 @@ import type { ReactNode, Ref } from "react";
 import { Box } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
+import { STAGE_HEIGHT_SX } from "@/features/story/helpers/layout";
 import { CLOSING_SECTION_LABEL } from "@/features/story/helpers/closingContent";
 
 interface ClosingShellProps {
@@ -25,6 +26,8 @@ const phaseLayerSx = (opacity: string, transform: string): SxProps<Theme> => ({
   placeItems: "center",
   padding: "0 7vw",
   pointerEvents: "none",
+  // A grid item defaults to min-width:auto and would overflow both edges on a phone.
+  "& > *": { minWidth: 0, maxWidth: "100%" },
   opacity,
   transform,
   // Reduced motion: the stage unsticks and the three phases simply stack, all final.
@@ -53,7 +56,7 @@ export const ClosingShell = ({ sectionRef, endRoll, thought, thanks }: ClosingSh
       sx={{
         position: "sticky",
         top: 0,
-        height: "100vh",
+        ...STAGE_HEIGHT_SX,
         overflow: "hidden",
         isolation: "isolate",
         '[data-static="true"] &': {

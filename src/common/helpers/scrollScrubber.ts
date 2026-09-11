@@ -55,3 +55,18 @@ export const entryProgressOf = (element: HTMLElement, viewportHeight: number, se
   const rect = element.getBoundingClientRect();
   return clamp((viewportHeight - rect.top) / (viewportHeight * (1 - settleAt)), 0, 1);
 };
+
+/** Where the element top sits, in viewport heights: 1 = bottom edge, 0 = top edge, negative = scrolled past. */
+export const topFractionOf = (element: HTMLElement, viewportHeight: number): number =>
+  element.getBoundingClientRect().top / viewportHeight;
+
+/** Default line an element must cross (top rising above 85 % of the viewport) before it counts as "in view". */
+export const ENTER_LINE = 0.85;
+
+/**
+ * True once the element top has risen above `line` x viewport height. Used for reveals driven by the
+ * element's own position rather than by its section (stacked single-column layouts, where the section
+ * is several screens tall and its progress says nothing about what is on screen).
+ */
+export const hasEnteredView = (element: HTMLElement, viewportHeight: number, line = ENTER_LINE): boolean =>
+  topFractionOf(element, viewportHeight) < line;

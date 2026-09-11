@@ -45,6 +45,9 @@ export const TURN_YET_PHASE = { start: 0.25, end: 0.55 } as const;
 export const TURN_LINE_PHASE = { start: 0.45, end: 0.9 } as const;
 export const TURN_RENDER_PHASE = { start: 0.5, end: 0.8 } as const;
 export const TURN_CLOSING_PHASE = { start: 0.85, end: 0.95 } as const;
+/** Under 760px the render sits under the text with nothing else there, so it arrives sooner and the closing follows. */
+export const TURN_RENDER_PHASE_NARROW = { start: 0.3, end: 0.55 } as const;
+export const TURN_CLOSING_PHASE_NARROW = { start: 0.68, end: 0.82 } as const;
 
 /** A 0→1 CSS ramp over a `--p` window, for `calc()` math inside `sx`. */
 export const rampOf = (window: { start: number; end: number }): string =>

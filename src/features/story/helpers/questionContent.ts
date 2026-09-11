@@ -33,12 +33,9 @@ export const QUESTION_TIMELINE_POINTS: TimelinePointViewModel[] = [
   { year: "2026", label: "Studio STELLAR", image: "img/studio-stellar.jpg", isDestination: true, thumbnailShape: "circle" },
 ];
 
-/** Years that survive when the rail is too narrow for eight labels. */
-export const COMPACT_YEARS = new Set(["2018", "2021", "2025", "2026"]);
 
 // Raw queries: the layout breaks at 760px, not at a theme breakpoint.
 export const COMPACT_MEDIA = "@media (max-width: 759px)";
-export const TIGHT_MEDIA = "@media (max-width: 519px)";
 
 // Scene pacing, in sticky-progress units (p = 0 at section top, 1 at its bottom).
 export const WORDS_PHASE = { start: 0, end: 0.55 } as const;

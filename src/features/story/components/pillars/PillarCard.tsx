@@ -1,7 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
-import { WIDE_MEDIA } from "@/features/story/helpers/layout";
 import { PILLARS_TOTAL_STEPS, type PillarViewModel } from "@/features/story/helpers/pillarsContent";
 
 interface PillarCardProps {
@@ -18,6 +17,7 @@ const shownFrom = (step: number): string =>
 /** One of the three answers. Hidden until the hook's `data-step` reaches this card. */
 export const PillarCard = ({ pillar }: PillarCardProps) => (
   <Stack
+    data-pillar-step={pillar.step}
     sx={{
       gap: "0.7rem",
       height: "100%",
@@ -26,14 +26,12 @@ export const PillarCard = ({ pillar }: PillarCardProps) => (
       border: "1px solid",
       borderColor: alpha(Palette.COMET, 0.28),
       backgroundColor: alpha(Palette.SKY_2, 0.55),
-      [WIDE_MEDIA]: {
-        opacity: 0,
-        transform: "translateY(28px)",
-        transition: "opacity 0.6s ease, transform 0.7s cubic-bezier(.2,.8,.2,1)",
-        [shownFrom(pillar.step)]: {
-          opacity: 1,
-          transform: "translateY(0)",
-        },
+      opacity: 0,
+      transform: "translateY(28px)",
+      transition: "opacity 0.6s ease, transform 0.7s cubic-bezier(.2,.8,.2,1)",
+      [shownFrom(pillar.step)]: {
+        opacity: 1,
+        transform: "translateY(0)",
       },
     }}
   >

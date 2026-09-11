@@ -52,5 +52,3 @@ export const PILLARS_STEP_THRESHOLDS = [0, 0.42, 0.64, 0.8] as const;
 export const PILLARS_TOTAL_STEPS = PILLARS_STEP_THRESHOLDS.length;
 /** Sticky progress at which the closing quote reveals. */
 export const PILLARS_QUOTE_AT = 0.88;
-/** At or below this width the stage stops being sticky, so everything shows at once. */
-export const PILLARS_STATIC_MAX_WIDTH = 760;

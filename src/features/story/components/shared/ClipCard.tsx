@@ -67,11 +67,11 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body, isFront, o
         // Springy swap when a card is brought to the front; the pose vars change and the transform follows.
         transition: "transform 0.7s cubic-bezier(.34,1.4,.64,1), box-shadow 0.4s ease, border-color 0.3s ease",
         "&:focus-visible": { borderColor: "primary.main" },
+        position: "absolute",
+        '[data-fanned="true"] &': {
+          transform: "translate(var(--x), var(--y)) rotate(var(--rot))",
+        },
         [WIDE_MEDIA]: {
-          position: "absolute",
-          '[data-fanned="true"] &': {
-            transform: "translate(var(--x), var(--y)) rotate(var(--rot))",
-          },
           '[data-fanned="true"] &:hover': {
             transform: isFront
               ? "translate(var(--x), var(--y)) rotate(var(--rot)) scale(1.02)"
@@ -80,7 +80,10 @@ export const ClipCard = ({ clip, tone, pose, depth, isPortrait, body, isFront, o
           },
         },
         [NARROW_MEDIA]: {
-          width: "min(100%, 360px)",
+          // Less sideways spread: the phone has no room for the wide fan, but the deck must still read as one.
+          '[data-fanned="true"] &': {
+            transform: "translate(calc(var(--x) * 0.55), calc(var(--y) * 0.6)) rotate(var(--rot))",
+          },
         },
       }}
     >

@@ -58,7 +58,21 @@ export const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        html: { scrollBehavior: "smooth" },
+        html: {
+          scrollBehavior: "smooth",
+          // Keep the page scrollbar always visible (overlay scrollbars auto-hide, and then the comet rail
+          // beside it reads as if it had replaced the real one). Firefox first, then WebKit/Blink.
+          scrollbarWidth: "thin",
+          scrollbarColor: `${Palette.ICE_FAINT} ${Palette.SKY_DEEP}`,
+        },
+        "::-webkit-scrollbar": { width: 10, height: 10 },
+        "::-webkit-scrollbar-track": { backgroundColor: Palette.SKY_DEEP },
+        "::-webkit-scrollbar-thumb": {
+          backgroundColor: Palette.ICE_FAINT,
+          borderRadius: 999,
+          border: `2px solid ${Palette.SKY_DEEP}`,
+        },
+        "::-webkit-scrollbar-thumb:hover": { backgroundColor: Palette.COMET },
         body: { backgroundColor: Palette.SKY, color: Palette.ICE, overflowX: "hidden" },
         "::selection": { backgroundColor: Palette.COMET, color: Palette.SKY },
         "@media (prefers-reduced-motion: reduce)": {

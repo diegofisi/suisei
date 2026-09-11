@@ -1,5 +1,6 @@
 import type { ReactNode, Ref } from "react";
 import { Box } from "@mui/material";
+import { STAGE_HEIGHT_SX } from "@/features/story/helpers/layout";
 
 export interface HeroShellProps {
   sectionRef: Ref<HTMLElement>;
@@ -23,7 +24,7 @@ export const HeroShell = ({ sectionRef, titles, canvas, cue, caption }: HeroShel
       sx={{
         position: "sticky",
         top: 0,
-        height: "100vh",
+        ...STAGE_HEIGHT_SX,
         overflow: "hidden",
         isolation: "isolate",
       }}

@@ -2,7 +2,7 @@ import type { Ref, RefObject } from "react";
 import { Box } from "@mui/material";
 import { Palette } from "@/common/models/palette";
 import { TimelinePoint } from "@/features/story/components/question/TimelinePoint";
-import { COMPACT_MEDIA, COMPACT_YEARS } from "@/features/story/helpers/questionContent";
+import { COMPACT_MEDIA } from "@/features/story/helpers/questionContent";
 import type { TimelinePointViewModel } from "@/features/story/interfaces/StoryViewModels";
 
 interface TimelineRailProps {
@@ -25,7 +25,8 @@ export const TimelineRail = ({ points, rootRef, pointRefs }: TimelineRailProps) 
       opacity: "var(--f, 0)",
       transition: "opacity 0.45s ease",
       pointerEvents: "none",
-      [COMPACT_MEDIA]: { width: "92vw" },
+      // Two rows of frames on phones (above and below the rail), so the rail sits higher to make room below.
+      [COMPACT_MEDIA]: { width: "88vw", bottom: "22vh" },
     }}
   >
     <Box sx={{ position: "relative", height: 16, mx: 4, [COMPACT_MEDIA]: { mx: 3 } }}>
@@ -75,7 +76,7 @@ export const TimelineRail = ({ points, rootRef, pointRefs }: TimelineRailProps) 
           point={point}
           index={index}
           count={points.length}
-          keepYearWhenTight={COMPACT_YEARS.has(point.year)}
+          isBelowRail={index % 2 === 1}
           rootRef={(node) => {
             pointRefs.current[index] = node;
           }}

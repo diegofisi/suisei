@@ -1,7 +1,7 @@
 import type { ReactNode, Ref } from "react";
 import { Box, Stack } from "@mui/material";
 import { Palette } from "@/common/models/palette";
-import { NARROW_MEDIA } from "@/features/story/helpers/layout";
+import { NARROW_MEDIA, STAGE_HEIGHT_SX } from "@/features/story/helpers/layout";
 import { TURN_SECTION_HEIGHT } from "@/features/story/helpers/turnContent";
 
 interface TurnShellProps {
@@ -25,7 +25,7 @@ export const TurnShell = ({ sectionRef, statement, milestones, render, closing }
       sx={{
         position: "sticky",
         top: 0,
-        height: "100vh",
+        ...STAGE_HEIGHT_SX,
         overflow: "hidden",
         isolation: "isolate",
         display: "grid",
@@ -35,8 +35,10 @@ export const TurnShell = ({ sectionRef, statement, milestones, render, closing }
         padding: "0 7vw",
         [NARROW_MEDIA]: {
           gridTemplateColumns: "minmax(0, 1fr)",
-          alignContent: "center",
-          gap: "3vh",
+          // Text at the top, render underneath: the same reading order as every other stacked scene.
+          alignContent: "start",
+          paddingTop: "10vh",
+          gap: "3.5vh",
         },
       }}
     >

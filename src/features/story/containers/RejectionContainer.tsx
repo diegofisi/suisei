@@ -26,23 +26,25 @@ export const RejectionContainer = () => {
         <>
           <RejectionHeadline headline={REJECTION_HEADLINE} />
           <FactsList facts={rejectionFacts} listRef={scene.factsRef} />
-          <LessonCard
-            number={REJECTION_LESSON_NUMBER}
-            label={REJECTION_LESSON_LABEL}
-            text={REJECTION_LESSON_TEXT}
-            cardRef={scene.lessonRef}
-          />
         </>
       }
       right={
-        <>
-          <RejectionStack
-            conditions={rejectionConditions}
-            answer={REJECTION_ANSWER}
-            stackRef={scene.stackRef}
-            cardRefs={scene.cardRefs}
-          />
-        </>
+        <RejectionStack
+          conditions={rejectionConditions}
+          answer={REJECTION_ANSWER}
+          stackRef={scene.stackRef}
+          cardRefs={scene.cardRefs}
+          answerRef={scene.answerRef}
+        />
+      }
+      // Under 760px the lesson closes the scene, after the pile; on wide screens it stays under the facts.
+      tail={
+        <LessonCard
+          number={REJECTION_LESSON_NUMBER}
+          label={REJECTION_LESSON_LABEL}
+          text={REJECTION_LESSON_TEXT}
+          cardRef={scene.lessonRef}
+        />
       }
     />
   );

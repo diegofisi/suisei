@@ -1,7 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { Palette } from "@/common/models/palette";
-import { WIDE_MEDIA } from "@/features/story/helpers/layout";
 import { PILLARS_BONUS } from "@/features/story/helpers/pillarsContent";
 
 /** The fourth, smaller pillar: the audience holding her, so it reads in SAKURA. */
@@ -9,6 +8,7 @@ export const BonusPillar = () => (
   <Stack
     direction="row"
     spacing={2}
+    data-pillar-step={PILLARS_BONUS.step}
     sx={{
       alignItems: "baseline",
       flexWrap: "wrap",
@@ -18,14 +18,12 @@ export const BonusPillar = () => (
       border: "1px solid",
       borderColor: alpha(Palette.SAKURA, 0.34),
       backgroundColor: Palette.SAKURA_SOFT,
-      [WIDE_MEDIA]: {
-        opacity: 0,
-        transform: "translateY(18px)",
-        transition: "opacity 0.55s ease, transform 0.65s cubic-bezier(.2,.8,.2,1)",
-        [`[data-step="${PILLARS_BONUS.step}"] &`]: {
-          opacity: 1,
-          transform: "translateY(0)",
-        },
+      opacity: 0,
+      transform: "translateY(18px)",
+      transition: "opacity 0.55s ease, transform 0.65s cubic-bezier(.2,.8,.2,1)",
+      [`[data-step="${PILLARS_BONUS.step}"] &`]: {
+        opacity: 1,
+        transform: "translateY(0)",
       },
     }}
   >

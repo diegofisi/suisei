@@ -13,7 +13,8 @@ export const PresenterControls = ({ counterRef, onNext, onPrevious }: PresenterN
       position: "fixed",
       right: 24,
       top: 14,
-      zIndex: 20,
+      // Above the music strip: on phones both share the top edge and "next" wins.
+      zIndex: 21,
       alignItems: "center",
       height: 40,
       paddingX: "6px",

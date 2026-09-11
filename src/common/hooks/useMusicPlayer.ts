@@ -20,6 +20,9 @@ export interface MusicPlayerState {
   onVolumeChange: (volume: number) => void;
 }
 
+/** Phones start muted (a classroom projector does not); the pill's speaker button turns the sound on. */
+const STARTS_MUTED_MEDIA = "(max-width: 760px)";
+
 /** Scroll distance (px) before the bar hides; it comes back on any upward scroll or when hovered. */
 const HIDE_AFTER_PX = 120;
 const SCROLL_DEADBAND_PX = 4;
@@ -30,7 +33,7 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
   const audioRef = useRef<HTMLAudioElement>(null);
   const [trackIndex, setTrackIndex] = useState(defaultIndex);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(() => window.matchMedia(STARTS_MUTED_MEDIA).matches);
   const [volume, setVolume] = useState(PLAYER_VOLUME);
   const [awaitingGesture, setAwaitingGesture] = useState(false);
   const wantsPlayback = useRef(true);

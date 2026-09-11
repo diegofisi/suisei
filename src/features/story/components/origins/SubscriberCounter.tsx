@@ -3,20 +3,17 @@ import { Box, Stack, Typography } from "@mui/material";
 import {
   ORIGINS_COUNTER_LEAD,
   ORIGINS_COUNTER_TAIL,
-  ORIGINS_COUNT_UP_MS,
   ORIGINS_SUBSCRIBER_TARGET,
   formatSubscribers,
 } from "@/features/story/helpers/originsContent";
 
 interface SubscriberCounterProps {
-  /** Observed by the hook; entering starts the count-up. */
+  /** The hook sets `data-on` once the row scrolls in. */
   rowRef: Ref<HTMLDivElement>;
-  /** The hook writes the running number straight into this node. */
-  valueRef: Ref<HTMLDivElement>;
 }
 
-/** "6.000 suscriptores" — the number that makes the whole talk work. Counts up once, in SAKURA. */
-export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) => (
+/** "6.000 suscriptores tras un año entero" — the number that makes the whole talk work, in SAKURA. Rises once. */
+export const SubscriberCounter = ({ rowRef }: SubscriberCounterProps) => (
   <Stack
     ref={rowRef}
     direction="row"
@@ -30,12 +27,14 @@ export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) 
       paddingTop: "1.4rem",
       ["@media (max-height: 900px)"]: { marginTop: "1.2rem", paddingTop: "1rem" },
       ["@media (max-height: 780px)"]: { marginTop: "0.8rem", paddingTop: "0.7rem" },
+      opacity: 0,
+      transform: "translateY(14px)",
+      transition: "opacity 0.7s ease 0.35s, transform 0.8s cubic-bezier(.2,.8,.2,1) 0.35s",
+      '&[data-on="true"]': { opacity: 1, transform: "translateY(0)" },
     }}
   >
     <Typography
-      ref={valueRef}
       variant="display"
-      aria-label={formatSubscribers(ORIGINS_SUBSCRIBER_TARGET)}
       sx={{
         color: "secondary.main",
         fontSize: "clamp(56px, 7vw, 110px)",
@@ -43,29 +42,13 @@ export const SubscriberCounter = ({ rowRef, valueRef }: SubscriberCounterProps) 
         fontVariantNumeric: "tabular-nums",
       }}
     >
-      0
+      {formatSubscribers(ORIGINS_SUBSCRIBER_TARGET)}
     </Typography>
     <Typography variant="body2" color="text.secondary" sx={{ maxWidth: "28ch" }}>
       <Box component="span" sx={{ fontWeight: 600, color: "text.primary" }}>
         {ORIGINS_COUNTER_LEAD}
       </Box>
-      <Box
-        component="span"
-        sx={{
-          // "0 suscriptores." at first; the tail unfolds while the number runs, and the full stop slides with it.
-          display: "inline-block",
-          verticalAlign: "bottom",
-          whiteSpace: "pre",
-          overflow: "hidden",
-          maxWidth: 0,
-          opacity: 0,
-          transition: `max-width ${ORIGINS_COUNT_UP_MS}ms ease-out, opacity ${ORIGINS_COUNT_UP_MS * 0.6}ms ease-out ${ORIGINS_COUNT_UP_MS * 0.25}ms`,
-          '[data-on="true"] &': { maxWidth: "24ch", opacity: 1 },
-        }}
-      >
-        {ORIGINS_COUNTER_TAIL}
-      </Box>
-      .
+      {ORIGINS_COUNTER_TAIL}.
     </Typography>
   </Stack>
 );

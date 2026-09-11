@@ -10,26 +10,36 @@ const HOT_ZONE_HEIGHT = 84;
 
 const HIDDEN_BAR = '&[data-hidden="true"]';
 
+interface MusicPlayerProps extends MusicPlayerState {
+  /** Opens the soundtrack panel (the ≡ button). */
+  onOpenPanel: () => void;
+  isPanelOpen: boolean;
+}
+
 /**
- * Minimal pill: track, transport, mute, volume and a hairline progress. Desktop: top centre, slides away on scroll
- * and returns on hover. Phones: a full-width bar along the bottom edge (the scene counter owns the top-right
- * corner), without previous/next but with the volume slider; it slides down while scrolling and returns on the
- * way up.
+ * Minimal pill: track, transport, mute, volume (when the source supports them), a hairline progress and the ≡ button
+ * that opens the soundtrack panel. Desktop: top centre, slides away on scroll and returns on hover. Phones: a
+ * full-width bar along the bottom edge (the scene counter owns the top-right corner), without previous/next; it
+ * slides down while scrolling and returns on the way up.
  */
 export const MusicPlayer = ({
   barRef,
   audioRef,
   track,
   isPlaying,
+  supportsVolume,
   isMuted,
   volume,
   awaitingGesture,
+  source,
   onToggle,
   onNext,
   onPrevious,
   onToggleMute,
   onVolumeChange,
-}: MusicPlayerState) => (
+  onOpenPanel,
+  isPanelOpen,
+}: MusicPlayerProps) => (
   <Box
     sx={{
       position: "fixed",
@@ -55,7 +65,7 @@ export const MusicPlayer = ({
       },
     }}
   >
-    <Box component="audio" ref={audioRef} src={track.src} preload="auto" />
+    {source === "local" && <Box component="audio" ref={audioRef} src={track.src} preload="auto" />}
     <Stack
       ref={barRef}
       data-hidden="false"
@@ -79,7 +89,7 @@ export const MusicPlayer = ({
         [NARROW_MEDIA]: {
           width: "100%",
           paddingLeft: "14px",
-          paddingRight: "12px",
+          paddingRight: "8px",
           pointerEvents: "auto",
           background: alpha(Palette.SKY_2, 0.86),
           [HIDDEN_BAR]: { transform: "translateY(160%)", opacity: 0 },
@@ -106,8 +116,8 @@ export const MusicPlayer = ({
           color: "text.primary",
           marginRight: "10px",
           whiteSpace: "nowrap",
-          // Phones: the title yields to the controls and the slider ("STELLAR STELLAR" would otherwise push them out).
-          [NARROW_MEDIA]: { flex: "0 1 auto", minWidth: 0, maxWidth: "30vw", overflow: "hidden", textOverflow: "ellipsis" },
+          // Phones: the title yields to the controls ("STELLAR STELLAR" would otherwise push them out).
+          [NARROW_MEDIA]: { flex: "0 1 auto", minWidth: 0, maxWidth: "34vw", overflow: "hidden", textOverflow: "ellipsis" },
         }}
       >
         {track.title}
@@ -141,37 +151,50 @@ export const MusicPlayer = ({
         size="small"
         aria-label="Pista siguiente"
         onClick={onNext}
-        sx={{ color: "text.secondary", [NARROW_MEDIA]: { display: "none" } }}
+        sx={{ color: "text.secondary", [NARROW_MEDIA]: { display: supportsVolume ? "none" : "inline-flex" } }}
       >
         <PlayerIcon kind="next" />
       </IconButton>
+      {supportsVolume && (
+        <>
+          <IconButton
+            size="small"
+            aria-label={isMuted ? "Activar sonido" : "Silenciar"}
+            aria-pressed={isMuted}
+            onClick={onToggleMute}
+            sx={{ color: isMuted ? "secondary.main" : "text.secondary" }}
+          >
+            <PlayerIcon kind={isMuted ? "muted" : "sound"} />
+          </IconButton>
+          <Slider
+            aria-label="Volumen"
+            size="small"
+            min={0}
+            max={1}
+            step={0.02}
+            value={isMuted ? 0 : volume}
+            onChange={(_event, value) => onVolumeChange(Array.isArray(value) ? (value[0] ?? 0) : value)}
+            sx={{
+              width: 72,
+              marginLeft: "4px",
+              marginRight: "8px",
+              color: "primary.main",
+              "& .MuiSlider-thumb": { width: 10, height: 10, boxShadow: "none", "&:hover, &.Mui-focusVisible": { boxShadow: `0 0 0 6px ${alpha(Palette.COMET, 0.18)}` } },
+              "& .MuiSlider-rail": { color: Palette.ICE_FAINT, opacity: 1 },
+              [NARROW_MEDIA]: { width: "clamp(64px, 22vw, 120px)", marginRight: "4px", "& .MuiSlider-thumb": { width: 14, height: 14 } },
+            }}
+          />
+        </>
+      )}
       <IconButton
         size="small"
-        aria-label={isMuted ? "Activar sonido" : "Silenciar"}
-        aria-pressed={isMuted}
-        onClick={onToggleMute}
-        sx={{ color: isMuted ? "secondary.main" : "text.secondary" }}
+        aria-label="Banda sonora"
+        aria-expanded={isPanelOpen}
+        onClick={onOpenPanel}
+        sx={{ color: "text.primary" }}
       >
-        <PlayerIcon kind={isMuted ? "muted" : "sound"} />
+        <PlayerIcon kind="menu" />
       </IconButton>
-      <Slider
-        aria-label="Volumen"
-        size="small"
-        min={0}
-        max={1}
-        step={0.02}
-        value={isMuted ? 0 : volume}
-        onChange={(_event, value) => onVolumeChange(Array.isArray(value) ? (value[0] ?? 0) : value)}
-        sx={{
-          width: 72,
-          marginLeft: "4px",
-          marginRight: "12px",
-          color: "primary.main",
-          "& .MuiSlider-thumb": { width: 10, height: 10, boxShadow: "none", "&:hover, &.Mui-focusVisible": { boxShadow: `0 0 0 6px ${alpha(Palette.COMET, 0.18)}` } },
-          "& .MuiSlider-rail": { color: Palette.ICE_FAINT, opacity: 1 },
-          [NARROW_MEDIA]: { width: "clamp(64px, 22vw, 120px)", marginRight: "4px", "& .MuiSlider-thumb": { width: 14, height: 14 } },
-        }}
-      />
       <Box
         aria-hidden
         sx={{

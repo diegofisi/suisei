@@ -1,12 +1,15 @@
+import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import { MusicPlayer } from "@/common/components/MusicPlayer";
+import { MusicSidebar } from "@/common/components/MusicSidebar";
 import { Nebula } from "@/common/components/Nebula";
 import { PresenterControls } from "@/common/components/PresenterControls";
 import { ProgressComet } from "@/common/components/ProgressComet";
 import { StarField } from "@/common/components/StarField";
-import { PLAYLIST } from "@/common/helpers/playlist";
+import { LOCAL_PLAYLIST, PLAYLIST } from "@/common/helpers/playlist";
 import { useMusicPlayer } from "@/common/hooks/useMusicPlayer";
 import { usePresenterNavigation } from "@/common/hooks/usePresenterNavigation";
+import { useSpotifyPlayer } from "@/common/hooks/useSpotifyPlayer";
 import { StoryFooter } from "@/features/story/components/shared/StoryFooter";
 import { AccelerationContainer } from "@/features/story/containers/AccelerationContainer";
 import { BudokanContainer } from "@/features/story/containers/BudokanContainer";
@@ -25,14 +28,23 @@ import {
   SOURCES_TEXT,
 } from "@/features/story/helpers/storyContent";
 
-// Composition root: shared sky behind everything, the music bar, then the twelve scenes in talk order.
+// Build-time switch (vite.config.ts): the single-file classroom build ships local MP3s and plays them itself;
+// the dev server and the web build play the same soundtrack through Spotify's embed.
+const useSoundtrack = __LOCAL_AUDIO__ ? useMusicPlayer : useSpotifyPlayer;
+const soundtrack = __LOCAL_AUDIO__ ? LOCAL_PLAYLIST : PLAYLIST;
+
+// Composition root: shared sky behind everything, the music bar and its panel, then the twelve scenes in talk order.
 export const StoryPage = () => {
-  const player = useMusicPlayer(PLAYLIST);
+  const player = useSoundtrack(soundtrack);
   const navigation = usePresenterNavigation();
+  const [isPanelOpen, setPanelOpen] = useState(false);
+  const openPanel = useCallback(() => setPanelOpen(true), []);
+  const closePanel = useCallback(() => setPanelOpen(false), []);
   return (
     <>
       <StarField />
-      <MusicPlayer {...player} />
+      <MusicPlayer {...player} onOpenPanel={openPanel} isPanelOpen={isPanelOpen} />
+      <MusicSidebar {...player} isOpen={isPanelOpen} onClose={closePanel} />
       <PresenterControls {...navigation} />
       <Nebula />
       <ProgressComet startLabel="2018" endLabel="2026" />

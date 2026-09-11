@@ -88,11 +88,16 @@ a partir de los diseños oficiales: sirven como recorte de la web, **no** como f
 | `2024-03_oriental-suit.jpg` | 東洋風スーツ (traje oriental, 8.º modelo 2D): negro y dorado, cuello mao, capa corta con cadenas, pantalón, tacones. Tema "gángster oriental años 20", hay 2 colores | 15/03/2024 | Ishihara Tatsuya (diseño) + Saekiyahiro (confección) |
 | `2025-02_budokan-comet.jpg` | Traje **comet** del Budokan: el traje indie "vestido de gala" — boina blanca, corbata degradada, gran lazo rosa, falda de volantes tornasolados (prisma), sandalias | 01/02/2025, Nippon Budokan, estreno en "comet -TAKU INOUE Remix-" | Saekiyahiro |
 
-Música de fondo: `public/assets/{stellar-stellar,comet,bibbidiba}.mp3` (en el repo; lista en
-`common/helpers/playlist.ts`). El reproductor (`common/components/MusicPlayer.tsx` +
-`common/hooks/useMusicPlayer.ts`) es una píldora fija arriba: arranca con comet tras el primer
-clic/tecla (los navegadores bloquean el autoplay con sonido), se esconde al bajar y vuelve al pasar el
-ratón por la franja superior; tiene anterior/siguiente/pausa/silencio y encadena la lista. Bajo 760px es una barra inferior a ancho completo (título, pausa, silencio y volumen), arranca silenciada y el contador de escena conserva la esquina superior derecha.
+Música de fondo: en la web suena por el **embed de Spotify** (iFrame API, `common/helpers/spotifyEmbed.ts` +
+`common/hooks/useSpotifyPlayer.ts`); la lista en orden de la historia (comet, Stellar Stellar, GHOST, Bibbidiba,
+Orbital Period, GUM & DROP) con sus URIs está en `common/helpers/playlist.ts`. Sin sesión Premium en ese navegador
+Spotify reproduce vistas previas de 30 s, sin anuncios; el embed no expone volumen ni silencio. Los MP3 locales
+(`files/audio/*.mp3`, **fuera del repo**) solo entran en el build de un archivo para el proyector (`npm run build`,
+plugin `classroomAudio` en `vite.config.ts` → `dist/assets/`); el dev server y `build:web` usan Spotify
+(`__LOCAL_AUDIO__` en `vite.config.ts`). La píldora (`common/components/MusicPlayer.tsx`) va arriba en escritorio
+(arranca tras el primer clic, se esconde al bajar, vuelve con el ratón en la franja superior) y abajo a ancho
+completo bajo 760px (arranca en pausa); su botón ≡ abre el panel `MusicSidebar.tsx` con el reproductor de Spotify
+y la lista de temas. El contador de escena conserva la esquina superior derecha.
 Capturas del concierto SuperNova: `public/concert/concert-01..15.jpg` (1400 px, collage de la escena 8;
 los PNG originales quedaron fuera del repo en `files/concert-src/`). Otras imágenes en `public/img/`: `2018-03_perfil-debut.png` (ficha de perfil del debut, escena 3), `firma.jpg` (firma manuscrita → partículas de la escena 1), `studio-stellar.jpg` (logo, punto 2026).
 Extras sin usar (chibis, key visuals, emblema, foto de referencia del cometa) están en `files/unused-img/` (fuera del repo).

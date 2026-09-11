@@ -1,36 +1,45 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import { subscribeScrub } from "@/common/helpers/scrollScrubber";
 import { PLAYER_VOLUME, type TrackViewModel } from "@/common/helpers/playlist";
+import { NARROW_MEDIA } from "@/common/helpers/viewport";
+import { useBarAutoHide } from "@/common/hooks/useBarAutoHide";
 
+/** What the music bar and the soundtrack panel need, whoever produces the sound (local files or Spotify). */
 export interface MusicPlayerState {
   /** Bar root; carries `data-hidden` (scrolled away) and `--progress` (0→1 of the current track). */
   barRef: RefObject<HTMLDivElement | null>;
+  /** Local player: the <audio> element. Spotify: unused. */
   audioRef: RefObject<HTMLAudioElement | null>;
+  /** Spotify: the node the embed (iframe) is mounted into, inside the panel. Local: unused. */
+  embedRef: RefObject<HTMLDivElement | null>;
+  tracks: TrackViewModel[];
+  trackIndex: number;
   track: TrackViewModel;
   isPlaying: boolean;
+  /** False for Spotify: the embed exposes no mute or volume, only transport. */
+  supportsVolume: boolean;
   isMuted: boolean;
   /** 0..1 */
   volume: number;
   /** Autoplay was blocked: the first click or key anywhere will start the music. */
   awaitingGesture: boolean;
+  /** Where the sound comes from, for the panel's footnote. */
+  source: "local" | "spotify";
   onToggle: () => void;
   onNext: () => void;
   onPrevious: () => void;
+  onSelect: (index: number) => void;
   onToggleMute: () => void;
   onVolumeChange: (volume: number) => void;
 }
 
-/** Phones start muted (a classroom projector does not); the pill's speaker button turns the sound on. */
-const STARTS_MUTED_MEDIA = "(max-width: 760px)";
+/** Phones start muted (a classroom projector does not); the bar's speaker button turns the sound on. */
+const STARTS_MUTED_MEDIA = NARROW_MEDIA.replace("@media ", "");
 
-/** Scroll distance (px) before the bar hides; it comes back on any upward scroll or when hovered. */
-const HIDE_AFTER_PX = 120;
-const SCROLL_DEADBAND_PX = 4;
-
-/** Owns the <audio> element: playlist, autoplay handshake, mute, and hiding the bar while the page scrolls down. */
+/** Owns the <audio> element (classroom build): playlist, autoplay handshake, mute, and hiding the bar while scrolling. */
 export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): MusicPlayerState => {
   const barRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const embedRef = useRef<HTMLDivElement>(null);
   const [trackIndex, setTrackIndex] = useState(defaultIndex);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(() => window.matchMedia(STARTS_MUTED_MEDIA).matches);
@@ -102,18 +111,7 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
     };
   }, [awaitingGesture, tryPlay]);
 
-  // Hide while scrolling down, show on the way up. Written as a data attribute: no React work per frame.
-  useEffect(() => {
-    let lastY = window.scrollY;
-    return subscribeScrub(({ scrollY }) => {
-      const bar = barRef.current;
-      const delta = scrollY - lastY;
-      if (!bar || Math.abs(delta) < SCROLL_DEADBAND_PX) return;
-      lastY = scrollY;
-      const hidden = delta > 0 && scrollY > HIDE_AFTER_PX ? "true" : "false";
-      if (bar.dataset.hidden !== hidden) bar.dataset.hidden = hidden;
-    });
-  }, []);
+  useBarAutoHide(barRef);
 
   const onToggle = useCallback(() => {
     const audio = audioRef.current;
@@ -132,6 +130,13 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
     () => setTrackIndex((index) => (index - 1 + tracks.length) % tracks.length),
     [tracks.length],
   );
+  const onSelect = useCallback(
+    (index: number) => {
+      wantsPlayback.current = true;
+      setTrackIndex(((index % tracks.length) + tracks.length) % tracks.length);
+    },
+    [tracks.length],
+  );
   const onToggleMute = useCallback(() => setIsMuted((muted) => !muted), []);
   const onVolumeChange = useCallback((next: number) => {
     setVolume(Math.min(1, Math.max(0, next)));
@@ -142,14 +147,20 @@ export const useMusicPlayer = (tracks: TrackViewModel[], defaultIndex = 0): Musi
   return {
     barRef,
     audioRef,
-    track: track ?? { id: "none", title: "", src: "" },
+    embedRef,
+    tracks,
+    trackIndex,
+    track: track ?? { id: "none", title: "", release: "", spotifyUri: "" },
     isPlaying,
+    supportsVolume: true,
     isMuted,
     volume,
     awaitingGesture,
+    source: "local",
     onToggle,
     onNext,
     onPrevious,
+    onSelect,
     onToggleMute,
     onVolumeChange,
   };

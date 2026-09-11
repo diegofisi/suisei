@@ -194,13 +194,19 @@ export const usePresenterNavigation = (): PresenterNavigation => {
     };
     window.addEventListener("click", onClick);
     window.addEventListener("keydown", onKey);
+    // Grabbing the comet rail (a scrollbar) also takes over from a glide in progress.
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-scroll-rail]")) cancelTween();
+    };
     window.addEventListener("wheel", cancelTween, { passive: true });
     window.addEventListener("touchstart", cancelTween, { passive: true });
+    window.addEventListener("pointerdown", onPointerDown, { passive: true });
     return () => {
       window.removeEventListener("click", onClick);
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("wheel", cancelTween);
       window.removeEventListener("touchstart", cancelTween);
+      window.removeEventListener("pointerdown", onPointerDown);
       cancelAnimationFrame(tweenFrame.current);
     };
   }, [move, glideTo, cancelTween]);

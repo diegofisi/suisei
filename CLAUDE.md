@@ -31,7 +31,7 @@ Tipografía (Google Fonts): `Syne` 700/800 para display, `Sora` 300/400/600 para
 
 Motivos: cielo de estrellas en canvas con parallax (12 % estrellas rosadas), trazo del cometa que
 se dibuja al cargar, **cometa lateral fijo** a la derecha que baja de 2018 a 2026 con el progreso
-total de la página, "recortes" (figure.clip) que se abanican con el scroll.
+total de la página (y hace de barra de desplazamiento: clic para saltar, arrastrar la cabeza para desplazar), "recortes" (figure.clip) que se abanican con el scroll.
 
 Técnica: React 19 + TS + MUI 5 (Vite). Un solo bucle rAF (`common/helpers/scrollScrubber.ts`) para
 todo lo que depende del scroll; los hooks escriben CSS custom properties (`--p`, `--t`) y `data-*`

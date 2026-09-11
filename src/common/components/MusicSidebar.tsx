@@ -133,20 +133,13 @@ export const MusicSidebar = ({ isOpen, onClose, embedRef, tracks, trackIndex, so
           })}
         </Stack>
 
-        <Typography variant="caption" color="text.disabled" sx={{ marginTop: "auto", lineHeight: 1.5 }}>
-          {source === "spotify" ? (
-            <>
-              Suena desde Spotify: sin sesión Premium en este navegador, cada tema es una vista previa de 30 s. Volumen: el del
-              dispositivo.{" "}
-              <Link href={SPOTIFY_PLAYLIST_URL} target="_blank" rel="noreferrer" underline="hover" sx={{ color: "primary.main" }}>
-                Playlist completa en Spotify
-              </Link>
-              .
-            </>
-          ) : (
-            "Versión para el aula: música local, sin internet."
-          )}
-        </Typography>
+        {source === "spotify" && (
+          <Typography variant="caption" color="text.disabled" sx={{ marginTop: "auto" }}>
+            <Link href={SPOTIFY_PLAYLIST_URL} target="_blank" rel="noreferrer" underline="hover" sx={{ color: "primary.main" }}>
+              Spotify
+            </Link>
+          </Typography>
+        )}
       </Stack>
     </>
   );
